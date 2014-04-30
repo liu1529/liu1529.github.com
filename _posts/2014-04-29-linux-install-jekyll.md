@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ubuntu下jekyll的安装
+title: linux安装jekyll
 ---
 
 
