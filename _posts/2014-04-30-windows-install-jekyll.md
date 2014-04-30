@@ -1,8 +1,12 @@
 ---
 title: windows安装jekyll
 layout: post
+tags: [jekyll, github]
+comments: true
 ---
 
+* Table of Contents
+{:toc}
 
 ##1.安装Ruby
 下载[Ruby](http://rubyinstaller.org/downloads/)，安装到c:\ruby，Ruby版本请选择1.9.3。
@@ -13,7 +17,7 @@ layout: post
 
     ruby dk.rb init
 
-   生成config.yml
+生成config.yml
 
 查看config.yml文档，文档内容应该有下面类似的结构：
 
@@ -70,6 +74,7 @@ python的版本的必须为2.7，不能为3.0。如果系统安装两个python�
 
 
 ##7.问题解决
+
 ###7.1 ruby版本问题
 
     jekyll serve

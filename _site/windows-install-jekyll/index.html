@@ -1,0 +1,399 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>windows安装jekyll &#8211; 我的博客</title>
+<meta name="description" content="这是我的博客">
+<meta name="keywords" content="jekyll, github">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows安装jekyll">
+<meta property="og:description" content="这是我的博客">
+<meta property="og:url" content="http://localhost:4000/windows-install-jekyll/">
+<meta property="og:site_name" content="我的博客">
+
+
+
+
+
+<link rel="canonical" href="http://localhost:4000/windows-install-jekyll/">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="http://localhost:4000/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://localhost:4000/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://localhost:4000/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://localhost:4000/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://localhost:4000/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://localhost:4000/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="http://localhost:4000/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="http://localhost:4000/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/tags/">Tags</a>
+				 
+			</li>
+	        
+	        <li><a href="http://localhost:4000/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="http://localhost:4000/" class="site-logo" rel="home" title="我的博客"><img src="http://localhost:4000/images/site-logo.png" width="200" height="200" alt="我的博客 logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="http://localhost:4000/">我的博客</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">这是我的博客</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="http://localhost:4000/tags/#jekyll" title="Pages tagged jekyll">jekyll</a>&nbsp;&bull;&nbsp;<a href="http://localhost:4000/tags/#github" title="Pages tagged github">github</a></span>
+        
+          <h1 class="entry-title">windows安装jekyll</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="http://localhost:4000/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="http://localhost:4000/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-04-30T00:00:00+08:00"><i class="icon-calendar-empty"></i> April 30, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="http://localhost:4000/windows-install-jekyll/" rel="bookmark" title="windows安装jekyll"><i class="icon-link"></i> Permalink</a></span>
+        
+      </footer>
+      <div class="entry-content">
+        <ul id="markdown-toc">
+  <li><a href="#ruby">1.安装Ruby</a></li>
+  <li><a href="#ruby-devkit">2.安装Ruby DevKit</a></li>
+  <li><a href="#jekyll">3.安装jekyll</a></li>
+  <li><a href="#python-easyinstall">4.安装python easy_install</a></li>
+  <li><a href="#pygments">5.安装pygments</a></li>
+  <li><a href="#jekyll-1">6.运行jekyll</a></li>
+  <li><a href="#section">7.问题解决</a>    <ul>
+      <li><a href="#ruby-1">7.1 ruby版本问题</a></li>
+      <li><a href="#jekyll-2">7.2 jekyll源问题</a></li>
+      <li><a href="#python">7.3 python问题</a></li>
+      <li><a href="#section-1">7.4 中文编码问题</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-2">8. 参考</a></li>
+</ul>
+
+<h2 id="ruby">1.安装Ruby</h2>
+<p>下载<a href="http://rubyinstaller.org/downloads/">Ruby</a>，安装到c:\ruby，Ruby版本请选择1.9.3。</p>
+
+<h2 id="ruby-devkit">2.安装Ruby DevKit</h2>
+<p>下载<a href="http://rubyinstaller.org/downloads/">Ruby Development Kit</a>，解压到c:\devkit，然后在c:\devkit下输入：</p>
+
+<pre><code>ruby dk.rb init
+</code></pre>
+
+<p>生成config.yml</p>
+
+<p>查看config.yml文档，文档内容应该有下面类似的结构：</p>
+
+<pre><code># This configuration file contains the absolute path locations of all
+# installed Rubies to be enhanced to work with the DevKit. This config
+# file is generated by the 'ruby dk.rb init' step and may be modified
+# before running the 'ruby dk.rb install' step. To include any installed
+# Rubies that were not automagically discovered, simply add a line below
+# the triple hyphens with the absolute path to the Ruby root directory.
+#
+# Example:
+#
+# ---
+# - C:/ruby19trunk
+# - C:/ruby192dev
+#
+---
+- C:/Ruby193 
+</code></pre>
+
+<h2 id="jekyll">3.安装jekyll</h2>
+<p>在c:\devkit\的命令行输入</p>
+
+<pre><code>ruby dk.rb install
+gem sources --remove http://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
+*** CURRENT SOURCES ***
+http://ruby.taobao.org  
+gem install jekyll  
+</code></pre>
+
+<h2 id="python-easyinstall">4.安装python easy_install</h2>
+<p>python的版本的必须为2.7，不能为3.0。如果系统安装两个python版本，修改环境变量，使运行python版本为2.7。</p>
+
+<p>下载安装<a href="http://pypi.python.org/pypi/distribute">easy_install</a> </p>
+
+<h2 id="pygments">5.安装pygments</h2>
+
+<pre><code>easy_install Pygments
+</code></pre>
+
+<h2 id="jekyll-1">6.运行jekyll</h2>
+
+<pre><code>jekyll new blog
+cd blog
+jekyll serve
+</code></pre>
+
+<hr />
+
+<h2 id="section">7.问题解决</h2>
+
+<h3 id="ruby-1">7.1 ruby版本问题</h3>
+
+<pre><code>jekyll serve
+</code></pre>
+
+<p>出现</p>
+
+<pre><code>Generating...   Liquid Exception: cannot load such file -- yajl/2.0/yajl
+</code></pre>
+
+<p>请安装ruby版本1.9.3</p>
+
+<h3 id="jekyll-2">7.2 jekyll源问题</h3>
+
+<pre><code>gem install jekyll 出现：
+
+ERROR:  Could not find a valid gem 'jekyll' (&gt;= 0) in any repository
+ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)
+Errno::ECONNREFUSED: No connection could be made because the target machine
+actively refused it. - connect(2) (https://rubygems.org/latest_specs.4.8.gz) 
+</code></pre>
+
+<p>参考<a href="https://github.com/jekyll/jekyll/issues/1409">这个链接</a> 得出解决方案：</p>
+
+<pre><code>$ gem sources --remove http://rubygems.org/
+$ gem sources -a http://ruby.taobao.org/
+$ gem sources -l
+*** CURRENT SOURCES ***
+http://ruby.taobao.org  
+%gem install rack
+gem install jekyll
+</code></pre>
+
+<h3 id="python">7.3 python问题</h3>
+
+<pre><code>jekyll serve 
+</code></pre>
+
+<p>出现如下错误：</p>
+
+<pre><code>Configuration file: c:/blog/_config.yml
+        Source: c:/blog
+   Destination: c:/blog/_site
+  Generating... C:/Ruby193/lib/ruby/gems/1.9.1/gems/posix-spawn-0.3.8/lib/po
+six/spawn.rb:162: warning: cannot close fd before spawn
+'which' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+[31m  Liquid Exception: Failed to get header. in _posts/2014-04-29-welcome-to-j
+ekyll.markdown [0m
+error: Failed to get header.. Use --trace to view backtrace
+</code></pre>
+
+<p>请安装python版本2.7和pygments</p>
+
+<h3 id="section-1">7.4 中文编码问题</h3>
+
+<pre><code>jekyll serve
+</code></pre>
+
+<p>出现</p>
+
+<pre><code>Generating... Error reading file c:/blog/_posts/2014-04-29-welcome-to-jeky
+ll.markdown: invalid byte sequence in GBK
+error: invalid byte sequence in GBK. Use --trace to view backtrace
+</code></pre>
+
+<p>在C:\Ruby193\lib\ruby\gems\1.9.1\gems\jekyll-1.5.1\lib\jekyll\convertible.rb的38行</p>
+
+<pre><code>self.content = File.read_with_options(File.join(base, name)
+</code></pre>
+
+<p>改为</p>
+
+<pre><code>opts = {:encoding=&gt;"utf-8"}`
+self.content = File.read_with_options(File.join(base, name)
+</code></pre>
+
+<p>或者</p>
+
+<p>在_config.yml中加入</p>
+
+<pre><code>encoding:utf-8
+</code></pre>
+
+<h2 id="section-2">8. 参考</h2>
+
+<p><a href="http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html">http://www.madhur.co.in/blog/2011/09/01/runningjekyllwindows.html</a></p>
+
+<p><a href="http://www.cnblogs.com/yevon/p/3310857.html">http://www.cnblogs.com/yevon/p/3310857.html</a></p>
+
+<p><a href="http://liouys.github.io/jekyll/2013/06/10/jekyll-usage-faq.html">http://liouys.github.io/jekyll/2013/06/10/jekyll-usage-faq.html</a></p>
+
+<p><a href="http://www.cnblogs.com/yevon/p/3310857.html">http://www.cnblogs.com/yevon/p/3310857.html</a></p>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="http://localhost:4000/linux-install-jekyll/" class="btn" title="linux安装jekyll">Previous article</a>
+      
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 liu1529. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="http://localhost:4000/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="http://localhost:4000/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : 'http://localhost:4000/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>

@@ -1,6 +1,9 @@
 ---
 layout: post
 title: 我的github博客
+tags: github
+comments:         true
+share: true
 ---
 今天开始使用github建立个人博客，发现以前自己在开发阶段的很多经验都没有记录下来，建立博客，可以使自己的经验分享出来，也是对自己工作的总结与思考。经过一番考虑，决定使用github+jekyll+markdown，而不是使用csdn等其他网站提供的博客平台，主要原因如下：
 

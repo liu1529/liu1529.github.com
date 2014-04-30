@@ -1,0 +1,27 @@
+[
+	
+		{
+		  "title"      : "windows安装jekyll",
+		  "category"   : "",
+		  "url"        : "http://localhost:4000/windows-install-jekyll/",
+		  "date"       : "2014-04-30 00:00:00 +0800",
+		  "shortdate"  : "April 30, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux安装jekyll",
+		  "category"   : "",
+		  "url"        : "http://localhost:4000/linux-install-jekyll/",
+		  "date"       : "2014-04-29 00:00:00 +0800",
+		  "shortdate"  : "April 29, 2014"
+		} ,
+	
+		{
+		  "title"      : "我的github博客",
+		  "category"   : "",
+		  "url"        : "http://localhost:4000/github-blog-start/",
+		  "date"       : "2014-04-29 00:00:00 +0800",
+		  "shortdate"  : "April 29, 2014"
+		} 
+	
+]

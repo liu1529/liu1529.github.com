@@ -5,25 +5,25 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Latest Posts &#8211; 我的博客</title>
-<meta name="description" content="A simple and clean responsive Jekyll theme for words and photos.">
-<meta name="keywords" content="Jekyll, theme, themes, responsive, blog, minimalism">
+<title>我的github博客 &#8211; 我的博客</title>
+<meta name="description" content="这是我的博客">
+<meta name="keywords" content="github">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Latest Posts">
-<meta property="og:description" content="A simple and clean responsive Jekyll theme for words and photos.">
-<meta property="og:url" content="http://localhost:4000/index.html">
+<meta property="og:title" content="我的github博客">
+<meta property="og:description" content="这是我的博客">
+<meta property="og:url" content="http://localhost:4000/github-blog-start/">
 <meta property="og:site_name" content="我的博客">
 
 
 
 
 
-<link rel="canonical" href="http://localhost:4000/">
+<link rel="canonical" href="http://localhost:4000/github-blog-start/">
 <link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
 
 
@@ -58,7 +58,7 @@
 
 </head>
 
-<body id="page">
+<body id="post">
 
 <div class="navigation-wrapper">
 	<nav role="navigation" id="site-nav" class="animated drop">
@@ -110,24 +110,50 @@
 
 
 <div id="main" role="main">
-  <article class="entry">
+  <article class="hentry">
     
     <div class="entry-wrapper">
       <header class="entry-header">
-        <h1 class="entry-title">Latest Posts</h1>
+        <span class="entry-tags"><a href="http://localhost:4000/tags/#github" title="Pages tagged github">github</a></span>
+        
+          <h1 class="entry-title">我的github博客</h1>
+        
       </header>
+      <footer class="entry-meta">
+        <img src="http://localhost:4000/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="http://localhost:4000/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-04-29T00:00:00+08:00"><i class="icon-calendar-empty"></i> April 29, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="http://localhost:4000/github-blog-start/" rel="bookmark" title="我的github博客"><i class="icon-link"></i> Permalink</a></span>
+        
+        <span class="social-share-facebook">
+            <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/github-blog-start/" title="Share on Facebook" itemprop="Facebook"><i class="icon-facebook-sign"></i> Like</a></span>
+        <span class="social-share-twitter">
+            <a href="https://twitter.com/intent/tweet?hashtags=&text=我的github博客&url=http://localhost:4000/github-blog-start/&via=" title="Share on Twitter" itemprop="Twitter"><i class="icon-twitter-sign"></i> Tweet</a></span>
+        <span class="social-share-googleplus">
+            <a href="https://plus.google.com/share?url=http://localhost:4000/github-blog-start/" title="Share on Google Plus" itemprop="GooglePlus"><i class="icon-google-plus-sign"></i> +1</a></span>
+            <!-- /.social-share -->
+      </footer>
       <div class="entry-content">
-        <ul class="post-list">
- 
-  <li><article><a href="http://localhost:4000/windows-install-jekyll/">windows安装jekyll <span class="entry-date"><time datetime="2014-04-30T00:00:00+08:00">April 30, 2014</time></span></a></article></li>
- 
-  <li><article><a href="http://localhost:4000/linux-install-jekyll/">linux安装jekyll <span class="entry-date"><time datetime="2014-04-29T00:00:00+08:00">April 29, 2014</time></span></a></article></li>
- 
-  <li><article><a href="http://localhost:4000/github-blog-start/">我的github博客 <span class="entry-date"><time datetime="2014-04-29T00:00:00+08:00">April 29, 2014</time></span></a></article></li>
+        <p>今天开始使用github建立个人博客，发现以前自己在开发阶段的很多经验都没有记录下来，建立博客，可以使自己的经验分享出来，也是对自己工作的总结与思考。经过一番考虑，决定使用github+jekyll+markdown，而不是使用csdn等其他网站提供的博客平台，主要原因如下：</p>
 
+<ul>
+  <li>github可以得到很简短的顶级域名形式，如<a href="http://liu1529.github.com">liu1529.github.com</a></li>
+  <li>将github的博客主页可以放在简历上，毕竟github很难作假。</li>
+  <li>使用jekyll可以学习一些web前端技术，可以学以致用。</li>
 </ul>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
       </div><!-- /.entry-content -->
     </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+      
+        <a href="http://localhost:4000/linux-install-jekyll/" class="btn" title="linux安装jekyll">Next article</a>
+      
+    </nav><!-- /.pagination -->
   </article>
 </div><!-- /#main -->
 
@@ -188,7 +214,27 @@
 </script>
 
 
-          
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
 
 </body>
 </html>
