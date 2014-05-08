@@ -1,8 +1,7 @@
 ---
 layout: page
 permalink: /about/
-title: About the Jekyll Theme
-tags: [Jekyll, theme, simple, minimal, minimalism, responsive]
+title: About me
 modified: 2013-09-13
 image:
   feature:  
@@ -10,4 +9,4 @@ image:
   creditlink: 
 ---
 
-关于我
+联系我：lxl.gmmail@gmail.com

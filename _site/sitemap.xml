@@ -1,54 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://localhost:4000</loc>
+        <loc></loc>
     </url>
     
     
     <url>
-        <loc>http://localhost:4000/404.html</loc>
+        <loc>/404.html</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/about/</loc>
+        <loc>/about/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/articles/</loc>
+        <loc>/articles/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/feed.xml</loc>
+        <loc>/feed.xml</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/index.html</loc>
+        <loc>/index.html</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/search.json</loc>
+        <loc>/search.json</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/sitemap.xml</loc>
+        <loc>/sitemap.xml</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/tags/</loc>
+        <loc>/tags/</loc>
     </url>
     
 
     
     <url>
-        <loc>http://localhost:4000/windows-install-jekyll/</loc>
+        <loc>/android-handle-event/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/linux-install-jekyll/</loc>
+        <loc>/vim-keymap/</loc>
     </url>
     
     <url>
-        <loc>http://localhost:4000/github-blog-start/</loc>
+        <loc>/linux-base-note-system-manage/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-base-note-power-and-bootloader/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-base-note-file-system/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-base-note-disk-manage/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-base-note-base/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-base-note-account/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-base-note-SHELL/</loc>
+    </url>
+    
+    <url>
+        <loc>/git-note/</loc>
+    </url>
+    
+    <url>
+        <loc>/windows-install-jekyll/</loc>
+    </url>
+    
+    <url>
+        <loc>/linux-install-jekyll/</loc>
+    </url>
+    
+    <url>
+        <loc>/github-blog-start/</loc>
     </url>
     
 </urlset>

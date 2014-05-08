@@ -1,9 +1,89 @@
 [
 	
 		{
+		  "title"      : "Android 事件处理机制",
+		  "category"   : "",
+		  "url"        : "/android-handle-event/",
+		  "date"       : "2014-05-08 00:00:00 +0800",
+		  "shortdate"  : "May 08, 2014"
+		} ,
+	
+		{
+		  "title"      : "vim 键值表",
+		  "category"   : "",
+		  "url"        : "/vim-keymap/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--系统管理",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-system-manage/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--开机和bootloader",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-power-and-bootloader/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--文件系统",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-file-system/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--磁盘管理",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-disk-manage/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--基础概念",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-base/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--账户管理",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-account/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "linux学习笔记--shell",
+		  "category"   : "",
+		  "url"        : "/linux-base-note-SHELL/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
+		  "title"      : "git 学习笔记",
+		  "category"   : "",
+		  "url"        : "/git-note/",
+		  "date"       : "2014-05-03 00:00:00 +0800",
+		  "shortdate"  : "May 03, 2014"
+		} ,
+	
+		{
 		  "title"      : "windows安装jekyll",
 		  "category"   : "",
-		  "url"        : "http://localhost:4000/windows-install-jekyll/",
+		  "url"        : "/windows-install-jekyll/",
 		  "date"       : "2014-04-30 00:00:00 +0800",
 		  "shortdate"  : "April 30, 2014"
 		} ,
@@ -11,7 +91,7 @@
 		{
 		  "title"      : "linux安装jekyll",
 		  "category"   : "",
-		  "url"        : "http://localhost:4000/linux-install-jekyll/",
+		  "url"        : "/linux-install-jekyll/",
 		  "date"       : "2014-04-29 00:00:00 +0800",
 		  "shortdate"  : "April 29, 2014"
 		} ,
@@ -19,7 +99,7 @@
 		{
 		  "title"      : "我的github博客",
 		  "category"   : "",
-		  "url"        : "http://localhost:4000/github-blog-start/",
+		  "url"        : "/github-blog-start/",
 		  "date"       : "2014-04-29 00:00:00 +0800",
 		  "shortdate"  : "April 29, 2014"
 		} 

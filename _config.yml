@@ -1,10 +1,10 @@
 title:            我的博客
-description:      这是我的博客
+description:      欢迎来到我的博客
 logo:             site-logo.png
 disqus_shortname: liu1529 
 search:           true
 # Change url to your domain. Leave localhost server or blank when working locally.
-url:              http://localhost:4000
+#url:              http://localhost:4000
 encoding:         utf-8
 comments:         true
 

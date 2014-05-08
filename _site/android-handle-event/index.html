@@ -1,0 +1,568 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Android 事件处理机制 &#8211; 我的博客</title>
+<meta name="description" content="欢迎来到我的博客">
+<meta name="keywords" content="Android">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 事件处理机制">
+<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:url" content="/android-handle-event/">
+<meta property="og:site_name" content="我的博客">
+
+
+
+
+
+<link rel="canonical" href="/android-handle-event/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/tags/">Tags</a>
+				 
+			</li>
+	        
+	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="/" class="site-logo" rel="home" title="我的博客"><img src="/images/site-logo.png" width="200" height="200" alt="我的博客 logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="/">我的博客</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">欢迎来到我的博客</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="/tags/#Android" title="Pages tagged Android">Android</a></span>
+        
+          <h1 class="entry-title">Android 事件处理机制</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-05-08T00:00:00+08:00"><i class="icon-calendar-empty"></i> May 08, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="/android-handle-event/" rel="bookmark" title="Android 事件处理机制"><i class="icon-link"></i> Permalink</a></span>
+        
+      </footer>
+      <div class="entry-content">
+        <h1 id="section">概述</h1>
+
+<p>Android包含两套事件处理机制：</p>
+
+<ul>
+  <li>基于监听的事件处理</li>
+  <li>基于回调的事件处理</li>
+</ul>
+
+<p>一般来说，基于回调的事件处理用于处理一些具有通用性的事件，基于回调的事件处理代码会
+显得比较简洁。但对于某些特定的事件，无法使用基于回调的事件处理，只能采用基于监听的
+事件处理。</p>
+
+<h1 id="section-1">基于监听的事件处理</h1>
+
+<h2 id="section-2">监听的处理模型</h2>
+
+<p>在监听的处理模型中，主要涉及三类对象。</p>
+
+<ul>
+  <li>Event Source（事件源）：事件发生的场所，通常为各个组件，如按钮、窗口等。</li>
+  <li>Event（事件）：事件封装界面上发生的特定事情。一般通过Event对象取得事件的相关信息。</li>
+  <li>Event Listener（事件监听器）：负责监听事件源发生的事件，并做出相应的响应。</li>
+</ul>
+
+<p>基于监听的时间处理模型的编程步骤如下：</p>
+
+<ol>
+  <li>获取普通界面组件（事件源），也就是被监听的对象。</li>
+  <li>实现事件监听器类，必须实现一个XxxListener接口。</li>
+  <li>调用时间源的setXxxListener方法将事件监听器对象注册给普通组件。</li>
+</ol>
+
+<h3 id="section-3">内部类作为事件监听器类</h3>
+
+<p>使用内部类可以在当前类中复用该监听器类；因为监听器是外部类的内部类，所有可以只用
+访问外部类的所有界面组件。</p>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainAct</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">main</span><span class="o">);</span>
+        <span class="c1">//获取应用的bn按钮</span>
+        <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">bn</span><span class="o">);</span> 
+        <span class="c1">//绑定事件监听器</span>
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MyClikListener</span><span class="o">());</span>
+
+    <span class="o">}</span>
+    <span class="c1">//定义单击事件监听器</span>
+    <span class="kd">class</span> <span class="nc">MyClickListener</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span>
+    <span class="o">{</span>
+        <span class="c1">//实现监听器必须实现的方法，该方法作为事件处理器</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span>
+        <span class="o">{</span>
+            
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<h3 id="section-4">外部类作为事件监听器类(不推荐)</h3>
+
+<p>使用外部类定义事件监听器比较少见，主要原因如下：</p>
+
+<ul>
+  <li>事件监听器通常属于特定的GUI界面，定义成外部类不利于提高程序的内聚性。</li>
+  <li>外部类形式的事件监听器不能自由访问创建GUI界面的类中组件，编程不够简洁。</li>
+</ul>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SendSmsListener</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnLongClickListener</span>
+<span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Activity</span> <span class="n">activity</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">EditText</span> <span class="n">address</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">EditText</span> <span class="n">content</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">SendSmsListener</span><span class="o">(</span><span class="n">Activity</span> <span class="n">activity</span><span class="o">,</span> <span class="n">EditText</span> <span class="n">address</span><span class="o">,</span>
+                           <span class="n">EditText</span> <span class="n">context</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">activity</span> <span class="o">=</span> <span class="n">activity</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">content</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onLongClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">addressStr</span> <span class="o">=</span> <span class="n">address</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">contentStr</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="na">getText</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+
+        <span class="n">SmsManager</span> <span class="n">smsManager</span> <span class="o">=</span> <span class="n">SmsManager</span><span class="o">.</span><span class="na">getDefault</span><span class="o">();</span>
+        <span class="n">PendingIntent</span> <span class="n">sendIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span>
+                <span class="n">activity</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">);</span>
+        <span class="n">smsManager</span><span class="o">.</span><span class="na">sendTextMessage</span><span class="o">(</span><span class="n">addressStr</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">contentStr</span><span class="o">,</span>
+                <span class="n">sendIntent</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">activity</span><span class="o">,</span> <span class="s">&quot;短信发送完成&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> 
+<span class="o">{</span>
+
+    <span class="n">EditText</span> <span class="n">address</span><span class="o">;</span>
+    <span class="n">EditText</span> <span class="n">content</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="o">(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">address</span><span class="o">);</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="o">(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">content</span><span class="o">);</span>
+        <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">send</span><span class="o">);</span>
+
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnLongClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">SendSmsListener</span><span class="o">(</span>
+                <span class="k">this</span><span class="o">,</span> <span class="n">address</span><span class="o">,</span> <span class="n">content</span>
+        <span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>不推荐将业务逻辑实现写在事件监听器中，包含业务逻辑的事件监听器将导致程序的显示
+逻辑和业务逻辑耦合，增加程序的耦合度。如果有多个事件监听器需要相同的业务逻辑功能，
+可以考虑使用业务逻辑组件定义业务逻辑功能，再让事件监听器来调用业务逻辑组件的业务
+逻辑方法</p>
+
+<h3 id="activity">Activity本身作为事件监听器</h3>
+
+<p>这种形式非常简洁，但是有两个缺点：</p>
+
+<ul>
+  <li>可能造成程序结果混乱，Activity的主要职责应该是完成界面初始化工作</li>
+  <li>如果Activity界面类需要实现监听器接口，让人改进比较怪异</li>
+</ul>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span>
+<span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">show</span><span class="o">);</span>
+        <span class="c1">//直接使用Activity作为事件监听器</span>
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//实现事件处理方法</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> 
+    <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<h3 id="section-5">匿名内部类作为事件监听器类（最常用）</h3>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+        <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">show</span><span class="o">);</span>
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<h3 id="section-6">直接绑定到标签</h3>
+
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;LinearLayout</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!--在标签页中为按钮绑定事件处理方法--&gt;</span>
+    <span class="nt">&lt;Button</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;click me&quot;</span>
+        <span class="na">android:onClick=</span><span class="s">&quot;clickHandler&quot;</span><span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">//定义一个事件处理方法</span>
+    <span class="c1">//其中source代表事件源</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clickHandler</span><span class="o">(</span><span class="n">View</span> <span class="n">source</span><span class="o">)</span>
+    <span class="o">{</span>
+        
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<h2 id="section-7">基于回调的事件处理</h2>
+
+<h3 id="section-8">回调机制与监听机制</h3>
+
+<p>对于回调的事件处理模型来说，事件源和事件监听器是统一的，或者说事件监听器完全消失了。
+当用户在GUI组件上激活某个事件时，组件自己特定的方法会负责处理该事件。</p>
+
+<p>为了使用回调机制类处理GUI组件上所发生的事情，我们需要为该组件提供对应的事件处理
+方法—继承GUI组件，并重写该类的时间处理方法来实现。</p>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">Button</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">MyButton</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">set</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">set</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onKeyDown</span><span class="o">(</span><span class="kt">int</span> <span class="n">keyCode</span><span class="o">,</span> <span class="n">KeyEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onKeyDown</span><span class="o">(</span><span class="n">keyCode</span><span class="o">,</span> <span class="n">event</span><span class="o">);</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="s">&quot;the onKeyDown in MyButton&quot;</span><span class="o">);</span>
+        <span class="c1">//该事件不会向外扩散</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>上面自定义的MyButton类中，我们重写了Button类的onKeyDown(int keyCode, KeyEvent event)方法，
+该方法负责处理按钮上的键盘事件。</p>
+
+<div class="highlight"><pre><code class="xml"><span class="nt">&lt;LinearLayout</span>
+    <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span>
+    <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
+    <span class="na">xmlns:android=</span><span class="s">&quot;http://schemas.android.com/apk/res/android&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- 使用自定义View时应使用全限定类名--&gt;</span>
+    <span class="nt">&lt;com.example.test.app.MyButton</span>
+        <span class="na">android:layout_width=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
+        <span class="na">android:text=</span><span class="s">&quot;click me&quot;</span>
+    <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre></div>
+
+<h3 id="section-9">基于回调的事件传播</h3>
+
+<p>几乎所有基于回调的事件处理方法都有一个<code>boolean</code>类型的返回值，返回值用于标识该处理
+方法是否完全处理该事件。</p>
+
+<ul>
+  <li>如果返回true，表明该处理方法已完全处理该事件，事件不会传播出去。</li>
+  <li>如果返回false，表明该处理方法未完全处理该事件，事件会传播出去。</li>
+</ul>
+
+<p>对于基于回调事件传播而言，某组件上所发生的事情不仅激发该组件上的回调方法，也会触发
+该组件所在Activity的回调方法—只要事件能传播到该Activity。</p>
+
+<p>下面的程序示范Android系统事件传播，程序重写Button类的onKeyDown方法，而且重写了该
+Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。</p>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">Button</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">MyButton</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">set</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">context</span><span class="o">,</span> <span class="n">set</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onKeyDown</span><span class="o">(</span><span class="kt">int</span> <span class="n">keyCode</span><span class="o">,</span> <span class="n">KeyEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onKeyDown</span><span class="o">(</span><span class="n">keyCode</span><span class="o">,</span> <span class="n">event</span><span class="o">);</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;app&quot;</span><span class="o">,</span> <span class="s">&quot;the onKeyDown in MyButton&quot;</span><span class="o">);</span>
+        <span class="c1">//该事件依然会向外扩散</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_main</span><span class="o">);</span>
+
+        <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">show</span><span class="o">);</span>
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnKeyListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnKeyListener</span><span class="o">()</span> <span class="o">{</span>
+            <span class="nd">@Override</span>
+            <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onKey</span><span class="o">(</span><span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">KeyEvent</span> <span class="n">keyEvent</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">//只处理按下键的事件</span>
+                <span class="k">if</span><span class="o">(</span><span class="n">keyEvent</span><span class="o">.</span><span class="na">getAction</span><span class="o">()</span> <span class="o">==</span> <span class="n">KeyEvent</span><span class="o">.</span><span class="na">ACTION_DOWN</span><span class="o">)</span>
+                <span class="o">{</span>
+                    <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;-Lisenter-&quot;</span><span class="o">,</span> <span class="s">&quot;the onKeyDown in Listener&quot;</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="c1">//该事件未处理完</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+
+    <span class="c1">//重写onKeyDown方法，该方法可监听它所包含的所有组件的按键按下事件</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onKeyDown</span><span class="o">(</span><span class="kt">int</span> <span class="n">keyCode</span><span class="o">,</span> <span class="n">KeyEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onKeyDown</span><span class="o">(</span><span class="n">keyCode</span><span class="o">,</span> <span class="n">event</span><span class="o">);</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">v</span><span class="o">(</span><span class="s">&quot;-Activity-&quot;</span><span class="o">,</span> <span class="s">&quot;the onKeyDown in Activity&quot;</span><span class="o">);</span>
+        <span class="c1">//该事件未处理完，依然向外传播</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>按下按键时，log窗口输出：</p>
+
+<pre><code>05-08 04:48:48.301: V/-Lisenter-(2955): the onKeyDown in Listener
+05-08 04:48:48.301: V/app(2955):        the onKeyDown in MyButton
+05-08 04:48:48.301: V/-Activity-(2955): the onKeyDown in Activity
+</code></pre>
+
+<p>可以看出Android系统最先触发的应该是按键上绑定的事件监听器，接着触发该组件提供的
+事件回调方法，然后传播到该组件所在的Activity。</p>
+
+<p>对比Android提供的两种事件处理模型，不难发现基于监听的事件处理模型具有更大的优势：</p>
+
+<ul>
+  <li>分工更明确，事件源、事件监听由两个类分开实现，具有更好的可维护性。</li>
+  <li>Android的事件处理机制保证基于监听的事件监听器会被优先触发。</li>
+</ul>
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/vim-keymap/" class="btn" title="vim 键值表">Previous article</a>
+      
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 liu1529. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : '/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>
