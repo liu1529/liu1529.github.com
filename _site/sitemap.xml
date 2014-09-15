@@ -40,6 +40,18 @@
 
     
     <url>
+        <loc>/iOS-views/</loc>
+    </url>
+    
+    <url>
+        <loc>/RTThread-context-switch/</loc>
+    </url>
+    
+    <url>
+        <loc>/android-view-weight/</loc>
+    </url>
+    
+    <url>
         <loc>/android-handle-event/</loc>
     </url>
     

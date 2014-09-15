@@ -1,6 +1,30 @@
 [
 	
 		{
+		  "title"      : "iOS UIView",
+		  "category"   : "",
+		  "url"        : "/iOS-views/",
+		  "date"       : "2014-09-11 00:00:00 +0800",
+		  "shortdate"  : "September 11, 2014"
+		} ,
+	
+		{
+		  "title"      : "嵌入式操作系统的上下文切换",
+		  "category"   : "",
+		  "url"        : "/RTThread-context-switch/",
+		  "date"       : "2014-06-18 00:00:00 +0800",
+		  "shortdate"  : "June 18, 2014"
+		} ,
+	
+		{
+		  "title"      : "Android 组件(view)的权重(weight)",
+		  "category"   : "",
+		  "url"        : "/android-view-weight/",
+		  "date"       : "2014-05-09 00:00:00 +0800",
+		  "shortdate"  : "May 09, 2014"
+		} ,
+	
+		{
 		  "title"      : "Android 事件处理机制",
 		  "category"   : "",
 		  "url"        : "/android-handle-event/",

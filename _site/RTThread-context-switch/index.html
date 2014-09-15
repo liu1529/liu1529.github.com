@@ -1,0 +1,660 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>嵌入式操作系统的上下文切换 &#8211; 我的博客</title>
+<meta name="description" content="欢迎来到我的博客">
+<meta name="keywords" content="RT-Thread, OS">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="嵌入式操作系统的上下文切换">
+<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:url" content="/RTThread-context-switch/">
+<meta property="og:site_name" content="我的博客">
+
+
+
+
+
+<link rel="canonical" href="/RTThread-context-switch/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/tags/">Tags</a>
+				 
+			</li>
+	        
+	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="/" class="site-logo" rel="home" title="我的博客"><img src="/images/site-logo.png" width="200" height="200" alt="我的博客 logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="/">我的博客</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">欢迎来到我的博客</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="/tags/#RT-Thread" title="Pages tagged RT-Thread">RT-Thread</a>&nbsp;&bull;&nbsp;<a href="/tags/#OS" title="Pages tagged OS">OS</a></span>
+        
+          <h1 class="entry-title">嵌入式操作系统的上下文切换</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-06-18T00:00:00+08:00"><i class="icon-calendar-empty"></i> June 18, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="/RTThread-context-switch/" rel="bookmark" title="嵌入式操作系统的上下文切换"><i class="icon-link"></i> Permalink</a></span>
+        
+      </footer>
+      <div class="entry-content">
+        <p>我们知道嵌入式操作系统都是多任务操作系统，每个任务都有自己的优先级和时间片，每个任务也有自己独立的堆栈存储数据。当任务执行完
+自己的时间片后，操作系统会根据优先级选择任务，然后切换到下一个任务。那么操作系统怎么进行任务切换的？怎么保证切换完成后，
+原来任务的数据不丢失，新的任务使用另外一套数据，这就涉及到上下文切换。本文以RT-Thread实时操作系统为例，介绍操作系统的任务
+切换和上下文切换。本文的RT-Thread版本为1.2.1，编译环境采用MDK4.73.00。</p>
+
+<h1 id="section">任务</h1>
+<p>任务是操作系统的基本组成单元，我们截取RT-Thread与上下文切换有关的任务定义如下：</p>
+
+<div class="highlight"><pre><code class="c"><span class="k">struct</span> <span class="n">rt_thread</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+ 
+    <span class="cm">/* stack point and entry */</span>
+    <span class="kt">void</span>       <span class="o">*</span><span class="n">sp</span><span class="p">;</span>                                     <span class="cm">/**&lt; stack point */</span>
+    <span class="kt">void</span>       <span class="o">*</span><span class="n">entry</span><span class="p">;</span>                                  <span class="cm">/**&lt; entry */</span>
+    <span class="kt">void</span>       <span class="o">*</span><span class="n">parameter</span><span class="p">;</span>                              <span class="cm">/**&lt; parameter */</span>
+    <span class="kt">void</span>       <span class="o">*</span><span class="n">stack_addr</span><span class="p">;</span>                             <span class="cm">/**&lt; stack address */</span>
+    <span class="kt">rt_uint16_t</span> <span class="n">stack_size</span><span class="p">;</span>                             <span class="cm">/**&lt; stack size */</span>
+
+    <span class="p">...</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>在这里，我们只关心和上下文切换有关的部分。</p>
+
+<ul>
+  <li>sp 为堆栈指针，这是上下文切换的重点</li>
+  <li>entry 为任务入口函数</li>
+  <li>parameter 为入口函数的参数</li>
+  <li>stack_addr 为任务的堆栈指针</li>
+  <li>stack_size 为任务的堆栈大小</li>
+</ul>
+
+<h2 id="section-1">任务初始化</h2>
+
+<p>与上下文切换有关的任务初始化如下：</p>
+
+<div class="highlight"><pre><code class="c"><span class="k">static</span> <span class="kt">rt_err_t</span> <span class="nf">_rt_thread_init</span><span class="p">(</span><span class="k">struct</span> <span class="n">rt_thread</span> <span class="o">*</span><span class="kr">thread</span><span class="p">,</span>
+                                <span class="k">const</span> <span class="kt">char</span>       <span class="o">*</span><span class="n">name</span><span class="p">,</span>
+                                <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">entry</span><span class="p">)(</span><span class="kt">void</span> <span class="o">*</span><span class="n">parameter</span><span class="p">),</span>
+                                <span class="kt">void</span>             <span class="o">*</span><span class="n">parameter</span><span class="p">,</span>
+                                <span class="kt">void</span>             <span class="o">*</span><span class="n">stack_start</span><span class="p">,</span>
+                                <span class="kt">rt_uint32_t</span>       <span class="n">stack_size</span><span class="p">,</span>
+                                <span class="kt">rt_uint8_t</span>        <span class="n">priority</span><span class="p">,</span>
+                                <span class="kt">rt_uint32_t</span>       <span class="n">tick</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+ 
+    <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">entry</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">entry</span><span class="p">;</span>
+    <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">parameter</span> <span class="o">=</span> <span class="n">parameter</span><span class="p">;</span>
+
+    <span class="cm">/* stack init */</span>
+    <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_addr</span> <span class="o">=</span> <span class="n">stack_start</span><span class="p">;</span>
+    <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_size</span> <span class="o">=</span> <span class="p">(</span><span class="kt">rt_uint16_t</span><span class="p">)</span><span class="n">stack_size</span><span class="p">;</span>
+
+    <span class="cm">/* init thread stack */</span>
+    <span class="n">rt_memset</span><span class="p">(</span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_addr</span><span class="p">,</span> <span class="sc">&#39;#&#39;</span><span class="p">,</span> <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_size</span><span class="p">);</span>
+    <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">sp</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">rt_hw_stack_init</span><span class="p">(</span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">entry</span><span class="p">,</span> <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">parameter</span><span class="p">,</span>
+        <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_addr</span> <span class="o">+</span> <span class="kr">thread</span><span class="o">-&gt;</span><span class="n">stack_size</span> <span class="o">-</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">rt_thread_exit</span><span class="p">);</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>其中的重点是初始化sp指针的部分，<code>rt_hw_stack_init</code> 定义如下：</p>
+
+<div class="highlight"><pre><code class="c"><span class="k">struct</span> <span class="n">exception_stack_frame</span>
+<span class="p">{</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r0</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r1</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r2</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r3</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r12</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">lr</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">pc</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">psr</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">stack_frame</span>
+<span class="p">{</span>
+    <span class="cm">/* r4 ~ r7 low register */</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r4</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r5</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r6</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r7</span><span class="p">;</span>
+
+    <span class="cm">/* r8 ~ r11 high register */</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r8</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r9</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r10</span><span class="p">;</span>
+    <span class="kt">rt_uint32_t</span> <span class="n">r11</span><span class="p">;</span>
+
+    <span class="k">struct</span> <span class="n">exception_stack_frame</span> <span class="n">exception_stack_frame</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="kt">rt_uint8_t</span> <span class="o">*</span><span class="nf">rt_hw_stack_init</span><span class="p">(</span><span class="kt">void</span>       <span class="o">*</span><span class="n">tentry</span><span class="p">,</span>
+                             <span class="kt">void</span>       <span class="o">*</span><span class="n">parameter</span><span class="p">,</span>
+                             <span class="kt">rt_uint8_t</span> <span class="o">*</span><span class="n">stack_addr</span><span class="p">,</span>
+                             <span class="kt">void</span>       <span class="o">*</span><span class="n">texit</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">stack_frame</span> <span class="o">*</span><span class="n">stack_frame</span><span class="p">;</span>
+    <span class="kt">rt_uint8_t</span>         <span class="o">*</span><span class="n">stk</span><span class="p">;</span>
+    <span class="kt">unsigned</span> <span class="kt">long</span>       <span class="n">i</span><span class="p">;</span>
+
+    <span class="n">stk</span>  <span class="o">=</span> <span class="n">stack_addr</span> <span class="o">+</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">rt_uint32_t</span><span class="p">);</span>
+    <span class="n">stk</span>  <span class="o">=</span> <span class="p">(</span><span class="kt">rt_uint8_t</span> <span class="o">*</span><span class="p">)</span><span class="n">RT_ALIGN_DOWN</span><span class="p">((</span><span class="kt">rt_uint32_t</span><span class="p">)</span><span class="n">stk</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+    <span class="n">stk</span> <span class="o">-=</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack_frame</span><span class="p">);</span>
+
+    <span class="n">stack_frame</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">stack_frame</span> <span class="o">*</span><span class="p">)</span><span class="n">stk</span><span class="p">;</span>
+
+    <span class="cm">/* init all register */</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">stack_frame</span><span class="p">)</span> <span class="o">/</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">rt_uint32_t</span><span class="p">);</span> <span class="n">i</span> <span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="p">((</span><span class="kt">rt_uint32_t</span> <span class="o">*</span><span class="p">)</span><span class="n">stack_frame</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0xdeadbeef</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">r0</span>  <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">parameter</span><span class="p">;</span> <span class="cm">/* r0 : argument */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">r1</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="cm">/* r1 */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">r2</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="cm">/* r2 */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">r3</span>  <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="cm">/* r3 */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">r12</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>                        <span class="cm">/* r12 */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">lr</span>  <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">texit</span><span class="p">;</span>     <span class="cm">/* lr */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">pc</span>  <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span><span class="n">tentry</span><span class="p">;</span>    <span class="cm">/* entry point, pc */</span>
+    <span class="n">stack_frame</span><span class="o">-&gt;</span><span class="n">exception_stack_frame</span><span class="p">.</span><span class="n">psr</span> <span class="o">=</span> <span class="mh">0x01000000L</span><span class="p">;</span>              <span class="cm">/* PSR */</span>
+
+    <span class="cm">/* return task&#39;s current stack address */</span>
+    <span class="k">return</span> <span class="n">stk</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<figure>
+    <img src="/assets/rt-thread/thread-stack.png" />
+</figure>
+
+<p>RT-Thread将任务的stack分为两部分，最上面的部分为stack_frame用于存储任务的寄存器信息。
+stack_frame又分为两部分，第一部分为R4-R11寄存器，这部分寄存器在MCU进入异常(中断)时
+MCU不会自动压栈， 需要在任务切换时，手动存储；另一部为R0-R3、R12、LR、PC、PSR寄存器，
+这些寄存器，在进入异常时由硬件自动压入堆栈。</p>
+
+<p><code>rt_hw_stack_init</code>用于初始化每个任务的stack_frame部分。将R4-R7初始化为0xdeadbeef，将
+R0初始化为入口函数参数，R1-R3、R12初始化为0，LR为<code>rt_thread_exit</code>，PC为任务入口函数，
+PSR为0x01000000。函数返回后，
+<code>thread-sp = thread-&gt;stack_addr + thread-&gt;stack_size - sizeof(struct stack_frame)</code>
+即上图中sp所在位置。</p>
+
+<blockquote>
+  <p>PSR = APSR + EPSR + IPSR  <br />
+IPSR 当前服务中断号寄存器 <br />
+EPSR 执行状态寄存器（读回来的总是0）。它里面含T位，在Cortex-M中T位必须是1。 <br />
+APSR 上条指令结果的标志 <br />
+具体参考<a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0552a/CHDBIBGJ.html">ARM</a> </p>
+</blockquote>
+
+<h1 id="section-2">上下文切换</h1>
+
+<p>所有的上下文切换函数都是用汇编进行书写，为了便于理解，我将其全部翻译为c语言。完整的汇编文件和对应c语言在文后。</p>
+
+<h2 id="section-3">系统首次切换上下文</h2>
+
+<p>系统初始化完成后，会切换到当前系统中优先级最高的任务。
+任务首次进行上下文切换时，调用<code>rt_hw_context_switch_to</code>。</p>
+
+<div class="highlight"><pre><code class="asm"><span class="err">;/*</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">void</span> <span class="no">rt_hw_context_switch_to</span><span class="p">(</span><span class="no">rt_uint32</span> <span class="no">to</span><span class="p">)</span><span class="err">;</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">r0</span> <span class="p">--</span><span class="err">&gt;</span> <span class="no">to</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">this</span> <span class="no">fucntion</span> <span class="no">is</span> <span class="no">used</span> <span class="no">to</span> <span class="no">perform</span> <span class="no">the</span> <span class="no">first</span> <span class="no">thread</span> <span class="no">switch</span>
+<span class="err">;</span> <span class="err">*/</span>
+<span class="nf">rt_hw_context_switch_to</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span> <span class="no">rt_hw_context_switch_to</span>
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">to</span> <span class="no">thread</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_to_thread</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">to</span> <span class="mi">0</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_from_thread</span>
+    <span class="nf">MOVS</span>    <span class="no">r0</span><span class="p">,</span> <span class="c">#0x0</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">interrupt</span> <span class="no">flag</span> <span class="no">to</span> <span class="mi">1</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_thread_switch_interrupt_flag</span>
+    <span class="nf">MOVS</span>    <span class="no">r0</span><span class="p">,</span> <span class="c">#1</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">the</span> <span class="no">PendSV</span> <span class="no">exception</span> <span class="no">priority</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_SHPR3</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_PENDSV_PRI</span>
+    <span class="nf">LDR</span>     <span class="no">r2</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="p">,</span><span class="c">#0x00]       ; read</span>
+    <span class="nf">ORRS</span>    <span class="no">r1</span><span class="p">,</span><span class="no">r1</span><span class="p">,</span><span class="no">r2</span>             <span class="err">;</span> <span class="no">modify</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>             <span class="err">;</span> <span class="no">write-back</span>
+
+    <span class="err">;</span> <span class="nf">trigger</span> <span class="no">the</span> <span class="no">PendSV</span> <span class="no">exception</span> <span class="p">(</span><span class="no">causes</span> <span class="no">context</span> <span class="no">switch</span><span class="p">)</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_INT_CTRL</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_PENDSVSET</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">NOP</span>
+
+    <span class="err">;</span> <span class="nf">restore</span> <span class="no">MSP</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">SCB_VTOR</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">NOP</span>
+    <span class="nf">MSR</span>     <span class="no">msp</span><span class="p">,</span> <span class="no">r0</span>
+
+    <span class="err">;</span> <span class="nf">enable</span> <span class="no">interrupts</span> <span class="no">at</span> <span class="no">processor</span> <span class="no">level</span>
+    <span class="nf">CPSIE</span>   <span class="no">I</span>
+
+    <span class="err">;</span> <span class="nf">never</span> <span class="no">reach</span> <span class="no">here</span><span class="err">!</span>
+    <span class="nf">ENDP</span>
+</code></pre></div>
+
+<p>其对应的c语言为：</p>
+
+<div class="highlight"><pre><code class="c"><span class="kt">void</span> <span class="nf">rt_hw_context_switch_to</span><span class="p">(</span><span class="kt">rt_uint32_t</span> <span class="n">to</span><span class="p">)</span>
+<span class="p">{</span>
+	
+	<span class="n">rt_interrupt_to_thread</span> <span class="o">=</span> <span class="n">to</span><span class="p">;</span>
+	<span class="n">rt_interrupt_from_thread</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">rt_thread_switch_interrupt_flag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+
+	<span class="c1">//set the PendSV exception priority(lowest)</span>
+	<span class="n">NVIC_SetPriority</span><span class="p">(</span><span class="n">PendSV_IRQn</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">);</span>
+	<span class="c1">//trigger the PendSV exception (causes context switch)</span>
+	<span class="n">SCB</span><span class="o">-&gt;</span><span class="n">ICSR</span> <span class="o">=</span> <span class="n">NVIC_PENDSVSET</span><span class="p">;</span>
+	<span class="c1">//restore MSP</span>
+	<span class="n">__set_MSP</span><span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="kt">uint32_t</span><span class="o">**</span><span class="p">)</span><span class="n">SCB_VTOR</span><span class="p">);</span>
+	<span class="c1">//enable interrupts at processor level</span>
+	<span class="n">__enable_irq</span><span class="p">();</span>
+
+	<span class="c1">//never reach here</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><code class="asm"><span class="nf">SCB_VTOR</span>        <span class="no">EQU</span>     <span class="mi">0xE000ED08</span>               <span class="err">;</span> <span class="no">Vector</span> <span class="no">Table</span> <span class="no">Offset</span> <span class="no">Register</span>
+<span class="nf">NVIC_INT_CTRL</span>   <span class="no">EQU</span>     <span class="mi">0xE000ED04</span>               <span class="err">;</span> <span class="no">interrupt</span> <span class="no">control</span> <span class="no">state</span> <span class="no">register</span>
+<span class="nf">NVIC_SHPR3</span>      <span class="no">EQU</span>     <span class="mi">0xE000ED20</span>               <span class="err">;</span> <span class="no">system</span> <span class="no">priority</span> <span class="no">register</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="nf">NVIC_PENDSV_PRI</span> <span class="no">EQU</span>     <span class="mi">0x00FF0000</span>               <span class="err">;</span> <span class="no">PendSV</span> <span class="no">priority</span> <span class="no">value</span> <span class="p">(</span><span class="no">lowest</span><span class="p">)</span>
+<span class="nf">NVIC_PENDSVSET</span>  <span class="no">EQU</span>     <span class="mi">0x10000000</span>               <span class="err">;</span> <span class="no">value</span> <span class="no">to</span> <span class="no">trigger</span> <span class="no">PendSV</span> <span class="no">exception</span>
+
+    <span class="nf">AREA</span> <span class="err">|</span><span class="no">.text</span><span class="err">|</span><span class="p">,</span> <span class="no">CODE</span><span class="p">,</span> <span class="no">READONLY</span><span class="p">,</span> <span class="no">ALIGN</span><span class="err">=</span><span class="mi">2</span>
+    <span class="nf">THUMB</span>
+    <span class="nf">REQUIRE8</span>
+    <span class="nf">PRESERVE8</span>
+
+    <span class="nf">IMPORT</span> <span class="no">rt_thread_switch_interrupt_flag</span>
+    <span class="nf">IMPORT</span> <span class="no">rt_interrupt_from_thread</span>
+    <span class="nf">IMPORT</span> <span class="no">rt_interrupt_to_thread</span>
+
+<span class="err">;/*</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">rt_base_t</span> <span class="no">rt_hw_interrupt_disable</span><span class="p">()</span><span class="err">;</span>
+<span class="err">;</span> <span class="err">*/</span>
+<span class="nf">rt_hw_interrupt_disable</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span>  <span class="no">rt_hw_interrupt_disable</span>
+    <span class="nf">MRS</span>     <span class="no">r0</span><span class="p">,</span> <span class="no">PRIMASK</span>
+    <span class="nf">CPSID</span>   <span class="no">I</span>
+    <span class="nf">BX</span>      <span class="no">LR</span>
+    <span class="nf">ENDP</span>
+
+<span class="err">;/*</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">void</span> <span class="no">rt_hw_interrupt_enable</span><span class="p">(</span><span class="no">rt_base_t</span> <span class="no">level</span><span class="p">)</span><span class="err">;</span>
+<span class="err">;</span> <span class="err">*/</span>
+<span class="nf">rt_hw_interrupt_enable</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span>  <span class="no">rt_hw_interrupt_enable</span>
+    <span class="nf">MSR</span>		<span class="no">PRIMASK</span><span class="p">,</span> <span class="no">r0</span>
+    <span class="nf">BX</span>		<span class="no">LR</span>
+    <span class="nf">ENDP</span>
+
+<span class="err">;/*</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">void</span> <span class="no">rt_hw_context_switch</span><span class="p">(</span><span class="no">rt_uint32</span> <span class="no">from</span><span class="p">,</span> <span class="no">rt_uint32</span> <span class="no">to</span><span class="p">)</span><span class="err">;</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">r0</span> <span class="p">--</span><span class="err">&gt;</span> <span class="no">from</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">r1</span> <span class="p">--</span><span class="err">&gt;</span> <span class="no">to</span>
+<span class="err">;</span> <span class="err">*/</span>
+<span class="nf">rt_hw_context_switch_interrupt</span>
+    <span class="nf">EXPORT</span> <span class="no">rt_hw_context_switch_interrupt</span>
+<span class="nf">rt_hw_context_switch</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span> <span class="no">rt_hw_context_switch</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">rt_thread_switch_interrupt_flag</span> <span class="no">to</span> <span class="mi">1</span>
+    <span class="nf">LDR</span>     <span class="no">r2</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_thread_switch_interrupt_flag</span>
+    <span class="nf">LDR</span>     <span class="no">r3</span><span class="p">,</span> <span class="err">[</span><span class="no">r2</span><span class="err">]</span>
+    <span class="nf">CMP</span>     <span class="no">r3</span><span class="p">,</span> <span class="c">#1</span>
+    <span class="nf">BEQ</span>     <span class="no">_reswitch</span>
+    <span class="nf">MOVS</span>    <span class="no">r3</span><span class="p">,</span> <span class="c">#0x01</span>
+    <span class="nf">STR</span>     <span class="no">r3</span><span class="p">,</span> <span class="err">[</span><span class="no">r2</span><span class="err">]</span>
+
+    <span class="nf">LDR</span>     <span class="no">r2</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_from_thread</span>   <span class="err">;</span> <span class="no">set</span> <span class="no">rt_interrupt_from_thread</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r2</span><span class="err">]</span>
+
+<span class="nf">_reswitch</span>
+    <span class="nf">LDR</span>     <span class="no">r2</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_to_thread</span>     <span class="err">;</span> <span class="no">set</span> <span class="no">rt_interrupt_to_thread</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r2</span><span class="err">]</span>
+
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_INT_CTRL</span>              <span class="err">;</span> <span class="no">trigger</span> <span class="no">the</span> <span class="no">PendSV</span> <span class="no">exception</span> <span class="p">(</span><span class="no">causes</span> <span class="no">context</span> <span class="no">switch</span><span class="p">)</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_PENDSVSET</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">BX</span>      <span class="no">LR</span>
+    <span class="nf">ENDP</span>
+
+<span class="err">;</span> <span class="nf">r0</span> <span class="p">--</span><span class="err">&gt;</span> <span class="no">swith</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">stack</span>
+<span class="err">;</span> <span class="nf">r1</span> <span class="p">--</span><span class="err">&gt;</span> <span class="no">swith</span> <span class="no">to</span> <span class="no">thread</span> <span class="no">stack</span>
+<span class="err">;</span> <span class="nf">psr</span><span class="p">,</span> <span class="no">pc</span><span class="p">,</span> <span class="no">lr</span><span class="p">,</span> <span class="no">r12</span><span class="p">,</span> <span class="no">r3</span><span class="p">,</span> <span class="no">r2</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="no">r0</span> <span class="no">are</span> <span class="no">pushed</span> <span class="no">into</span> <span class="err">[</span><span class="no">from</span><span class="err">]</span> <span class="no">stack</span>
+<span class="nf">PendSV_Handler</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span> <span class="no">PendSV_Handler</span>
+
+    <span class="err">;</span> <span class="nf">disable</span> <span class="no">interrupt</span> <span class="no">to</span> <span class="no">protect</span> <span class="no">context</span> <span class="no">switch</span>
+    <span class="nf">MRS</span>     <span class="no">r2</span><span class="p">,</span> <span class="no">PRIMASK</span>
+    <span class="nf">CPSID</span>   <span class="no">I</span>
+
+    <span class="err">;</span> <span class="nf">get</span> <span class="no">rt_thread_switch_interrupt_flag</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_thread_switch_interrupt_flag</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">CMP</span>     <span class="no">r1</span><span class="p">,</span> <span class="c">#0x00</span>
+    <span class="nf">BEQ</span>     <span class="no">pendsv_exit</span>                <span class="err">;</span> <span class="no">pendsv</span> <span class="no">already</span> <span class="no">handled</span>
+
+    <span class="err">;</span> <span class="nf">clear</span> <span class="no">rt_thread_switch_interrupt_flag</span> <span class="no">to</span> <span class="mi">0</span>
+    <span class="nf">MOVS</span>    <span class="no">r1</span><span class="p">,</span> <span class="c">#0x00</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_from_thread</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">CMP</span>     <span class="no">r1</span><span class="p">,</span> <span class="c">#0x00</span>
+    <span class="nf">BEQ</span>     <span class="no">swtich_to_thread</span>        <span class="err">;</span> <span class="no">skip</span> <span class="no">register</span> <span class="no">save</span> <span class="no">at</span> <span class="no">the</span> <span class="no">first</span> <span class="no">time</span>
+
+    <span class="nf">MRS</span>     <span class="no">r1</span><span class="p">,</span> <span class="no">psp</span>                 <span class="err">;</span> <span class="no">get</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">stack</span> <span class="no">pointer</span>
+
+    <span class="nf">SUBS</span>    <span class="no">r1</span><span class="p">,</span> <span class="no">r1</span><span class="p">,</span> <span class="c">#0x20           ; space for {r4 - r7} and {r8 - r11}</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>                <span class="err">;</span> <span class="no">update</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">stack</span> <span class="no">pointer</span>
+
+    <span class="nf">STMIA</span>   <span class="no">r1</span><span class="err">!</span><span class="p">,</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>          <span class="err">;</span> <span class="no">push</span> <span class="no">thread</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span> <span class="no">register</span> <span class="no">to</span> <span class="no">thread</span> <span class="no">stack</span>
+
+    <span class="nf">MOV</span>     <span class="no">r4</span><span class="p">,</span> <span class="no">r8</span>                  <span class="err">;</span> <span class="no">mov</span> <span class="no">thread</span> <span class="err">{</span><span class="no">r8</span> <span class="p">-</span> <span class="no">r11</span><span class="err">}</span> <span class="no">to</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>
+    <span class="nf">MOV</span>     <span class="no">r5</span><span class="p">,</span> <span class="no">r9</span>
+    <span class="nf">MOV</span>     <span class="no">r6</span><span class="p">,</span> <span class="no">r10</span>
+    <span class="nf">MOV</span>     <span class="no">r7</span><span class="p">,</span> <span class="no">r11</span>
+    <span class="nf">STMIA</span>   <span class="no">r1</span><span class="err">!</span><span class="p">,</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>          <span class="err">;</span> <span class="no">push</span> <span class="no">thread</span> <span class="err">{</span><span class="no">r8</span> <span class="p">-</span> <span class="no">r11</span><span class="err">}</span> <span class="no">high</span> <span class="no">register</span> <span class="no">to</span> <span class="no">thread</span> <span class="no">stack</span>
+
+<span class="nf">swtich_to_thread</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_to_thread</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>                <span class="err">;</span> <span class="no">load</span> <span class="no">thread</span> <span class="no">stack</span> <span class="no">pointer</span>
+
+    <span class="nf">LDMIA</span>   <span class="no">r1</span><span class="err">!</span><span class="p">,</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>          <span class="err">;</span> <span class="no">pop</span> <span class="no">thread</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span> <span class="no">register</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">stack</span>
+    <span class="nf">PUSH</span>    <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>               <span class="err">;</span> <span class="no">push</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span> <span class="no">to</span> <span class="no">MSP</span> <span class="no">for</span> <span class="no">copy</span> <span class="err">{</span><span class="no">r8</span> <span class="p">-</span> <span class="no">r11</span><span class="err">}</span>
+
+    <span class="nf">LDMIA</span>   <span class="no">r1</span><span class="err">!</span><span class="p">,</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>          <span class="err">;</span> <span class="no">pop</span> <span class="no">thread</span> <span class="err">{</span><span class="no">r8</span> <span class="p">-</span> <span class="no">r11</span><span class="err">}</span> <span class="no">high</span> <span class="no">register</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">stack</span> <span class="no">to</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>
+    <span class="nf">MOV</span>     <span class="no">r8</span><span class="p">,</span>  <span class="no">r4</span>                 <span class="err">;</span> <span class="no">mov</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span> <span class="no">to</span> <span class="err">{</span><span class="no">r8</span> <span class="p">-</span> <span class="no">r11</span><span class="err">}</span>
+    <span class="nf">MOV</span>     <span class="no">r9</span><span class="p">,</span>  <span class="no">r5</span>
+    <span class="nf">MOV</span>     <span class="no">r10</span><span class="p">,</span> <span class="no">r6</span>
+    <span class="nf">MOV</span>     <span class="no">r11</span><span class="p">,</span> <span class="no">r7</span>
+
+    <span class="nf">POP</span>     <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span>               <span class="err">;</span> <span class="no">pop</span> <span class="err">{</span><span class="no">r4</span> <span class="p">-</span> <span class="no">r7</span><span class="err">}</span> <span class="no">from</span> <span class="no">MSP</span>
+
+    <span class="nf">MSR</span>     <span class="no">psp</span><span class="p">,</span> <span class="no">r1</span>                 <span class="err">;</span> <span class="no">update</span> <span class="no">stack</span> <span class="no">pointer</span>
+
+<span class="nf">pendsv_exit</span>
+    <span class="err">;</span> <span class="nf">restore</span> <span class="no">interrupt</span>
+    <span class="nf">MSR</span>     <span class="no">PRIMASK</span><span class="p">,</span> <span class="no">r2</span>
+
+    <span class="nf">MOVS</span>    <span class="no">r0</span><span class="p">,</span> <span class="c">#0x04</span>
+    <span class="nf">RSBS</span>    <span class="no">r0</span><span class="p">,</span> <span class="no">r0</span><span class="p">,</span> <span class="c">#0x00</span>
+    <span class="nf">BX</span>      <span class="no">r0</span>
+    <span class="nf">ENDP</span>
+
+<span class="err">;/*</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">void</span> <span class="no">rt_hw_context_switch_to</span><span class="p">(</span><span class="no">rt_uint32</span> <span class="no">to</span><span class="p">)</span><span class="err">;</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">r0</span> <span class="p">--</span><span class="err">&gt;</span> <span class="no">to</span>
+<span class="err">;</span> <span class="err">*</span> <span class="nf">this</span> <span class="no">fucntion</span> <span class="no">is</span> <span class="no">used</span> <span class="no">to</span> <span class="no">perform</span> <span class="no">the</span> <span class="no">first</span> <span class="no">thread</span> <span class="no">switch</span>
+<span class="err">;</span> <span class="err">*/</span>
+<span class="nf">rt_hw_context_switch_to</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span> <span class="no">rt_hw_context_switch_to</span>
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">to</span> <span class="no">thread</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_to_thread</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">from</span> <span class="no">thread</span> <span class="no">to</span> <span class="mi">0</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_interrupt_from_thread</span>
+    <span class="nf">MOVS</span>    <span class="no">r0</span><span class="p">,</span> <span class="c">#0x0</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">interrupt</span> <span class="no">flag</span> <span class="no">to</span> <span class="mi">1</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">rt_thread_switch_interrupt_flag</span>
+    <span class="nf">MOVS</span>    <span class="no">r0</span><span class="p">,</span> <span class="c">#1</span>
+    <span class="nf">STR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r1</span><span class="err">]</span>
+
+    <span class="err">;</span> <span class="nf">set</span> <span class="no">the</span> <span class="no">PendSV</span> <span class="no">exception</span> <span class="no">priority</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_SHPR3</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_PENDSV_PRI</span>
+    <span class="nf">LDR</span>     <span class="no">r2</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="p">,</span><span class="c">#0x00]       ; read</span>
+    <span class="nf">ORRS</span>    <span class="no">r1</span><span class="p">,</span><span class="no">r1</span><span class="p">,</span><span class="no">r2</span>             <span class="err">;</span> <span class="no">modify</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>             <span class="err">;</span> <span class="no">write-back</span>
+
+    <span class="err">;</span> <span class="nf">trigger</span> <span class="no">the</span> <span class="no">PendSV</span> <span class="no">exception</span> <span class="p">(</span><span class="no">causes</span> <span class="no">context</span> <span class="no">switch</span><span class="p">)</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_INT_CTRL</span>
+    <span class="nf">LDR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">=</span><span class="no">NVIC_PENDSVSET</span>
+    <span class="nf">STR</span>     <span class="no">r1</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">NOP</span>
+
+    <span class="err">;</span> <span class="nf">restore</span> <span class="no">MSP</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">=</span><span class="no">SCB_VTOR</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">LDR</span>     <span class="no">r0</span><span class="p">,</span> <span class="err">[</span><span class="no">r0</span><span class="err">]</span>
+    <span class="nf">NOP</span>
+    <span class="nf">MSR</span>     <span class="no">msp</span><span class="p">,</span> <span class="no">r0</span>
+
+    <span class="err">;</span> <span class="nf">enable</span> <span class="no">interrupts</span> <span class="no">at</span> <span class="no">processor</span> <span class="no">level</span>
+    <span class="nf">CPSIE</span>   <span class="no">I</span>
+
+    <span class="err">;</span> <span class="nf">never</span> <span class="no">reach</span> <span class="no">here</span><span class="err">!</span>
+    <span class="nf">ENDP</span>
+
+<span class="err">;</span> <span class="nf">compatible</span> <span class="no">with</span> <span class="no">old</span> <span class="no">version</span>
+<span class="nf">rt_hw_interrupt_thread_switch</span> <span class="no">PROC</span>
+    <span class="nf">EXPORT</span> <span class="no">rt_hw_interrupt_thread_switch</span>
+    <span class="nf">BX</span>      <span class="no">lr</span>
+    <span class="nf">ENDP</span>
+
+    <span class="nf">IMPORT</span> <span class="no">rt_hw_hard_fault_exception</span>
+
+<span class="nf">HardFault_Handler</span>    <span class="no">PROC</span>
+    <span class="nf">EXPORT</span> <span class="no">HardFault_Handler</span>
+
+    <span class="err">;</span> <span class="nf">get</span> <span class="no">current</span> <span class="no">context</span>
+    <span class="nf">MRS</span>     <span class="no">r0</span><span class="p">,</span> <span class="no">psp</span>                 <span class="err">;</span> <span class="no">get</span> <span class="no">fault</span> <span class="no">thread</span> <span class="no">stack</span> <span class="no">pointer</span>
+    <span class="nf">PUSH</span>    <span class="err">{</span><span class="no">lr</span><span class="err">}</span>
+    <span class="nf">BL</span>      <span class="no">rt_hw_hard_fault_exception</span>
+    <span class="nf">POP</span>     <span class="err">{</span><span class="no">pc</span><span class="err">}</span>
+    <span class="nf">ENDP</span>
+
+    <span class="nf">END</span>
+</code></pre></div>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/android-view-weight/" class="btn" title="Android 组件(view)的权重(weight)">Previous article</a>
+      
+      
+        <a href="/iOS-views/" class="btn" title="iOS UIView">Next article</a>
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 liu1529. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : '/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>

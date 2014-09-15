@@ -4,13 +4,676 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-05-08T16:58:38+08:00</updated>
+<updated>2014-09-12T11:13:40+08:00</updated>
 <id>/</id>
 <author>
   <name>liu1529</name>
   <uri>/</uri>
   <email>lxl.gmmail@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[iOS UIView]]></title>
+  <link rel="alternate" type="text/html" href="/iOS-views/"/>
+  <id>/iOS-views</id>
+  <published>2014-09-11T00:00:00+08:00</published>
+  <updated>2014-09-11T00:00:00+08:00</updated>
+  <author>
+    <name>liu1529</name>
+    <uri></uri>
+    <email>lxl.gmmail@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;iOS里面可以说UIView是最重要的类之一，所有界面上的控件都是UIView的子类，UIView继承自UIResponder，UIResponder负责处理事件，而
+UIResponder继承自NSObject。NSObject是Cocoa里面绝大部分类的根类。view hierarchy 是view最重要的组织形式，一个view可以拥有subviews，
+而一个subview也有一个superview。view hierarchy使view一起出现和移动，当一个view移动时，它的所有subviews也一起移动；当一个view
+被删除后，它的所有subviews也被一起删除。&lt;/p&gt;
+
+&lt;h1 id=&quot;the-window&quot;&gt;The Window&lt;/h1&gt;
+
+&lt;p&gt;view hierarchy的顶层元素是app的window，它是UIWindow的一个实例，并继承自UIView。app应该只有一个main window，而且一个屏幕只能
+有一个window，它是界面上有效view的最终superview。window必须将设备的屏幕填充满：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maniScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;App 使用 main storyboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果你的app使用main storyboard，那么UIApplicationMain会自动实例化一个正确的
+UIWindow并将它赋值给app delegate的window属性，然后它会实例化storyboard的initial
+view controller并将它赋值给window的rootViewController属性。这些都在app调用
+&lt;code&gt;application:didFinnishLaunchingWithOptions&lt;/code&gt;之前完成。
+最后，UIApplicationMain会调用&lt;code&gt;makeKeyAndVisible&lt;/code&gt;来显示app的界面，这些在调用&lt;code&gt;application:didFinnishLaunchingWithOptions&lt;/code&gt;
+之后完成。&lt;/p&gt;
+
+&lt;p&gt;如果你想子类化window时，你必须在AppDelegate.m文件里面重写window属性的getter函数:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;App 不使用 main storyboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果你的app没有main storyboard，通常使用代码来完成：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// Override point for customization after application launch.&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;whiteColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;makeKeyAndVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;如果你想引用window属性，可以使用application的delegate中的window属性&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;UIWindow* w = [[[UIApplication sharedApplication] delegate] window]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;superview--subview&quot;&gt;SuperView 和 SubView&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;如果一个view在它的superview上移除或移动，它的所有subview也一起移除或移动。&lt;/li&gt;
+  &lt;li&gt;一个view的透明度将会被它的subview继承。&lt;/li&gt;
+  &lt;li&gt;如果view的subview的范围超出view的范围，可以不显示subview超出范围部分，这被称为clipping，通过clipsToBounds属性设置。&lt;/li&gt;
+  &lt;li&gt;superview负责管理它的subview，当一个subview不再属于它的superview或superview本身被释放时，superview负责释放它的subview。&lt;/li&gt;
+  &lt;li&gt;当view的尺寸被改变时，它的subview也可以自动改变。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一个UIView有superview属性和subviews属性，&lt;code&gt;isDescendantOfView:&lt;/code&gt;可以检测一个view是否
+是另一个view的subview，不管深度有多深。如果你想引用一个特殊的view，你可以通过outlet，
+或通过设置view的tag属性，然后使用&lt;code&gt;viewWithTag:&lt;/code&gt;方法获得。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;addSubview:&lt;/code&gt;方法使一个view成为另一个的subview，&lt;code&gt;removeFromSuperview&lt;/code&gt;方法将一个view
+从它的superview的view hierarchy中移除。记住，一个view从它superview移除后，view
+将会被释放，如果你还想使用它，你必须先保持(retain)它，通常通过设置属性的retain来完成。&lt;/p&gt;
+
+&lt;p&gt;当这些改变发生时，会发送事件通知，你需要通过子类化来重写这些事件，以处理事件。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;didAddSubview:&lt;/code&gt; &lt;code&gt;willRemoveSubview:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;didMoveToSuperview:&lt;/code&gt; &lt;code&gt;willMoveToSuperview:&lt;/code&gt; &lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;didMoveToWindow:&lt;/code&gt; &lt;code&gt;willMoveToWindow:&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;addSubview&lt;/code&gt;会将view放在superview的最前端，你也可以通过下面的方法，将view插入到view
+hierarchy的任意位置：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;insertSubview:atIndex:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;insertSubview:belowSubvie:&lt;/code&gt; &lt;code&gt;insertSubview:aboveSubview:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;exchangeSubviewAtIndex:withSubviewAtIndex:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;bringSubviewToFont:&lt;/code&gt; &lt;code&gt;sendSubviewToBack:&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;你可以通过下面的方法，删除所有subview。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subviews&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;removeFromSuperview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;或&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[view.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;隐藏和透明&lt;/h1&gt;
+
+&lt;p&gt;通过设置UIView的属性hidden来隐藏view，当view隐藏后通常它不会再接收事件。&lt;/p&gt;
+
+&lt;p&gt;通过设置backgroundColor属性来设置view的背景色，当backgroundColor的属性为nil时，
+它拥有一个透明背景。当它的属性为nil时，它可以作为其他views的superview，这样可以使
+这些views在同一个view hierarchy中。&lt;/p&gt;
+
+&lt;p&gt;通过设置alpha属性，可以改变view的透明度（1.0表示不透明，0.0表示完全透明）。这将会
+影响它的subviews，如果superview的alpha为0.5，那么它的subviews的alpha都不会超过0.5。
+（更复杂的是颜色也有alpha属性，例如，一个view的alpha为1.0，它也可以拥有一个透明背景，
+因为，它的backgroundColor的alpha小于1.0）。一个view完全透明，相当于设置hidden为YES，
+它和它的subviews都会不可见，通常也不会在接收事件。&lt;/p&gt;
+
+&lt;p&gt;view的alpha属性同样会影响它背景色的可见度和它内容的可见度。例如，如果一个view的alpha
+小于1，它显示一个图像且有背景色，背景色将会透过图像显示出来（view后面的任何东西都会
+穿透显示）。&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/iOS-views/&quot;&gt;iOS UIView&lt;/a&gt; was originally published by liu1529 at &lt;a href=&quot;&quot;&gt;我的博客&lt;/a&gt; on September 11, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[嵌入式操作系统的上下文切换]]></title>
+  <link rel="alternate" type="text/html" href="/RTThread-context-switch/"/>
+  <id>/RTThread-context-switch</id>
+  <published>2014-06-18T00:00:00+08:00</published>
+  <updated>2014-06-18T00:00:00+08:00</updated>
+  <author>
+    <name>liu1529</name>
+    <uri></uri>
+    <email>lxl.gmmail@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;我们知道嵌入式操作系统都是多任务操作系统，每个任务都有自己的优先级和时间片，每个任务也有自己独立的堆栈存储数据。当任务执行完
+自己的时间片后，操作系统会根据优先级选择任务，然后切换到下一个任务。那么操作系统怎么进行任务切换的？怎么保证切换完成后，
+原来任务的数据不丢失，新的任务使用另外一套数据，这就涉及到上下文切换。本文以RT-Thread实时操作系统为例，介绍操作系统的任务
+切换和上下文切换。本文的RT-Thread版本为1.2.1，编译环境采用MDK4.73.00。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;任务&lt;/h1&gt;
+&lt;p&gt;任务是操作系统的基本组成单元，我们截取RT-Thread与上下文切换有关的任务定义如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rt_thread&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+ 
+    &lt;span class=&quot;cm&quot;&gt;/* stack point and entry */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                     &lt;span class=&quot;cm&quot;&gt;/**&amp;lt; stack point */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                  &lt;span class=&quot;cm&quot;&gt;/**&amp;lt; entry */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                              &lt;span class=&quot;cm&quot;&gt;/**&amp;lt; parameter */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                             &lt;span class=&quot;cm&quot;&gt;/**&amp;lt; stack address */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint16_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                             &lt;span class=&quot;cm&quot;&gt;/**&amp;lt; stack size */&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;在这里，我们只关心和上下文切换有关的部分。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;sp 为堆栈指针，这是上下文切换的重点&lt;/li&gt;
+  &lt;li&gt;entry 为任务入口函数&lt;/li&gt;
+  &lt;li&gt;parameter 为入口函数的参数&lt;/li&gt;
+  &lt;li&gt;stack_addr 为任务的堆栈指针&lt;/li&gt;
+  &lt;li&gt;stack_size 为任务的堆栈大小&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;任务初始化&lt;/h2&gt;
+
+&lt;p&gt;与上下文切换有关的任务初始化如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;rt_err_t&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_rt_thread_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rt_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                                &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;kt&quot;&gt;rt_uint8_t&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;priority&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                                &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;tick&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+ 
+    &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/* stack init */&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint16_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/* init thread stack */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;rt_memset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;&amp;#39;#&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rt_hw_stack_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rt_thread_exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;其中的重点是初始化sp指针的部分，&lt;code&gt;rt_hw_stack_init&lt;/code&gt; 定义如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;psr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/* r4 ~ r7 low register */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/* r8 ~ r11 high register */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+
+&lt;span class=&quot;kt&quot;&gt;rt_uint8_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rt_hw_stack_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tentry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                             &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                             &lt;span class=&quot;kt&quot;&gt;rt_uint8_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                             &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;texit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;rt_uint8_t&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;       &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_addr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint8_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RT_ALIGN_DOWN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/* init all register */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;sizeof&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xdeadbeef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r0&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* r0 : argument */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                        &lt;span class=&quot;cm&quot;&gt;/* r1 */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r2&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                        &lt;span class=&quot;cm&quot;&gt;/* r2 */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r3&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                        &lt;span class=&quot;cm&quot;&gt;/* r3 */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r12&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                        &lt;span class=&quot;cm&quot;&gt;/* r12 */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lr&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;texit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;     &lt;span class=&quot;cm&quot;&gt;/* lr */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pc&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;unsigned&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tentry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* entry point, pc */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stack_frame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;psr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x01000000L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;              &lt;span class=&quot;cm&quot;&gt;/* PSR */&lt;/span&gt;
+
+    &lt;span class=&quot;cm&quot;&gt;/* return task&amp;#39;s current stack address */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;figure&gt;
+    &lt;img src=&quot;/assets/rt-thread/thread-stack.png&quot; /&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;RT-Thread将任务的stack分为两部分，最上面的部分为stack_frame用于存储任务的寄存器信息。
+stack_frame又分为两部分，第一部分为R4-R11寄存器，这部分寄存器在MCU进入异常(中断)时
+MCU不会自动压栈， 需要在任务切换时，手动存储；另一部为R0-R3、R12、LR、PC、PSR寄存器，
+这些寄存器，在进入异常时由硬件自动压入堆栈。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rt_hw_stack_init&lt;/code&gt;用于初始化每个任务的stack_frame部分。将R4-R7初始化为0xdeadbeef，将
+R0初始化为入口函数参数，R1-R3、R12初始化为0，LR为&lt;code&gt;rt_thread_exit&lt;/code&gt;，PC为任务入口函数，
+PSR为0x01000000。函数返回后，
+&lt;code&gt;thread-sp = thread-&amp;gt;stack_addr + thread-&amp;gt;stack_size - sizeof(struct stack_frame)&lt;/code&gt;
+即上图中sp所在位置。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;PSR = APSR + EPSR + IPSR  &lt;br /&gt;
+IPSR 当前服务中断号寄存器 &lt;br /&gt;
+EPSR 执行状态寄存器（读回来的总是0）。它里面含T位，在Cortex-M中T位必须是1。 &lt;br /&gt;
+APSR 上条指令结果的标志 &lt;br /&gt;
+具体参考&lt;a href=&quot;http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.dui0552a/CHDBIBGJ.html&quot;&gt;ARM&lt;/a&gt; &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;section-2&quot;&gt;上下文切换&lt;/h1&gt;
+
+&lt;p&gt;所有的上下文切换函数都是用汇编进行书写，为了便于理解，我将其全部翻译为c语言。完整的汇编文件和对应c语言在文后。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;系统首次切换上下文&lt;/h2&gt;
+
+&lt;p&gt;系统初始化完成后，会切换到当前系统中优先级最高的任务。
+任务首次进行上下文切换时，调用&lt;code&gt;rt_hw_context_switch_to&lt;/code&gt;。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;asm&quot;&gt;&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_uint32&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;fucntion&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;used&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*/&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_to_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_from_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupt&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#1&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;priority&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_SHPR3&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_PENDSV_PRI&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#0x00]       ; read&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ORRS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;             &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;modify&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;             &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;write-back&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;trigger&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;causes&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_INT_CTRL&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_PENDSVSET&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;NOP&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;restore&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MSP&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;SCB_VTOR&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;NOP&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MSR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;msp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupts&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;processor&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;level&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CPSIE&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;never&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;reach&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;其对应的c语言为：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	
+	&lt;span class=&quot;n&quot;&gt;rt_interrupt_to_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;rt_interrupt_from_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+	&lt;span class=&quot;c1&quot;&gt;//set the PendSV exception priority(lowest)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;NVIC_SetPriority&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PendSV_IRQn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;//trigger the PendSV exception (causes context switch)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;SCB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ICSR&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NVIC_PENDSVSET&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;//restore MSP&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;__set_MSP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;uint32_t&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SCB_VTOR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;//enable interrupts at processor level&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;__enable_irq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+	&lt;span class=&quot;c1&quot;&gt;//never reach here&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;asm&quot;&gt;&lt;span class=&quot;nf&quot;&gt;SCB_VTOR&lt;/span&gt;        &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED08&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Table&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Offset&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Register&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;NVIC_INT_CTRL&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED04&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupt&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;NVIC_SHPR3&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED20&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;priority&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;NVIC_PENDSV_PRI&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0x00FF0000&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;priority&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;lowest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;NVIC_PENDSVSET&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0x10000000&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;trigger&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;exception&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;AREA&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;.text&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CODE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;READONLY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ALIGN&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;THUMB&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;REQUIRE8&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;PRESERVE8&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;IMPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;IMPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_interrupt_from_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;IMPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_interrupt_to_thread&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rt_base_t&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_interrupt_disable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*/&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_interrupt_disable&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;rt_hw_interrupt_disable&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MRS&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PRIMASK&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CPSID&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BX&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;LR&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_interrupt_enable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_base_t&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*/&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_interrupt_enable&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;rt_hw_interrupt_enable&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MSR&lt;/span&gt;		&lt;span class=&quot;no&quot;&gt;PRIMASK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BX&lt;/span&gt;		&lt;span class=&quot;no&quot;&gt;LR&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_uint32&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_uint32&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*/&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch_interrupt&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch_interrupt&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CMP&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#1&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BEQ&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;_reswitch&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x01&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_from_thread&lt;/span&gt;   &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_interrupt_from_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;_reswitch&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_to_thread&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_interrupt_to_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_INT_CTRL&lt;/span&gt;              &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;trigger&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;causes&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_PENDSVSET&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BX&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;LR&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;swith&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;swith&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;psr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;are&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pushed&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;PendSV_Handler&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV_Handler&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;disable&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupt&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;protect&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MRS&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PRIMASK&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CPSID&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CMP&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x00&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BEQ&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;pendsv_exit&lt;/span&gt;                &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pendsv&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;already&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;handled&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;clear&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x00&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_from_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CMP&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x00&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BEQ&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;swtich_to_thread&lt;/span&gt;        &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;skip&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;save&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;time&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;MRS&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;psp&lt;/span&gt;                 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pointer&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;SUBS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x20           ; space for {r4 - r7} and {r8 - r11}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;                &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pointer&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;STMIA&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;          &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt;                  &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;mov&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r9&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r10&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STMIA&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;          &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;high&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;swtich_to_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_to_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;                &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;load&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pointer&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;LDMIA&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;          &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;PUSH&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;push&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MSP&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;copy&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;LDMIA&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;          &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;high&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt;                 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;mov&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r8&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;r5&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r6&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOV&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;POP&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pop&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r4&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r7&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MSP&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;MSR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;psp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;                 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pointer&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;pendsv_exit&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;restore&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupt&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MSR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;PRIMASK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x04&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;RSBS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x00&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BX&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_uint32&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;fucntion&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;used&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*/&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_to_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_interrupt_from_thread&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#0x0&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupt&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;flag&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_thread_switch_interrupt_flag&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MOVS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#1&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;priority&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_SHPR3&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_PENDSV_PRI&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#0x00]       ; read&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ORRS&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r2&lt;/span&gt;             &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;modify&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;             &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;write-back&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;trigger&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;exception&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;causes&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_INT_CTRL&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;NVIC_PENDSVSET&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;STR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;NOP&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;restore&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MSP&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;SCB_VTOR&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;LDR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;NOP&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MSR&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;msp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enable&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupts&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;at&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;processor&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;level&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;CPSIE&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;never&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;reach&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;compatible&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;old&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;version&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;rt_hw_interrupt_thread_switch&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_interrupt_thread_switch&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BX&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;lr&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;IMPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_hard_fault_exception&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;HardFault_Handler&lt;/span&gt;    &lt;span class=&quot;no&quot;&gt;PROC&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;EXPORT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HardFault_Handler&lt;/span&gt;
+
+    &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;current&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;context&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;MRS&lt;/span&gt;     &lt;span class=&quot;no&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;psp&lt;/span&gt;                 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;fault&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;stack&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;pointer&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;PUSH&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;lr&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;BL&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;rt_hw_hard_fault_exception&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;POP&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
+
+    &lt;span class=&quot;nf&quot;&gt;END&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/RTThread-context-switch/&quot;&gt;嵌入式操作系统的上下文切换&lt;/a&gt; was originally published by liu1529 at &lt;a href=&quot;&quot;&gt;我的博客&lt;/a&gt; on June 18, 2014.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Android 组件(view)的权重(weight)]]></title>
+  <link rel="alternate" type="text/html" href="/android-view-weight/"/>
+  <id>/android-view-weight</id>
+  <published>2014-05-09T00:00:00+08:00</published>
+  <updated>2014-05-09T00:00:00+08:00</updated>
+  <author>
+    <name>liu1529</name>
+    <uri></uri>
+    <email>lxl.gmmail@gmail.com</email>
+  </author>
+  <content type="html">&lt;p&gt;当使用如下布局时：&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:orientation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;horizontal&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;xmlns:android=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@+id/edit_msg&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:hint=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@string/edit_msg&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Button&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_weight=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@+id/btn_send&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@string/btn_send&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;button可以正常工作，但是当在text field输入很长的数据时，text field会挤占button的空间，最终使button“消失”。使用weigh可以很好的解决这个问题。&lt;/p&gt;
+
+&lt;p&gt;weigh的值表示应该屏幕应为其保留的空间。如，一个view的weigh为2，第二个view为1，总共为3。所以第一个view占据2/3保留空间，第二个view占据剩下的空间。如果添加第三个weigh为1的view，那么第一个view现在占据1/2保留空间，第三个view得到1/4空间。&lt;/p&gt;
+
+&lt;p&gt;所有views的默认weigh为0，所以如果你只给一个view设置任何大于0的weigh值，那么这个view将具有其他所有views的剩余空间。所以，在本例中，设置EditText的weigh为1，而不设置button的weigh。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_weight=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;为了得到更好的布局效果，应该将EditText的width设置为零(0dp).设置width为0，可以提供布局的性能，因为”wrap_content”会去计算文本的宽度。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_weight=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0dp&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;最终的布局文件如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:orientation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;horizontal&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;xmlns:android=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_weight=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0dp&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@+id/edit_msg&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:hint=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@string/edit_msg&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;Button&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@+id/btn_send&amp;quot;&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@string/btn_send&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/android-view-weight/&quot;&gt;Android 组件(view)的权重(weight)&lt;/a&gt; was originally published by liu1529 at &lt;a href=&quot;&quot;&gt;我的博客&lt;/a&gt; on May 09, 2014.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
