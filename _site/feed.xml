@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="/feed.xml" />
 <link rel="alternate" type="text/html" href="/" />
-<updated>2014-09-12T11:13:40+08:00</updated>
+<updated>2014-09-15T16:04:32+08:00</updated>
 <id>/</id>
 <author>
   <name>liu1529</name>
@@ -34,8 +34,7 @@ UIResponder继承自NSObject。NSObject是Cocoa里面绝大部分类的根类。
 &lt;p&gt;view hierarchy的顶层元素是app的window，它是UIWindow的一个实例，并继承自UIView。app应该只有一个main window，而且一个屏幕只能
 有一个window，它是界面上有效view的最终superview。window必须将设备的屏幕填充满：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maniScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;bp&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maniScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;App 使用 main storyboard&lt;/li&gt;
@@ -50,16 +49,15 @@ view controller并将它赋值给window的rootViewController属性。这些都�
 
 &lt;p&gt;如果你想子类化window时，你必须在AppDelegate.m文件里面重写window属性的getter函数:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;k&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;p&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;UIWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;App 不使用 main storyboard&lt;/li&gt;
@@ -67,11 +65,10 @@ view controller并将它赋值给window的rootViewController属性。这些都�
 
 &lt;p&gt;如果你的app没有main storyboard，通常使用代码来完成：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIWindow&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIScreen&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mainScreen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;// Override point for customization after application launch.&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;whiteColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;makeKeyAndVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;whiteColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;makeKeyAndVisible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;如果你想引用window属性，可以使用application的delegate中的window属性&lt;/p&gt;
 
@@ -115,9 +112,8 @@ hierarchy的任意位置：&lt;/p&gt;
 
 &lt;p&gt;你可以通过下面的方法，删除所有subview。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;objc&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subviews&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;removeFromSuperview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;subviews&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;removeFromSuperview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;或&lt;/p&gt;
 
@@ -141,6 +137,135 @@ hierarchy的任意位置：&lt;/p&gt;
 &lt;p&gt;view的alpha属性同样会影响它背景色的可见度和它内容的可见度。例如，如果一个view的alpha
 小于1，它显示一个图像且有背景色，背景色将会透过图像显示出来（view后面的任何东西都会
 穿透显示）。&lt;/p&gt;
+
+&lt;p&gt;view的opaque属性，不会影响view透明度，它对绘制（drawing）系统有影响。当一个view
+完全填充它的边界范围，且它的opaque为YES，且alpha属性为1.0，那么提高绘制系统的性能。&lt;/p&gt;
+
+&lt;h1 id=&quot;frame&quot;&gt;Frame&lt;/h1&gt;
+
+&lt;p&gt;view的frame属性，表示view在其superview坐标系中的位置和大小。坐标原点在左上角，
+向右为x轴，向下为y轴。&lt;/p&gt;
+
+&lt;h2 id=&quot;bounds-and-center&quot;&gt;Bounds and Center&lt;/h2&gt;
+
+&lt;p&gt;bounds属性表示view在自己的坐标系中的位置和大小，&lt;code&gt;CGRectInset&lt;/code&gt;可以很方便的
+将一个view插入到另一个view中：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;UIView *v2 = [[UIView alloc] initWithFrame:CGRectInset(v1.bounds, 10, 10)];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;改变view的bounds会影响它的frame，同样改变frame会影响bounds，但是改变bounds不会影响
+view的center属性。center属性就像frame属性一样，代表view在其superview坐标系中位置，
+但是它是bounds的中心位置，它的值就像如图下面表示：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;CGPoint center = CGPointMake(CGRectGetMidX(theView.bounds), 
+                             CGRectGetMidY(theView.bounds));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;view 的center是连接view的bounds和它superview的bounds的一个点，改变view的bounds不会改变center，改变center也不会改变bounds。&lt;/p&gt;
+
+&lt;p&gt;view的bounds和center可以清楚的描述view的大小和它在superview中的位置。view的frame属性是多余的，
+实际上，frame仅仅用于方便的表达center和bounds的值。使用bounds和center来表示view的大小和它在
+superview中所处的位置，更加的合理和可配置。&lt;/p&gt;
+
+&lt;p&gt;每个view都有自己的坐标系（boudns），自己的坐标系和superview坐标系的关系（center）。我们可以转换
+在同一个窗口中任意两个view的坐标系，转换支持CGPoint和CGRect之间的双向转换。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code&gt;convertPoint:fromVIew:&lt;/code&gt; &lt;code&gt;convertPoint:toView:&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code&gt;convertRect:fromView:&lt;/code&gt; &lt;code&gt;convertRect:toView:&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如果，第二个参数为nil，表示window。&lt;/p&gt;
+
+&lt;p&gt;例如，如果v2是v1的subview，将v2放在v1的中间，可以使用：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v2.center ＝ [v1 convertPoint:v1.center fromView:v1.superview];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;当通过center来改变view的位置时，如果view的高或宽不是整数，view将会misaligned，view会显示不正
+确。你可以在Simulator中通过Debug-&amp;gt;Color Misaligned Images来检查。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;transfom&quot;&gt;Transfom&lt;/h2&gt;
+
+&lt;p&gt;view 的transform属性，在不改变view的bounds和center的前提下，改变view的大小和方向。transform是一个
+CGAffineTransform类型，它相当于6个3＊3的矩阵，详细信息参考“Transforms” chapter of Apple’s Quartz 2D Pro‐ gramming Guide, especially the section called “The Math Behind the Matrices.”但是，你不需要知道这些细节，以&lt;code&gt;CGAffineTransformMake&lt;/code&gt;开头的方法，提供了3个基本transform类型：旋转、放大缩小
+、移动（translation）。第四种transform类型，比如倾斜、劈开，没有方便函数可供调用。&lt;/p&gt;
+
+&lt;p&gt;默认，view的变换矩阵被称为CGAffineTransformIndentity，应用任何transform都围绕center，center始终
+保持不变。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;113&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;132&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;194&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;colorWithRed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.4&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+ &lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGRectInset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;colorWithRed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.5&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mainview&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CGAffineTransformMakeRotation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;45&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;M_PI&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;180.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;上面演示了将v1旋转45度，v1的center和bounds都没有改变，所以v1的坐标系没有改变，v1的subview v2也
+旋转45度，保持v2和v1的相对位置不变。这儿的规则是，如果view的transform不是identity transform，
+那么你不应该设置它的frame。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v1.transform ＝ CGAffineTransformMakeScale(1.8,1);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;对v1的bounds和center同样没有影响，所以subview同样保持和v1相对位置不变。这意味着，v1和v2被同时
+缩放。&lt;/p&gt;
+
+&lt;p&gt;应用给一个view的transform可以方便的给另一个view使用，这些方法的名字不不包含“Make”。这些方法不是
+无序的，它们是有序的。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-objc&quot; data-lang=&quot;objc&quot;&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CGRectMake&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;111&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;132&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;194&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;colorWithRed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.4&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;initWithFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;UIColor&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;colorWithRed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;.5&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;green&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;blue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mainview&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;addSubview&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;先右移100再旋转45度：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v2.transform = CGAffineTransformMakeTranslation(100,0);
+v2.transform = CGAffineTransformRotate(v2.transform, 45 * M_PI / 180.0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和先旋转45度再右移100：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v2.transform = CGAffineTransformMakeRotation(45 * M_PI / 180.0);
+v2.transform = CGAffineTransformTranslate(v2.transform, 100.0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;会得到不同的图形。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;CGAffineTransformConcat&lt;/code&gt;方法使transform矩阵相乘，这也是有序的。先旋转45度再右移100也
+可以使用下面的方法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;CGAffineTransform r = CGAffineTransformMakeRotation(45 * M_PI / 180.0);
+CGAffineTransform t = CGAffineTransformMakeTranslation(100, 0);
+v2.transform = CGAffineTransformConcat(t,r); //not r,t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将已经存在的transform移除，使用对应的invert方法。例如，先旋转45度再右移100，最后移除旋转。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;CGAffineTransform r = CGAffineTransformMakeRotation(45 * M_PI / 180.0);
+    CGAffineTransform t = CGAffineTransformMakeTranslation(100, 0); 
+v2.transform = CGAffineTransformConcat(t, r);
+v2.transform = CGAffineTransformConcat(CGAffineTransformInvert(r), v2.transform);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后，没有方便的方法使图形倾斜，可以使用下面的方式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;v1.transform = CGAffineTransformMake(1, 0, -0.2, 1.0, 0, 0);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;transform可以应用再iOS的核心界面，window的frame和bounds都被锁定到屏幕，不能更改，但是root view
+的frame和bounds可以被更改。当设备被旋转90度时，root view也被旋转了90度，{0,0}点移动到了用户的
+右上角。root view的subviews在root view的坐标系中，拥有自己的frame，所以它们可以被正确的显示。&lt;/p&gt;
+
+&lt;p&gt;另外，root view的bounds的高和宽被交换，所以可能导致某些界面元素不能被显示出来，请查看下一节如何
+解决这个问题。&lt;/p&gt;
 
 
   &lt;p&gt;&lt;a href=&quot;/iOS-views/&quot;&gt;iOS UIView&lt;/a&gt; was originally published by liu1529 at &lt;a href=&quot;&quot;&gt;我的博客&lt;/a&gt; on September 11, 2014.&lt;/p&gt;</content>
@@ -166,7 +291,7 @@ hierarchy的任意位置：&lt;/p&gt;
 &lt;h1 id=&quot;section&quot;&gt;任务&lt;/h1&gt;
 &lt;p&gt;任务是操作系统的基本组成单元，我们截取RT-Thread与上下文切换有关的任务定义如下：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rt_thread&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rt_thread&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
  
@@ -178,8 +303,7 @@ hierarchy的任意位置：&lt;/p&gt;
     &lt;span class=&quot;kt&quot;&gt;rt_uint16_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stack_size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                             &lt;span class=&quot;cm&quot;&gt;/**&amp;lt; stack size */&lt;/span&gt;
 
     &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;在这里，我们只关心和上下文切换有关的部分。&lt;/p&gt;
 
@@ -195,7 +319,7 @@ hierarchy的任意位置：&lt;/p&gt;
 
 &lt;p&gt;与上下文切换有关的任务初始化如下：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;rt_err_t&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_rt_thread_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rt_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;rt_err_t&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;_rt_thread_init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rt_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;thread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
                                 &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
                                 &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
                                 &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parameter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
@@ -220,12 +344,11 @@ hierarchy的任意位置：&lt;/p&gt;
         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rt_thread_exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
     &lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;其中的重点是初始化sp指针的部分，&lt;code&gt;rt_hw_stack_init&lt;/code&gt; 定义如下：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;exception_stack_frame&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -287,8 +410,7 @@ hierarchy的任意位置：&lt;/p&gt;
 
     &lt;span class=&quot;cm&quot;&gt;/* return task&amp;#39;s current stack address */&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stk&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;figure&gt;
     &lt;img src=&quot;/assets/rt-thread/thread-stack.png&quot; /&gt;
@@ -322,7 +444,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 &lt;p&gt;系统初始化完成后，会切换到当前系统中优先级最高的任务。
 任务首次进行上下文切换时，调用&lt;code&gt;rt_hw_context_switch_to&lt;/code&gt;。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;asm&quot;&gt;&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-asm&quot; data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;err&quot;&gt;;/*&lt;/span&gt;
 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;rt_uint32&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;r0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt;
 &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;fucntion&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;used&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;perform&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;first&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;switch&lt;/span&gt;
@@ -367,12 +489,11 @@ APSR 上条指令结果的标志 &lt;br /&gt;
     &lt;span class=&quot;nf&quot;&gt;CPSIE&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;I&lt;/span&gt;
 
     &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;never&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;reach&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;
-    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;其对应的c语言为：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;rt_hw_context_switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;rt_uint32_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
 	
 	&lt;span class=&quot;n&quot;&gt;rt_interrupt_to_thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -389,10 +510,9 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 	&lt;span class=&quot;n&quot;&gt;__enable_irq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
 	&lt;span class=&quot;c1&quot;&gt;//never reach here&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;asm&quot;&gt;&lt;span class=&quot;nf&quot;&gt;SCB_VTOR&lt;/span&gt;        &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED08&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Table&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Offset&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Register&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-asm&quot; data-lang=&quot;asm&quot;&gt;&lt;span class=&quot;nf&quot;&gt;SCB_VTOR&lt;/span&gt;        &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED08&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Vector&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Table&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Offset&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Register&lt;/span&gt;
 &lt;span class=&quot;nf&quot;&gt;NVIC_INT_CTRL&lt;/span&gt;   &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED04&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;interrupt&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;control&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;state&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt;
 &lt;span class=&quot;nf&quot;&gt;NVIC_SHPR3&lt;/span&gt;      &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0xE000ED20&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;priority&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;register&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;nf&quot;&gt;NVIC_PENDSV_PRI&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EQU&lt;/span&gt;     &lt;span class=&quot;mi&quot;&gt;0x00FF0000&lt;/span&gt;               &lt;span class=&quot;err&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PendSV&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;priority&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;lowest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -588,8 +708,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
     &lt;span class=&quot;nf&quot;&gt;POP&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;nf&quot;&gt;ENDP&lt;/span&gt;
 
-    &lt;span class=&quot;nf&quot;&gt;END&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;span class=&quot;nf&quot;&gt;END&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
   &lt;p&gt;&lt;a href=&quot;/RTThread-context-switch/&quot;&gt;嵌入式操作系统的上下文切换&lt;/a&gt; was originally published by liu1529 at &lt;a href=&quot;&quot;&gt;我的博客&lt;/a&gt; on June 18, 2014.&lt;/p&gt;</content>
@@ -609,7 +728,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
   </author>
   <content type="html">&lt;p&gt;当使用如下布局时：&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:orientation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;horizontal&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
@@ -626,8 +745,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;wrap_content&amp;quot;&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@+id/btn_send&amp;quot;&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@string/btn_send&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;button可以正常工作，但是当在text field输入很长的数据时，text field会挤占button的空间，最终使button“消失”。使用weigh可以很好的解决这个问题。&lt;/p&gt;
 
@@ -635,22 +753,20 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 
 &lt;p&gt;所有views的默认weigh为0，所以如果你只给一个view设置任何大于0的weigh值，那么这个view将具有其他所有views的剩余空间。所以，在本例中，设置EditText的weigh为1，而不设置button的weigh。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:layout_weight=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;
-        &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;为了得到更好的布局效果，应该将EditText的width设置为零(0dp).设置width为0，可以提供布局的性能，因为”wrap_content”会去计算文本的宽度。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;EditText&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:layout_weight=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0dp&amp;quot;&lt;/span&gt;
-        &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+        &lt;span class=&quot;err&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;最终的布局文件如下:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:orientation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;horizontal&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
@@ -668,8 +784,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;na&quot;&gt;android:id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@+id/btn_send&amp;quot;&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;@string/btn_send&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
     
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
   &lt;p&gt;&lt;a href=&quot;/android-view-weight/&quot;&gt;Android 组件(view)的权重(weight)&lt;/a&gt; was originally published by liu1529 at &lt;a href=&quot;&quot;&gt;我的博客&lt;/a&gt; on May 09, 2014.&lt;/p&gt;</content>
@@ -725,7 +840,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 &lt;p&gt;使用内部类可以在当前类中复用该监听器类；因为监听器是外部类的内部类，所有可以只用
 访问外部类的所有界面组件。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainAct&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainAct&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;savedInstanceState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
@@ -735,7 +850,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;c1&quot;&gt;//获取应用的bn按钮&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;bn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt; 
         &lt;span class=&quot;c1&quot;&gt;//绑定事件监听器&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;bn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOnClickListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyClikListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOnClickListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MyClikListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
 
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;//定义单击事件监听器&lt;/span&gt;
@@ -748,8 +863,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
             
         &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;section-4&quot;&gt;外部类作为事件监听器类(不推荐)&lt;/h3&gt;
 
@@ -760,7 +874,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
   &lt;li&gt;外部类形式的事件监听器不能自由访问创建GUI界面的类中组件，编程不够简洁。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SendSmsListener&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OnLongClickListener&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SendSmsListener&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OnLongClickListener&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;activity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EditText&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -780,7 +894,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 
         &lt;span class=&quot;n&quot;&gt;SmsManager&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;smsManager&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SmsManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getDefault&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;PendingIntent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sendIntent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PendingIntent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBroadcast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;activity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;activity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Intent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;smsManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendTextMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;addressStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contentStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
                 &lt;span class=&quot;n&quot;&gt;sendIntent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;Toast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;makeText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;activity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;短信发送完成&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Toast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;LENGTH_LONG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;show&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
@@ -789,10 +903,9 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 
 
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt; 
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt; 
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
     &lt;span class=&quot;n&quot;&gt;EditText&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -806,12 +919,11 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EditText&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 
-        &lt;span class=&quot;n&quot;&gt;bn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOnLongClickListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SendSmsListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;bn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setOnLongClickListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;SendSmsListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
                 &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;
         &lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;不推荐将业务逻辑实现写在事件监听器中，包含业务逻辑的事件监听器将导致程序的显示
 逻辑和业务逻辑耦合，增加程序的耦合度。如果有多个事件监听器需要相同的业务逻辑功能，
@@ -827,7 +939,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
   &lt;li&gt;如果Activity界面类需要实现监听器接口，让人改进比较怪异&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OnClickListener&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;View&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OnClickListener&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
@@ -844,12 +956,11 @@ APSR 上条指令结果的标志 &lt;br /&gt;
     &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;section-5&quot;&gt;匿名内部类作为事件监听器类（最常用）&lt;/h3&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
@@ -864,12 +975,11 @@ APSR 上条指令结果的标志 &lt;br /&gt;
             &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
         &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;section-6&quot;&gt;直接绑定到标签&lt;/h3&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:orientation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;vertical&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
@@ -882,10 +992,9 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;click me&amp;quot;&lt;/span&gt;
         &lt;span class=&quot;na&quot;&gt;android:onClick=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;clickHandler&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;savedInstanceState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -899,8 +1008,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
     &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;section-7&quot;&gt;基于回调的事件处理&lt;/h2&gt;
 
@@ -912,7 +1020,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 &lt;p&gt;为了使用回调机制类处理GUI组件上所发生的事情，我们需要为该组件提供对应的事件处理
 方法—继承GUI组件，并重写该类的时间处理方法来实现。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyButton&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyButton&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MyButton&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AttributeSet&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -926,13 +1034,12 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;c1&quot;&gt;//该事件不会向外扩散&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;上面自定义的MyButton类中，我们重写了Button类的onKeyDown(int keyCode, KeyEvent event)方法，
 该方法负责处理按钮上的键盘事件。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;LinearLayout&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:orientation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;vertical&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_width=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;na&quot;&gt;android:layout_height=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill_parent&amp;quot;&lt;/span&gt;
@@ -945,8 +1052,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
         &lt;span class=&quot;na&quot;&gt;android:text=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;click me&amp;quot;&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/LinearLayout&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;section-9&quot;&gt;基于回调的事件传播&lt;/h3&gt;
 
@@ -964,7 +1070,7 @@ APSR 上条指令结果的标志 &lt;br /&gt;
 &lt;p&gt;下面的程序示范Android系统事件传播，程序重写Button类的onKeyDown方法，而且重写了该
 Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyButton&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MyButton&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Button&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;MyButton&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AttributeSet&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -978,10 +1084,9 @@ Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。
         &lt;span class=&quot;c1&quot;&gt;//该事件依然会向外扩散&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MainActivity&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Activity&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;savedInstanceState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -1011,8 +1116,7 @@ Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。
         &lt;span class=&quot;c1&quot;&gt;//该事件未处理完，依然向外传播&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;按下按键时，log窗口输出：&lt;/p&gt;
 
@@ -1235,8 +1339,8 @@ Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。
 
 &lt;pre&gt;&lt;code&gt;# This configuration file contains the absolute path locations of all
 # installed Rubies to be enhanced to work with the DevKit. This config
-# file is generated by the 'ruby dk.rb init' step and may be modified
-# before running the 'ruby dk.rb install' step. To include any installed
+# file is generated by the &#39;ruby dk.rb init&#39; step and may be modified
+# before running the &#39;ruby dk.rb install&#39; step. To include any installed
 # Rubies that were not automagically discovered, simply add a line below
 # the triple hyphens with the absolute path to the Ruby root directory.
 #
@@ -1299,7 +1403,7 @@ jekyll serve
 
 &lt;pre&gt;&lt;code&gt;gem install jekyll 出现：
 
-ERROR:  Could not find a valid gem 'jekyll' (&amp;gt;= 0) in any repository
+ERROR:  Could not find a valid gem &#39;jekyll&#39; (&amp;gt;= 0) in any repository
 ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)
 Errno::ECONNREFUSED: No connection could be made because the target machine
 actively refused it. - connect(2) (https://rubygems.org/latest_specs.4.8.gz) 
@@ -1328,7 +1432,7 @@ gem install jekyll
    Destination: c:/blog/_site
   Generating... C:/Ruby193/lib/ruby/gems/1.9.1/gems/posix-spawn-0.3.8/lib/po
 six/spawn.rb:162: warning: cannot close fd before spawn
-'which' 不是内部或外部命令，也不是可运行的程序
+&#39;which&#39; 不是内部或外部命令，也不是可运行的程序
 或批处理文件。
 [31m  Liquid Exception: Failed to get header. in _posts/2014-04-29-welcome-to-j
 ekyll.markdown [0m

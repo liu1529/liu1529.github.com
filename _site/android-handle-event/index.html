@@ -167,7 +167,7 @@
 <p>使用内部类可以在当前类中复用该监听器类；因为监听器是外部类的内部类，所有可以只用
 访问外部类的所有界面组件。</p>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainAct</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainAct</span> <span class="kd">extends</span> <span class="n">Activity</span>
 <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span>
@@ -177,7 +177,7 @@
         <span class="c1">//获取应用的bn按钮</span>
         <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">bn</span><span class="o">);</span> 
         <span class="c1">//绑定事件监听器</span>
-        <span class="n">bn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">MyClikListener</span><span class="o">());</span>
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nf">MyClikListener</span><span class="o">());</span>
 
     <span class="o">}</span>
     <span class="c1">//定义单击事件监听器</span>
@@ -190,8 +190,7 @@
             
         <span class="o">}</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <h3 id="section-4">外部类作为事件监听器类(不推荐)</h3>
 
@@ -202,7 +201,7 @@
   <li>外部类形式的事件监听器不能自由访问创建GUI界面的类中组件，编程不够简洁。</li>
 </ul>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SendSmsListener</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnLongClickListener</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SendSmsListener</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnLongClickListener</span>
 <span class="o">{</span>
     <span class="kd">private</span> <span class="n">Activity</span> <span class="n">activity</span><span class="o">;</span>
     <span class="kd">private</span> <span class="n">EditText</span> <span class="n">address</span><span class="o">;</span>
@@ -222,7 +221,7 @@
 
         <span class="n">SmsManager</span> <span class="n">smsManager</span> <span class="o">=</span> <span class="n">SmsManager</span><span class="o">.</span><span class="na">getDefault</span><span class="o">();</span>
         <span class="n">PendingIntent</span> <span class="n">sendIntent</span> <span class="o">=</span> <span class="n">PendingIntent</span><span class="o">.</span><span class="na">getBroadcast</span><span class="o">(</span>
-                <span class="n">activity</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">);</span>
+                <span class="n">activity</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(),</span> <span class="mi">0</span><span class="o">);</span>
         <span class="n">smsManager</span><span class="o">.</span><span class="na">sendTextMessage</span><span class="o">(</span><span class="n">addressStr</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">contentStr</span><span class="o">,</span>
                 <span class="n">sendIntent</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
         <span class="n">Toast</span><span class="o">.</span><span class="na">makeText</span><span class="o">(</span><span class="n">activity</span><span class="o">,</span> <span class="s">&quot;短信发送完成&quot;</span><span class="o">,</span> <span class="n">Toast</span><span class="o">.</span><span class="na">LENGTH_LONG</span><span class="o">).</span><span class="na">show</span><span class="o">();</span>
@@ -231,10 +230,9 @@
 
 
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> 
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> 
 <span class="o">{</span>
 
     <span class="n">EditText</span> <span class="n">address</span><span class="o">;</span>
@@ -248,12 +246,11 @@
         <span class="n">content</span> <span class="o">=</span> <span class="o">(</span><span class="n">EditText</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">content</span><span class="o">);</span>
         <span class="n">Button</span> <span class="n">bn</span> <span class="o">=</span> <span class="o">(</span><span class="n">Button</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">send</span><span class="o">);</span>
 
-        <span class="n">bn</span><span class="o">.</span><span class="na">setOnLongClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">SendSmsListener</span><span class="o">(</span>
+        <span class="n">bn</span><span class="o">.</span><span class="na">setOnLongClickListener</span><span class="o">(</span><span class="k">new</span> <span class="nf">SendSmsListener</span><span class="o">(</span>
                 <span class="k">this</span><span class="o">,</span> <span class="n">address</span><span class="o">,</span> <span class="n">content</span>
         <span class="o">));</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <p>不推荐将业务逻辑实现写在事件监听器中，包含业务逻辑的事件监听器将导致程序的显示
 逻辑和业务逻辑耦合，增加程序的耦合度。如果有多个事件监听器需要相同的业务逻辑功能，
@@ -269,7 +266,7 @@
   <li>如果Activity界面类需要实现监听器接口，让人改进比较怪异</li>
 </ul>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span>
 <span class="o">{</span>
 
     <span class="nd">@Override</span>
@@ -286,12 +283,11 @@
     <span class="o">{</span>
 
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <h3 id="section-5">匿名内部类作为事件监听器类（最常用）</h3>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
 <span class="o">{</span>
 
     <span class="nd">@Override</span>
@@ -306,12 +302,11 @@
             <span class="o">}</span>
         <span class="o">});</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <h3 id="section-6">直接绑定到标签</h3>
 
-<div class="highlight"><pre><code class="xml"><span class="nt">&lt;LinearLayout</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;LinearLayout</span>
     <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span>
     <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
     <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
@@ -324,10 +319,9 @@
         <span class="na">android:text=</span><span class="s">&quot;click me&quot;</span>
         <span class="na">android:onClick=</span><span class="s">&quot;clickHandler&quot;</span><span class="nt">/&gt;</span>
 
-<span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/LinearLayout&gt;</span></code></pre></div>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
 <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
@@ -341,8 +335,7 @@
     <span class="o">{</span>
         
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <h2 id="section-7">基于回调的事件处理</h2>
 
@@ -354,7 +347,7 @@
 <p>为了使用回调机制类处理GUI组件上所发生的事情，我们需要为该组件提供对应的事件处理
 方法—继承GUI组件，并重写该类的时间处理方法来实现。</p>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">Button</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">Button</span>
 <span class="o">{</span>
     <span class="kd">public</span> <span class="nf">MyButton</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">set</span><span class="o">)</span>
     <span class="o">{</span>
@@ -368,13 +361,12 @@
         <span class="c1">//该事件不会向外扩散</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <p>上面自定义的MyButton类中，我们重写了Button类的onKeyDown(int keyCode, KeyEvent event)方法，
 该方法负责处理按钮上的键盘事件。</p>
 
-<div class="highlight"><pre><code class="xml"><span class="nt">&lt;LinearLayout</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;LinearLayout</span>
     <span class="na">android:orientation=</span><span class="s">&quot;vertical&quot;</span>
     <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
     <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
@@ -387,8 +379,7 @@
         <span class="na">android:text=</span><span class="s">&quot;click me&quot;</span>
     <span class="nt">/&gt;</span>
 
-<span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/LinearLayout&gt;</span></code></pre></div>
 
 <h3 id="section-9">基于回调的事件传播</h3>
 
@@ -406,7 +397,7 @@
 <p>下面的程序示范Android系统事件传播，程序重写Button类的onKeyDown方法，而且重写了该
 Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。</p>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">Button</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyButton</span> <span class="kd">extends</span> <span class="n">Button</span>
 <span class="o">{</span>
     <span class="kd">public</span> <span class="nf">MyButton</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">AttributeSet</span> <span class="n">set</span><span class="o">)</span>
     <span class="o">{</span>
@@ -420,10 +411,9 @@ Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。
         <span class="c1">//该事件依然会向外扩散</span>
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
-<div class="highlight"><pre><code class="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainActivity</span> <span class="kd">extends</span> <span class="n">Activity</span>
 <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
@@ -453,8 +443,7 @@ Button所在Activity的onKeyDown方法—而且程序没有阻止事件传播。
         <span class="c1">//该事件未处理完，依然向外传播</span>
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
+<span class="o">}</span></code></pre></div>
 
 <p>按下按键时，log窗口输出：</p>
 

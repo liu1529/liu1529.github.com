@@ -131,7 +131,7 @@
       <div class="entry-content">
         <p>当使用如下布局时：</p>
 
-<div class="highlight"><pre><code class="xml"><span class="nt">&lt;LinearLayout</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;LinearLayout</span>
     <span class="na">android:orientation=</span><span class="s">&quot;horizontal&quot;</span>
     <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
     <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
@@ -148,8 +148,7 @@
         <span class="na">android:layout_height=</span><span class="s">&quot;wrap_content&quot;</span>
         <span class="na">android:id=</span><span class="s">&quot;@+id/btn_send&quot;</span>
         <span class="na">android:text=</span><span class="s">&quot;@string/btn_send&quot;</span><span class="nt">/&gt;</span>
-<span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/LinearLayout&gt;</span></code></pre></div>
 
 <p>button可以正常工作，但是当在text field输入很长的数据时，text field会挤占button的空间，最终使button“消失”。使用weigh可以很好的解决这个问题。</p>
 
@@ -157,22 +156,20 @@
 
 <p>所有views的默认weigh为0，所以如果你只给一个view设置任何大于0的weigh值，那么这个view将具有其他所有views的剩余空间。所以，在本例中，设置EditText的weigh为1，而不设置button的weigh。</p>
 
-<div class="highlight"><pre><code class="xml"> <span class="nt">&lt;EditText</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;EditText</span>
         <span class="na">android:layout_weight=</span><span class="s">&quot;1&quot;</span>
-        <span class="err">...</span> <span class="nt">/&gt;</span>
-</code></pre></div>
+        <span class="err">...</span> <span class="nt">/&gt;</span></code></pre></div>
 
 <p>为了得到更好的布局效果，应该将EditText的width设置为零(0dp).设置width为0，可以提供布局的性能，因为”wrap_content”会去计算文本的宽度。</p>
 
-<div class="highlight"><pre><code class="xml"><span class="nt">&lt;EditText</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;EditText</span>
         <span class="na">android:layout_weight=</span><span class="s">&quot;1&quot;</span>
         <span class="na">android:layout_width=</span><span class="s">&quot;0dp&quot;</span>
-        <span class="err">...</span> <span class="nt">/&gt;</span>
-</code></pre></div>
+        <span class="err">...</span> <span class="nt">/&gt;</span></code></pre></div>
 
 <p>最终的布局文件如下:</p>
 
-<div class="highlight"><pre><code class="xml"><span class="nt">&lt;LinearLayout</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;LinearLayout</span>
     <span class="na">android:orientation=</span><span class="s">&quot;horizontal&quot;</span>
     <span class="na">android:layout_width=</span><span class="s">&quot;fill_parent&quot;</span>
     <span class="na">android:layout_height=</span><span class="s">&quot;fill_parent&quot;</span>
@@ -190,8 +187,7 @@
         <span class="na">android:id=</span><span class="s">&quot;@+id/btn_send&quot;</span>
         <span class="na">android:text=</span><span class="s">&quot;@string/btn_send&quot;</span><span class="nt">/&gt;</span>
     
-<span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre></div>
+<span class="nt">&lt;/LinearLayout&gt;</span></code></pre></div>
 
 
         <div id="disqus_thread"></div><!-- /#disqus_thread -->

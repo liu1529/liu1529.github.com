@@ -139,8 +139,7 @@ UIResponder继承自NSObject。NSObject是Cocoa里面绝大部分类的根类。
 <p>view hierarchy的顶层元素是app的window，它是UIWindow的一个实例，并继承自UIView。app应该只有一个main window，而且一个屏幕只能
 有一个window，它是界面上有效view的最终superview。window必须将设备的屏幕填充满：</p>
 
-<div class="highlight"><pre><code class="objc"><span class="n">UIWindow</span> <span class="o">*</span><span class="n">w</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="p">[[</span><span class="n">UIScreen</span> <span class="n">maniScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIWindow</span> <span class="o">*</span><span class="n">w</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[[</span><span class="bp">UIScreen</span> <span class="n">maniScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span></code></pre></div>
 
 <ul>
   <li>App 使用 main storyboard</li>
@@ -155,16 +154,15 @@ view controller并将它赋值给window的rootViewController属性。这些都�
 
 <p>如果你想子类化window时，你必须在AppDelegate.m文件里面重写window属性的getter函数:</p>
 
-<div class="highlight"><pre><code class="objc"><span class="k">-</span> <span class="p">(</span><span class="n">UIWindow</span><span class="o">*</span><span class="p">)</span> <span class="nf">window</span> <span class="p">{</span>
-<span class="n">UIWindow</span><span class="o">*</span> <span class="n">w</span> <span class="o">=</span> <span class="n">self</span><span class="o">-&gt;</span><span class="n">_window</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-</span> <span class="p">(</span><span class="bp">UIWindow</span><span class="o">*</span><span class="p">)</span> <span class="nf">window</span> <span class="p">{</span>
+<span class="bp">UIWindow</span><span class="o">*</span> <span class="n">w</span> <span class="o">=</span> <span class="nb">self</span><span class="o">-&gt;</span><span class="n">_window</span><span class="p">;</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">w</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MyWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span>
-    <span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
-    <span class="n">self</span><span class="o">-&gt;</span><span class="n">_window</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="p">[[</span><span class="n">MyWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span>
+    <span class="p">[[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
+    <span class="nb">self</span><span class="o">-&gt;</span><span class="n">_window</span> <span class="o">=</span> <span class="n">w</span><span class="p">;</span>
 <span class="p">}</span>
 <span class="k">return</span> <span class="n">w</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<span class="p">}</span></code></pre></div>
 
 <ul>
   <li>App 不使用 main storyboard</li>
@@ -172,11 +170,10 @@ view controller并将它赋值给window的rootViewController属性。这些都�
 
 <p>如果你的app没有main storyboard，通常使用代码来完成：</p>
 
-<div class="highlight"><pre><code class="objc"><span class="n">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="n">initWithFrame</span><span class="o">:</span><span class="p">[[</span><span class="n">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIWindow</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:[[</span><span class="bp">UIScreen</span> <span class="n">mainScreen</span><span class="p">]</span> <span class="n">bounds</span><span class="p">]];</span>
 <span class="c1">// Override point for customization after application launch.</span>
-<span class="n">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
-<span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">window</span> <span class="n">makeKeyAndVisible</span><span class="p">];</span>
-</code></pre></div>
+<span class="nb">self</span><span class="p">.</span><span class="n">window</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">whiteColor</span><span class="p">];</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">window</span> <span class="n">makeKeyAndVisible</span><span class="p">];</span></code></pre></div>
 
 <p>如果你想引用window属性，可以使用application的delegate中的window属性</p>
 
@@ -220,9 +217,8 @@ hierarchy的任意位置：</p>
 
 <p>你可以通过下面的方法，删除所有subview。</p>
 
-<div class="highlight"><pre><code class="objc"><span class="k">for</span><span class="p">(</span><span class="n">UIView</span> <span class="o">*</span><span class="n">v</span> <span class="k">in</span> <span class="n">view</span><span class="p">.</span><span class="n">subviews</span><span class="p">)</span>
-    <span class="p">[</span><span class="n">v</span> <span class="n">removeFromSuperview</span><span class="p">];</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">for</span><span class="p">(</span><span class="bp">UIView</span> <span class="o">*</span><span class="n">v</span> <span class="k">in</span> <span class="n">view</span><span class="p">.</span><span class="n">subviews</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">v</span> <span class="n">removeFromSuperview</span><span class="p">];</span></code></pre></div>
 
 <p>或</p>
 
@@ -246,6 +242,135 @@ hierarchy的任意位置：</p>
 <p>view的alpha属性同样会影响它背景色的可见度和它内容的可见度。例如，如果一个view的alpha
 小于1，它显示一个图像且有背景色，背景色将会透过图像显示出来（view后面的任何东西都会
 穿透显示）。</p>
+
+<p>view的opaque属性，不会影响view透明度，它对绘制（drawing）系统有影响。当一个view
+完全填充它的边界范围，且它的opaque为YES，且alpha属性为1.0，那么提高绘制系统的性能。</p>
+
+<h1 id="frame">Frame</h1>
+
+<p>view的frame属性，表示view在其superview坐标系中的位置和大小。坐标原点在左上角，
+向右为x轴，向下为y轴。</p>
+
+<h2 id="bounds-and-center">Bounds and Center</h2>
+
+<p>bounds属性表示view在自己的坐标系中的位置和大小，<code>CGRectInset</code>可以很方便的
+将一个view插入到另一个view中：</p>
+
+<pre><code>UIView *v2 = [[UIView alloc] initWithFrame:CGRectInset(v1.bounds, 10, 10)];
+</code></pre>
+
+<p>改变view的bounds会影响它的frame，同样改变frame会影响bounds，但是改变bounds不会影响
+view的center属性。center属性就像frame属性一样，代表view在其superview坐标系中位置，
+但是它是bounds的中心位置，它的值就像如图下面表示：</p>
+
+<pre><code>CGPoint center = CGPointMake(CGRectGetMidX(theView.bounds), 
+                             CGRectGetMidY(theView.bounds));
+</code></pre>
+
+<p>view 的center是连接view的bounds和它superview的bounds的一个点，改变view的bounds不会改变center，改变center也不会改变bounds。</p>
+
+<p>view的bounds和center可以清楚的描述view的大小和它在superview中的位置。view的frame属性是多余的，
+实际上，frame仅仅用于方便的表达center和bounds的值。使用bounds和center来表示view的大小和它在
+superview中所处的位置，更加的合理和可配置。</p>
+
+<p>每个view都有自己的坐标系（boudns），自己的坐标系和superview坐标系的关系（center）。我们可以转换
+在同一个窗口中任意两个view的坐标系，转换支持CGPoint和CGRect之间的双向转换。</p>
+
+<ul>
+  <li><code>convertPoint:fromVIew:</code> <code>convertPoint:toView:</code></li>
+  <li><code>convertRect:fromView:</code> <code>convertRect:toView:</code></li>
+</ul>
+
+<p>如果，第二个参数为nil，表示window。</p>
+
+<p>例如，如果v2是v1的subview，将v2放在v1的中间，可以使用：</p>
+
+<pre><code>v2.center ＝ [v1 convertPoint:v1.center fromView:v1.superview];
+</code></pre>
+
+<blockquote>
+  <p>当通过center来改变view的位置时，如果view的高或宽不是整数，view将会misaligned，view会显示不正
+确。你可以在Simulator中通过Debug-&gt;Color Misaligned Images来检查。</p>
+</blockquote>
+
+<h2 id="transfom">Transfom</h2>
+
+<p>view 的transform属性，在不改变view的bounds和center的前提下，改变view的大小和方向。transform是一个
+CGAffineTransform类型，它相当于6个3＊3的矩阵，详细信息参考“Transforms” chapter of Apple’s Quartz 2D Pro‐ gramming Guide, especially the section called “The Math Behind the Matrices.”但是，你不需要知道这些细节，以<code>CGAffineTransformMake</code>开头的方法，提供了3个基本transform类型：旋转、放大缩小
+、移动（translation）。第四种transform类型，比如倾斜、劈开，没有方便函数可供调用。</p>
+
+<p>默认，view的变换矩阵被称为CGAffineTransformIndentity，应用任何transform都围绕center，center始终
+保持不变。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIView</span><span class="o">*</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">113</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+ <span class="n">v1</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mf">.4</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">1</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+ <span class="bp">UIView</span><span class="o">*</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectInset</span><span class="p">(</span><span class="n">v1</span><span class="p">.</span><span class="n">bounds</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)];</span>
+ <span class="n">v2</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mf">.5</span> <span class="nl">green</span><span class="p">:</span><span class="mi">1</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+ <span class="p">[</span><span class="n">mainview</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v1</span><span class="p">];</span>
+ <span class="p">[</span><span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v2</span><span class="p">];</span>
+  <span class="n">v1</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">CGAffineTransformMakeRotation</span><span class="p">(</span><span class="mi">45</span> <span class="o">*</span> <span class="n">M_PI</span><span class="o">/</span><span class="mf">180.0</span><span class="p">);</span></code></pre></div>
+
+<p>上面演示了将v1旋转45度，v1的center和bounds都没有改变，所以v1的坐标系没有改变，v1的subview v2也
+旋转45度，保持v2和v1的相对位置不变。这儿的规则是，如果view的transform不是identity transform，
+那么你不应该设置它的frame。</p>
+
+<pre><code>v1.transform ＝ CGAffineTransformMakeScale(1.8,1);
+</code></pre>
+
+<p>对v1的bounds和center同样没有影响，所以subview同样保持和v1相对位置不变。这意味着，v1和v2被同时
+缩放。</p>
+
+<p>应用给一个view的transform可以方便的给另一个view使用，这些方法的名字不不包含“Make”。这些方法不是
+无序的，它们是有序的。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIView</span><span class="o">*</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+<span class="n">v1</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mf">.4</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">1</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="bp">UIView</span><span class="o">*</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">v1</span><span class="p">.</span><span class="n">bounds</span><span class="p">];</span>
+<span class="n">v2</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mf">.5</span> <span class="nl">green</span><span class="p">:</span><span class="mi">1</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">[</span><span class="n">mainview</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v1</span><span class="p">];</span>
+<span class="p">[</span><span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v2</span><span class="p">];</span></code></pre></div>
+
+<p>先右移100再旋转45度：</p>
+
+<pre><code>v2.transform = CGAffineTransformMakeTranslation(100,0);
+v2.transform = CGAffineTransformRotate(v2.transform, 45 * M_PI / 180.0);
+</code></pre>
+
+<p>和先旋转45度再右移100：</p>
+
+<pre><code>v2.transform = CGAffineTransformMakeRotation(45 * M_PI / 180.0);
+v2.transform = CGAffineTransformTranslate(v2.transform, 100.0);
+</code></pre>
+
+<p>会得到不同的图形。</p>
+
+<p><code>CGAffineTransformConcat</code>方法使transform矩阵相乘，这也是有序的。先旋转45度再右移100也
+可以使用下面的方法：</p>
+
+<pre><code>CGAffineTransform r = CGAffineTransformMakeRotation(45 * M_PI / 180.0);
+CGAffineTransform t = CGAffineTransformMakeTranslation(100, 0);
+v2.transform = CGAffineTransformConcat(t,r); //not r,t
+</code></pre>
+
+<p>将已经存在的transform移除，使用对应的invert方法。例如，先旋转45度再右移100，最后移除旋转。</p>
+
+<pre><code>CGAffineTransform r = CGAffineTransformMakeRotation(45 * M_PI / 180.0);
+    CGAffineTransform t = CGAffineTransformMakeTranslation(100, 0); 
+v2.transform = CGAffineTransformConcat(t, r);
+v2.transform = CGAffineTransformConcat(CGAffineTransformInvert(r), v2.transform);
+</code></pre>
+
+<p>最后，没有方便的方法使图形倾斜，可以使用下面的方式：</p>
+
+<pre><code>v1.transform = CGAffineTransformMake(1, 0, -0.2, 1.0, 0, 0);
+</code></pre>
+
+<p>transform可以应用再iOS的核心界面，window的frame和bounds都被锁定到屏幕，不能更改，但是root view
+的frame和bounds可以被更改。当设备被旋转90度时，root view也被旋转了90度，{0,0}点移动到了用户的
+右上角。root view的subviews在root view的坐标系中，拥有自己的frame，所以它们可以被正确的显示。</p>
+
+<p>另外，root view的bounds的高和宽被交换，所以可能导致某些界面元素不能被显示出来，请查看下一节如何
+解决这个问题。</p>
 
 
         <div id="disqus_thread"></div><!-- /#disqus_thread -->
