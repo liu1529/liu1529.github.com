@@ -296,7 +296,9 @@ superview中所处的位置，更加的合理和可配置。</p>
 <h2 id="transfom">Transfom</h2>
 
 <p>view 的transform属性，在不改变view的bounds和center的前提下，改变view的大小和方向。transform是一个
-CGAffineTransform类型，它相当于6个3＊3的矩阵，详细信息参考“Transforms” chapter of Apple’s Quartz 2D Pro‐ gramming Guide, especially the section called “The Math Behind the Matrices.”但是，你不需要知道这些细节，以<code>CGAffineTransformMake</code>开头的方法，提供了3个基本transform类型：旋转、放大缩小
+CGAffineTransform类型，它相当于6个3＊3的矩阵，详细信息参考
+“Transforms” chapter of Apple’s Quartz 2D Pro‐ gramming Guide, especially the section called “The Math Behind the Matrices.”
+但是，你不需要知道这些细节，以<code>CGAffineTransformMake</code>开头的方法，提供了3个基本transform类型：旋转、放大缩小
 、移动（translation）。第四种transform类型，比如倾斜、劈开，没有方便函数可供调用。</p>
 
 <p>默认，view的变换矩阵被称为CGAffineTransformIndentity，应用任何transform都围绕center，center始终
@@ -371,6 +373,196 @@ v2.transform = CGAffineTransformConcat(CGAffineTransformInvert(r), v2.transform)
 
 <p>另外，root view的bounds的高和宽被交换，所以可能导致某些界面元素不能被显示出来，请查看下一节如何
 解决这个问题。</p>
+
+<h1 id="layout">layout</h1>
+
+<p>我们已经知道，当superview的bounds的origin改变时，subview会移动。但是，当superview的bounds的size改变时，
+ subview的bounds和center都不会改变，superview的bounds的origin也未改变，所以
+subview保持在superview左上角的相对位置不变。在实际情况中，我们也许想要当superview的bounds的
+size发生变化时，subview也能跟着变化，这被称为layout。</p>
+
+<p>layout 有三种方法：</p>
+
+<ul>
+  <li>Manual layout</li>
+</ul>
+
+<p>当superview改变尺寸时，它会调用<code>layoutSubviews</code>方法。提供自己的subclass和重写<code>layoutSubviews</code>可以手动布局subview。</p>
+
+<ul>
+  <li>Autoresizing</li>
+</ul>
+
+<p>Autoresizing是iOS6之前的自动布局方法，当superview的尺寸变化时，subview根据它的属性autoresizingMask来调整自己尺寸。</p>
+
+<ul>
+  <li>Autolayout</li>
+</ul>
+
+<p>Autolayout在iOS6引进（和前面的系统不兼容），通过view的constraints设置。constraint不仅可以
+用于view，还可以用于描述任意两个view之间的关系。constrain可以使你不通过代码，也能实现更加
+复杂精确的layoutSubviews函数效果。</p>
+
+<p>你也可以混用3种layout策略，需要manual layout的情况比较少见。Autoresizing自动使用，除非你
+设置superview的autoresizeSubviews属性为NO，或者你在view种使用autolayout替代。Autolayout
+是一个可选的技术，你可以用于任何你认为合适的地方，你也可以和autoresizing一起使用。</p>
+
+<p>在Xcode5的storyboard和xib文件中默认使用autolayout，你可以在File inspector中选中或取消使用。
+另一方面，你在代码中创建的界面，默认使用autoresizing，而不是autolayout。</p>
+
+<h2 id="autoresizing">Autoresizing</h2>
+
+<p>Autoresizing概念上相当于subview的“springs and struts”。spring 可以伸缩，strut不可以，springs和struts可以被设定为
+内部的、外部的、水平的、垂直的。因此你可以通过内部springs和structs设置
+view的缩放，使用外部springs和struts设置view的位置。例如：</p>
+
+<p>1.一个subview在superview的中间并且保持在中间，但是当superview的size改变时，它的size也改变。
+它拥有外部struct和内部spring。</p>
+
+<p>2.一个subview在superview的中间并且保持，当superview的size改变时，它的size不改变。那么它
+拥有内部struct和外部spring。</p>
+
+<p>3.一个OK按钮始终在superview的右下角。那么它拥有内部的structs，外部的struts到它的右边和下边
+，外部springs到它的上边和左边。</p>
+
+<ol>
+  <li>一个文本输入框在superview的上面，当superview变宽时它也变宽。那么它拥有外部struts，内部的
+垂直strut和水平spring。</li>
+</ol>
+
+<p>在storyboard和xib中使用autoresizing，你需要先在File inspector中取消选中“Use Auto Layout”。
+你可以使用Size inspector来设置view的spring和strut，外部的实线表示struct，内部的实线表示
+spring。</p>
+
+<p>在代码中，通过设置view的autoresizingMask属性，这是一个位属性，使用或操作来混用。可以使用
+以<code>UIViewAutoresizingFlexible</code>开头的值来设置spring，不能用于设置strut。默认的UIViewAutoresizingNone，表示所有的strut，
+但是实际上它不是所有的strut，它相当于UIViewAutoresizingFlexibleRightMargin和UIViewAutoresizingFlexibleBottomMargin.</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIView</span><span class="o">*</span> <span class="n">v1</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">111</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">194</span><span class="p">)];</span>
+<span class="n">v1</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mf">.4</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">1</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="bp">UIView</span><span class="o">*</span> <span class="n">v2</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">10</span><span class="p">)];</span>
+<span class="n">v2</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mf">.5</span> <span class="nl">green</span><span class="p">:</span><span class="mi">1</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="bp">UIView</span><span class="o">*</span> <span class="n">v3</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span>
+													<span class="n">v1</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span>
+													<span class="n">v1</span><span class="p">.</span><span class="n">bounds</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="o">-</span><span class="mi">20</span><span class="p">,</span>
+														<span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)];</span>
+<span class="n">v3</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="nl">colorWithRed</span><span class="p">:</span><span class="mi">1</span> <span class="nl">green</span><span class="p">:</span><span class="mi">0</span> <span class="nl">blue</span><span class="p">:</span><span class="mi">0</span> <span class="nl">alpha</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+<span class="p">[</span><span class="n">mainview</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v1</span><span class="p">];</span>
+<span class="p">[</span><span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v2</span><span class="p">];</span>
+<span class="n">v1</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">v3</span><span class="p">];</span>
+
+<span class="n">v2</span><span class="p">.</span><span class="n">autoresizingMask</span> <span class="o">=</span> <span class="n">UIViewAutoresizingFlexibleWidth</span><span class="p">;</span>
+<span class="n">v3</span><span class="p">.</span><span class="n">autoresizingMask</span> <span class="o">=</span> <span class="n">UIViewAutoresizingFlexibleTopMargin</span> <span class="o">|</span>
+                          <span class="n">UIViewAutoresizingFlexibleLeftMargin</span><span class="p">;</span>
+<span class="bp">CGRect</span> <span class="n">r</span> <span class="o">=</span> <span class="n">v1</span><span class="p">.</span><span class="n">bounds</span><span class="p">;</span>
+<span class="n">r</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span> <span class="o">+=</span> <span class="mi">40</span><span class="p">;</span>
+<span class="n">r</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span> <span class="o">-=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">v1</span><span class="p">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span></code></pre></div>
+
+<p>上面的代码中，当v1的size改变时，v2的宽度也会跟着改变，v3的大小不会改变，它会一直在v1的右下角位置不变。</p>
+
+<p>当你旋转屏幕后，你的view也应该正确的旋转：</p>
+
+<pre><code>v1.frame = mainview.bounds;
+v1.autoresizingMask = UIViewAutoresizingFlexibleHeight |
+                      UIViewAutoresizingFlexibleWidth;
+</code></pre>
+
+<p>Autoresizing简单有效，但是有时它太简单了。它只能描述suview和superview之间的关系。<code>layoutSubviews</code>,
+方法在autoresizing后调用，所以你的<code>layoutSubviews</code>可以修正和改变autoresizing没有正确处理的部分。</p>
+
+<h1 id="autolayout">Autolayout</h1>
+
+<p>Autolayout可能在如下三种情况发生时使用：</p>
+
+<ol>
+  <li>你的代码中，向view加入autolayout constraint。</li>
+  <li>你的app中nib或storyboard选中“Use Auto Layout”，每个nib的view实例将使用autolayout。</li>
+  <li>在你的UIView子类中，重写方法<code>requiresConstraintBasedLayout</code>返回YES。</li>
+</ol>
+
+<p>第3中方法，主要用于在切换到autolayout，并在代码添加constraints。通常通过实现view的
+<code>updateConstraints</code>方法，在代码中添加constrains，但是如果<code>requiresConstraintBasedLayout</code>
+返回NO，那么将不会调用<code>updateConstraints</code>。</p>
+
+<p>一个superview使用autolayout，它的一个或所有subview可以不使用。但是，autolayout会穿透superview
+链，所以一个view使用autolayout，那么它的所有superview都会使用autolayout。如果这些view中
+有一个view是view controller的main view，那么view controller也会使用autolayout。</p>
+
+<h2 id="constraints">Constraints</h2>
+
+<p>Autolayout constraints 是一个NSLayoutConstraint实例，用于描述view的绝对高度和宽度，或者
+描述一个view和另一个view之间的关系，两个view之间只要有共同的祖先皆可。</p>
+
+<p>NSLayoutConstraint重要的属性如下：</p>
+
+<ol>
+  <li>firstItem, firstAttribute, secondItem, secondAttribute</li>
+</ol>
+
+<p>这个constrain包含两个view各自的属性，如果constrain描述的是view的绝对高度和宽度，第二个view
+位nil，第二个view的属性是NSLayoutAttributeNotAnAttribute，其余的属性值：</p>
+
+<ul>
+  <li>NSLayoutAttributeLeft,NSLayoutAttributeRight</li>
+  <li>NSLayoutAttributeTop,NSLayoutAttributeBottom</li>
+  <li>NSLayoutAttributeLeading,NSLayoutAttributeTrailing  </li>
+  <li>NSLayoutAttributeWidth,NSLayoutAttributeHeight</li>
+  <li>NSLayoutAttributeCenterX,NSLayoutAttributeCenterY </li>
+  <li>NSLayoutAttributeBaseline</li>
+</ul>
+
+<p>NSLayoutAttributeLeading、NSLayoutAttributeTrailing相当于国际上的NSLayoutAttributeLeft、
+NSLayoutAttributeRight，在书写顺序为从右往左国家，它会自动翻转顺序。</p>
+
+<ol>
+  <li>multiplier, constant</li>
+</ol>
+
+<p>用于设定第一个属性的值，比如满足等式“第一个属性的值＝第二个属性的值 * multiplier + constant”</p>
+
+<ol>
+  <li>relation</li>
+</ol>
+
+<p>用于设置第2点中等式的操作符，操作符可以可能是等号（NSLayoutRelationEqual），也可能是不等式
+NSLayoutRelationLessThanOrEqual, NSLayoutRelationGreaterThanOrEqual</p>
+
+<ol>
+  <li>priority</li>
+</ol>
+
+<p>优先级从1到1000</p>
+
+<p>一个view可以有多个constraint，UIView有一个constraints属性，通过下面方法添加或删除constrain</p>
+
+<ul>
+  <li>addConstraint:,addConstraints:</li>
+  <li>removeConstraint:,removeConstraints:</li>
+</ul>
+
+<p>对于给出的一个constrain，它属于谁呢？它属于它们两个view最近的superview。因此，如果constrain
+指示view的绝对高度，那么它属于这个view。如果它描述两个同级view的关系，那么它属于这个两个view的
+superview。如果它描述view和它superview之间的关系，那么它属于superview。</p>
+
+<p>NSLayoutConstraint的属性除了priority和constant都是只读的，如果你想改变已经存在的constraint，
+你必须先删除它，再重新添加。</p>
+
+<h2 id="autoresizing-constraints">Autoresizing constraints</h2>
+
+<p>view的autolayout机制，可能会导致在以前没有使用autolayout的view中引入autolayout。因此，必须
+有一种方式，保证当view引入autolayout的时候，它和通过设置frame和autoresizingMask的位置相同。
+系统有一个隐士的NSAutoresizingMaskLayoutConstraint来转换为正确的contraint。</p>
+
+<p>例如，你有一个UILabel的frame是{{20,20},{42,22}}，autoresizingMask为UIViewAutoresizingNone，
+如果它突然加入autolayout，它superview会转换它的隐士constrain，它的宽为42、高为22，center X为41，
+center Y为31.</p>
+
+<p>这个转换发生在view的translatesAutoresizingMaskIntoConstraints属性为YES。如果你想要添加
+任何清晰的constrain到view，你需要设置translatesAutoresizingMaskIntoConstraints为NO。
+否则可能会产生冲突。</p>
+
+<h2 id="constraints-1">代码中创建constraints</h2>
 
 
         <div id="disqus_thread"></div><!-- /#disqus_thread -->
