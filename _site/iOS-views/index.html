@@ -425,10 +425,8 @@ view的缩放，使用外部springs和struts设置view的位置。例如：</p>
 <p>3.一个OK按钮始终在superview的右下角。那么它拥有内部的structs，外部的struts到它的右边和下边
 ，外部springs到它的上边和左边。</p>
 
-<ol>
-  <li>一个文本输入框在superview的上面，当superview变宽时它也变宽。那么它拥有外部struts，内部的
-垂直strut和水平spring。</li>
-</ol>
+<p>4.一个文本输入框在superview的上面，当superview变宽时它也变宽。那么它拥有外部struts，内部的
+垂直strut和水平spring。</p>
 
 <p>在storyboard和xib中使用autoresizing，你需要先在File inspector中取消选中“Use Auto Layout”。
 你可以使用Size inspector来设置view的spring和strut，外部的实线表示struct，内部的实线表示
@@ -496,11 +494,8 @@ v1.autoresizingMask = UIViewAutoresizingFlexibleHeight |
 
 <p>NSLayoutConstraint重要的属性如下：</p>
 
-<ol>
-  <li>firstItem, firstAttribute, secondItem, secondAttribute</li>
-</ol>
-
-<p>这个constrain包含两个view各自的属性，如果constrain描述的是view的绝对高度和宽度，第二个view
+<p>1.firstItem, firstAttribute, secondItem, secondAttribute
+这个constrain包含两个view各自的属性，如果constrain描述的是view的绝对高度和宽度，第二个view
 位nil，第二个view的属性是NSLayoutAttributeNotAnAttribute，其余的属性值：</p>
 
 <ul>
@@ -513,26 +508,14 @@ v1.autoresizingMask = UIViewAutoresizingFlexibleHeight |
 </ul>
 
 <p>NSLayoutAttributeLeading、NSLayoutAttributeTrailing相当于国际上的NSLayoutAttributeLeft、
-NSLayoutAttributeRight，在书写顺序为从右往左国家，它会自动翻转顺序。</p>
-
-<ol>
-  <li>multiplier, constant</li>
-</ol>
-
-<p>用于设定第一个属性的值，比如满足等式“第一个属性的值＝第二个属性的值 * multiplier + constant”</p>
-
-<ol>
-  <li>relation</li>
-</ol>
-
-<p>用于设置第2点中等式的操作符，操作符可以可能是等号（NSLayoutRelationEqual），也可能是不等式
-NSLayoutRelationLessThanOrEqual, NSLayoutRelationGreaterThanOrEqual</p>
-
-<ol>
-  <li>priority</li>
-</ol>
-
-<p>优先级从1到1000</p>
+NSLayoutAttributeRight，在书写顺序为从右往左国家，它会自动翻转顺序。
+2.multiplier, constant
+用于设定第一个属性的值，比如满足等式“第一个属性的值＝第二个属性的值 * multiplier + constant”
+3.relation
+用于设置第2点中等式的操作符，操作符可以可能是等号（NSLayoutRelationEqual），也可能是不等式
+NSLayoutRelationLessThanOrEqual, NSLayoutRelationGreaterThanOrEqual
+4.priority
+优先级从1到1000</p>
 
 <p>一个view可以有多个constraint，UIView有一个constraints属性，通过下面方法添加或删除constrain</p>
 
@@ -562,7 +545,186 @@ center Y为31.</p>
 任何清晰的constrain到view，你需要设置translatesAutoresizingMaskIntoConstraints为NO。
 否则可能会产生冲突。</p>
 
-<h2 id="constraints-1">代码中创建constraints</h2>
+<h2 id="constraints-1">constraints错误</h2>
+
+<p>主要的错误有如下两种：</p>
+
+<ul>
+  <li>冲突</li>
+</ul>
+
+<p>当contraint不能被同时满足时，就会产生冲突。</p>
+
+<ul>
+  <li>不充分</li>
+</ul>
+
+<p>view使用autolayout，但是没有提供足够多的信息来确定view的位置和尺寸。这是一个不被容易发现的错误。</p>
+
+<p>为了分析不充分的情况，可以打印view的hasAmbiguousLayout属性，请确保在提交App Store之前删除。
+写一个NSLayoutConstraint的类别，可以很方便的检查view的不充分情况。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@implementation</span> <span class="bp">NSLayoutConstraint</span> <span class="nl">(Ambiguity)</span>
+    <span class="o">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nl">reportAmbiguity</span><span class="p">:(</span><span class="bp">UIView</span><span class="o">*</span><span class="p">)</span> <span class="n">v</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">nil</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">keyWindow</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="bp">UIView</span><span class="o">*</span> <span class="n">vv</span> <span class="k">in</span> <span class="n">v</span><span class="p">.</span><span class="n">subviews</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@ %d&quot;</span><span class="p">,</span> <span class="n">vv</span><span class="p">,</span> <span class="n">vv</span><span class="p">.</span><span class="n">hasAmbiguousLayout</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">vv</span><span class="p">.</span><span class="n">subviews</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+<span class="p">}</span> <span class="p">}</span>
+<span class="k">@end</span></code></pre></div>
+
+<p>另外，也可以在调试窗口访问key window的_autolayoutTrace，可以清晰输出view的情况。</p>
+
+<pre><code>(lldb) po [[UIWindow keyWindow] _autolayoutTrace]
+(id) $1 = 0x074a41a0
+*&lt;UIWindow:0x749b890&gt;
+|   *&lt;UIView:0x749ccb0&gt;
+|   |   *&lt;UIView:0x749c280&gt;
+|   |   |   *&lt;UIView:0x749c790&gt;
+|   |   |   *&lt;UIView:0x749c930&gt; - AMBIGUOUS LAYOUT
+</code></pre>
+
+<p>为了更好的放置一个view到superview，可以调用UIView的<code>constraintsAffectingLayoutForAxis:</code>
+方法获得它所有的constrains，你可以选择坐标轴UILayoutConstraintAxisHorizontal和
+UILayoutConstraintAxisVertical，但是你可能更喜欢用0和1代替它们。如果一个view未使用
+autolayout，那么它返回一个空的数组。这儿同样使用类别</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@implementation</span> <span class="bp">NSLayoutConstraint</span> <span class="nl">(Listing)</span>
+<span class="p">+</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">listConstraints:</span><span class="p">(</span><span class="bp">UIView</span><span class="o">*</span><span class="p">)</span> <span class="nv">v</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">nil</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIApplication</span> <span class="n">sharedApplication</span><span class="p">]</span> <span class="n">keyWindow</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="bp">UIView</span><span class="o">*</span> <span class="n">vv</span> <span class="k">in</span> <span class="n">v</span><span class="p">.</span><span class="n">subviews</span><span class="p">)</span> <span class="p">{</span>
+        <span class="bp">NSArray</span><span class="o">*</span> <span class="n">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="n">vv</span> <span class="nl">constraintsAffectingLayoutForAxis</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+        <span class="bp">NSArray</span><span class="o">*</span> <span class="n">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="n">vv</span> <span class="nl">constraintsAffectingLayoutForAxis</span><span class="p">:</span><span class="mi">1</span><span class="p">];</span>
+        <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;%@</span><span class="se">\n</span><span class="s">H: %@</span><span class="se">\n</span><span class="s">V:%@&quot;</span><span class="p">,</span> <span class="n">vv</span><span class="p">,</span> <span class="n">arr1</span><span class="p">,</span> <span class="n">arr2</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">vv</span><span class="p">.</span><span class="n">subviews</span><span class="p">.</span><span class="n">count</span><span class="p">)</span>
+<span class="p">}</span> <span class="p">}</span>
+<span class="k">@end</span></code></pre></div>
+
+<p>从冲突和不充分的观点，我们可以理解constraint的顺序。想象所有的constraint都被放在一个盒子里面，
+每个盒子都是一个优先级，他们从高到低放置。第一个盒子（1000）放置所有需要被满足的constraint，
+它被首先遵守（如果他们之间冲突，这是很坏的情况，会被报道在调试窗口。同时，系统会调低冲突中其中
+一个constraint，然后不遵守它，以满足其他constraint要求）。如果任然没有足够的信息来完成排布，
+那么系统将使用下一个盒子，然后遵守它，这样下去直到满足要求。除了第一个盒子，我们不需要关心其他
+盒子的constraint是否被正确遵守，因为如果这个盒子残留不充分，那么它将使用下一个优先级的盒子来
+补充满足。</p>
+
+<h2 id="section-1">固有内容尺寸</h2>
+
+<p>有一些控件使用autolayout时，有一个或多个继承尺寸，所以当它们没有NSLayoutConstraint时也能正确
+的显示。其实，继承的尺寸暗中使用NSContentSizeLayoutConstraint类生成constraint。例如，按钮
+有一个标准高度，它的宽度取决于它的标题。这继承的尺寸是对象固有内容尺寸。</p>
+
+<p>你给控件指定的constraint不能和其固有内容尺寸冲突：</p>
+
+<ul>
+  <li>contentHuggingPriorityForAxis</li>
+</ul>
+
+<p>view的尺寸应该小于等于它自己的内容固有尺寸优先级（默认250）。</p>
+
+<ul>
+  <li>contentCompressionResistancePriorityForAxis</li>
+</ul>
+
+<p>view的尺寸应该大于等于自己的内容固有尺寸的优先级（默认750）。</p>
+
+<p>例如，有两个label平放在superview中：</p>
+
+<pre><code>@"V:|-[_lab1]"
+@"V:|-[_lab2]"
+@"H:|-20-[_lab1]"
+@"H:[_lab2]-20-|"
+@"H:[_lab1]-(&gt;=20)-[_lab2]"
+</code></pre>
+
+<p>当两个label变得越来越长时，还应该指定谁应该被压缩，下面指定当lab1和lab2相遇时，lab2应该被压缩。</p>
+
+<pre><code>[self.lab1 setContentCompressionResistancePriority:751
+    forAxis:UILayoutConstraintAxisHorizontal];
+</code></pre>
+
+<p>下面的代码中，button位于superview的中间位置，label位于它的左边，当label的长度越来越长的时候，
+button会向右移动。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="nb">self</span><span class="p">.</span><span class="n">button</span><span class="p">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">label</span><span class="p">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="o">=</span> <span class="nb">NO</span><span class="p">;</span>
+<span class="bp">NSDictionary</span><span class="o">*</span> <span class="n">d</span> <span class="o">=</span> <span class="n">NSDictionaryOfVariableBindings</span><span class="p">(</span><span class="n">_button</span><span class="p">,</span><span class="n">_label</span><span class="p">);</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addConstraints</span><span class="p">:</span>
+<span class="p">[</span><span class="bp">NSLayoutConstraint</span>
+      <span class="nl">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@&quot;V:[_button]-(112)-|&quot;</span>
+      <span class="nl">options</span><span class="p">:</span><span class="mi">0</span> <span class="nl">metrics</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">views</span><span class="p">:</span><span class="n">d</span><span class="p">]];</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addConstraints</span><span class="p">:</span>
+     <span class="p">[</span><span class="bp">NSLayoutConstraint</span>
+      <span class="nl">constraintsWithVisualFormat</span><span class="p">:</span><span class="s">@&quot;H:|-(&gt;=10)-[_label]-[_button]-(&gt;=10)-|&quot;</span>
+      <span class="nl">options</span><span class="p">:</span><span class="n">NSLayoutFormatAlignAllBaseline</span> <span class="nl">metrics</span><span class="p">:</span><span class="nb">nil</span> <span class="nl">views</span><span class="p">:</span><span class="n">d</span><span class="p">]];</span>
+<span class="bp">NSLayoutConstraint</span><span class="o">*</span> <span class="n">con</span> <span class="o">=</span>
+    <span class="p">[</span><span class="bp">NSLayoutConstraint</span>
+     <span class="nl">constraintWithItem</span><span class="p">:</span><span class="n">_button</span> <span class="nl">attribute</span><span class="p">:</span><span class="n">NSLayoutAttributeCenterX</span>
+     <span class="nl">relatedBy</span><span class="p">:</span><span class="mi">0</span>
+     <span class="nl">toItem</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">attribute</span><span class="p">:</span><span class="n">NSLayoutAttributeCenterX</span>
+     <span class="nl">multiplier</span><span class="p">:</span><span class="mi">1</span> <span class="nl">constant</span><span class="p">:</span><span class="mi">0</span><span class="p">];</span>
+<span class="n">con</span><span class="p">.</span><span class="n">priority</span> <span class="o">=</span> <span class="mi">700</span><span class="p">;</span> <span class="c1">// try commenting this out to see the difference</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addConstraint</span><span class="p">:</span><span class="n">con</span><span class="p">];</span></code></pre></div>
+
+<p>你可以重写自定义UIView的<code>intrinsicContentSize</code>的方法，返回你自定义UIView的固有内容长度。你
+的自定义UIView的尺寸和它的内容相关时，你才需要这么做。当内容尺寸改变的时候你需要刷新你的view，
+你向你的view发送<code>invalidateIntrinsicContentSize</code>消息，它会再次调用<code>intrinsicContentSize</code>。</p>
+
+<p>有时，你需要你的view能和别的view基线对齐，为了提供你view的基线，你需要包含一个subview，这个
+subview的底部将是你view的基线，你需要<code>viewForBaselineLayout</code>方法中返回subview。</p>
+
+<h2 id="nibautolayout">在nib中使用autolayout</h2>
+
+<h2 id="layout-">layout 事件顺序</h2>
+
+<p>1.view和它所有的subview将会从最底层（最深的subview）到最顶层（view本身）将会调用<code>updateConstraints</code>。
+如果subview的constrain没有变化，可能不会调用这个方法，但是最顶层的view肯定会调用。
+你可以重写<code>updateConstraints</code>方法，但是你不要直接调用它。为了触发调用它，你可以给view发送
+<code>updateConstraintsIfNeeded</code>消息，但是除非constrain已经改变或这个是顶层view，才会触发调用
+<code>updateConstraints</code>。如果你需要强制调用它，发送<code>setNeedsUpdateConstraints</code>消息。</p>
+
+<p>2.view和它所有的subview将从最顶层（view本身）到最底层（最深的subview）将会调用<code>layoutSubviews</code>.
+你可以重写这个方法，用于手动布局。<code>layoutSubviews</code>可以使你在autoresizing发生后，进行手动布局。
+你不能直接调用这个方法，为了触发它，你可以给view发送<code>layoutIfNeeded</code>消息（这可能引起整个
+view树（不仅这个view上面或下面的view树）layout）。但通常发送<code>setNeedsLayout</code>消息，在代码完成
+后触发<code>layoutSubviews</code>。</p>
+
+<p>使用autolayout时，如果你想稍微修改一下布局的结果，你可以重写<code>layoutSubviews</code>。首先，你调用
+super，让subview有它们自己的frame，然后你检查它们的frame，如果你不喜欢它们，你可以删除subview、
+添加或删除constrain等等，最后再次调用super，得到新的结果。</p>
+
+<p>除非你明确表示要立即layout，否则它们只会在代码完成且需要更新的时候才会layout。</p>
+
+<h2 id="autolayouttransform">Autolayout和Transform</h2>
+
+<p>当你运行如下代码：</p>
+
+<pre><code>v.transform = CGAffineTransformMakeScale(1.2,1.2);
+</code></pre>
+
+<p>我希望view围绕着center向四周放大，但是这个view会向下和向右放大，而它的向左和向上保持不变，也
+就是我希望它的center不变，结果它的原点不变，center改变。这都取决于view的constrain。</p>
+
+<p>autolayout不能很好的应用在transform中，主要有如下原因：</p>
+
+<ul>
+  <li>应用transform会导致view立即触发layout</li>
+  <li>当layout触发时，<code>layoutSubviews</code>通过constrain设置view的frame。</li>
+</ul>
+
+<p>因此，当你给一个使用autolayout的view应用transform的时候，autolayout会改变view的frame来
+阻止transform的改变，这好像是一个bug。</p>
+
+<p>这个问题不好解决，这儿有三个建议，但是都不是令人很满意：</p>
+
+<ul>
+  <li>让你constrain更完善，到你要给一个view应用transform的时候，设置view的constrain影响center，而不是frame。</li>
+  <li>创建一个主view和一个subview。主view的位置通过constrain设置，并且不可见。在subview中删除
+所有能影响它的constrain，设置<code>translatesAutoresizingMaskIntoConstraints</code>为YES。</li>
+  <li>使用layer transform，因为layer transform不会触发layout。</li>
+</ul>
 
 
         <div id="disqus_thread"></div><!-- /#disqus_thread -->
@@ -572,6 +734,8 @@ center Y为31.</p>
       
         <a href="/RTThread-context-switch/" class="btn" title="嵌入式操作系统的上下文切换">Previous article</a>
       
+      
+        <a href="/iOS-Drawing/" class="btn" title="iOS Drawing">Next article</a>
       
     </nav><!-- /.pagination -->
   </article>

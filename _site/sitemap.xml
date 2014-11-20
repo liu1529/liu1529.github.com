@@ -40,6 +40,22 @@
 
     
     <url>
+        <loc>/NXP-Zigbee-iOS/</loc>
+    </url>
+    
+    <url>
+        <loc>/iOS-Animation/</loc>
+    </url>
+    
+    <url>
+        <loc>/iOS-Layer/</loc>
+    </url>
+    
+    <url>
+        <loc>/iOS-Drawing/</loc>
+    </url>
+    
+    <url>
         <loc>/iOS-views/</loc>
     </url>
     

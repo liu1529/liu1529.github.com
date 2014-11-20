@@ -1,0 +1,348 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>NXP Zigbee iOS &#8211; 我的博客</title>
+<meta name="description" content="欢迎来到我的博客">
+<meta name="keywords" content="iOS, Zigbee">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NXP Zigbee iOS">
+<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:url" content="/NXP-Zigbee-iOS/">
+<meta property="og:site_name" content="我的博客">
+
+
+
+
+
+<link rel="canonical" href="/NXP-Zigbee-iOS/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/tags/">Tags</a>
+				 
+			</li>
+	        
+	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="/" class="site-logo" rel="home" title="我的博客"><img src="/images/site-logo.png" width="200" height="200" alt="我的博客 logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="/">我的博客</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">欢迎来到我的博客</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="/tags/#iOS" title="Pages tagged iOS">iOS</a>&nbsp;&bull;&nbsp;<a href="/tags/#Zigbee" title="Pages tagged Zigbee">Zigbee</a></span>
+        
+          <h1 class="entry-title">NXP Zigbee iOS</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-11-04T00:00:00+08:00"><i class="icon-calendar-empty"></i> November 04, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="/NXP-Zigbee-iOS/" rel="bookmark" title="NXP Zigbee iOS"><i class="icon-link"></i> Permalink</a></span>
+        
+      </footer>
+      <div class="entry-content">
+        <p>最近开发基于Zigbee的网关，需要开发iOS程序，Zigbee方面的库文件使用NXP的。我使用OS X版本是10.9.5，
+Xcode版本是6.0.1，SDK版本为iOS8.0，App的最低支持版本是iOS7.0，NXP的库文件版本是1.5。</p>
+
+<p>首先，在NXP网站下载JN-UG-3086和JN-AN-1194，在JN-AN-1194的Source/Host目录下找到libJIP-v1.5，
+然后将其Source目录和Include目录懂添加到Xcode中。</p>
+
+<p>1.将TARGETS-&gt;Build Settings-&gt;Search Paths-&gt;Always Search User Paths改为YES</p>
+
+<p>2.在libJIP.c中加入</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#define LIBJIP_VERSION_MAJOR    &quot;1&quot;</span>
+<span class="cp">#define LIBJIP_VERSION_MINOR    &quot;5&quot;</span>
+<span class="cp">#define LIBJIP_VERSION          &quot;1.5&quot;</span></code></pre></div>
+
+<p>3.加入libxml库，在TARGET-&gt;General-&gt;Linked Frameworks and Libraries中添加libxml2.dylib，
+然后TARGETS-&gt;Build Settings-&gt;Search Paths-&gt;Header Search Paths中添加${SDK_ROOT}/usr/include/libxml2</p>
+
+<p>4.在TARGET-&gt;Build Settings-&gt;Apple LLVM 6.0-Preprocessing-&gt;Preprocesser Macros中加入
+__APPLE_USE_RFC_2292，并在Network.c中加入</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="cp">#define IPV6_RECVPKTINFO    IPV6_PKTINFO</span></code></pre></div>
+
+<p>5.在https://gist.github.com/panzi/6856583下载portable_endian.h，将其添加到工程中</p>
+
+<p>6.在Threads.c里面添加#include <unistd.h>，并修改`eJIPLockLockTimed`函数</unistd.h></p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">teLockStatus</span> <span class="nf">eJIPLockLockTimed</span><span class="p">(</span><span class="n">tsLock</span> <span class="o">*</span><span class="n">psLock</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">u32WaitTimeout</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">tsLockPrivate</span> <span class="o">*</span><span class="n">psLockPrivate</span> <span class="o">=</span> <span class="p">(</span><span class="n">tsLockPrivate</span> <span class="o">*</span><span class="p">)</span><span class="n">psLock</span><span class="o">-&gt;</span><span class="n">pvPriv</span><span class="p">;</span>
+    
+<span class="cp">#ifndef WIN32</span>
+    <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">timeval</span> <span class="n">sNow</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">timespec</span> <span class="n">sTimeout</span><span class="p">;</span>
+        
+        <span class="n">gettimeofday</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sNow</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">sTimeout</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">=</span> <span class="n">sNow</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">+</span> <span class="n">u32WaitTimeout</span><span class="p">;</span>
+        <span class="n">sTimeout</span><span class="p">.</span><span class="n">tv_nsec</span> <span class="o">=</span> <span class="n">sNow</span><span class="p">.</span><span class="n">tv_usec</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span>
+        
+        <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx time locking: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+
+        <span class="k">switch</span> <span class="p">(</span><span class="n">pthread_mutex_timedlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">psLockPrivate</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sTimeout</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">case</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span>
+                <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx: time locked: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">E_LOCK_OK</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+                
+            <span class="k">case</span> <span class="p">(</span><span class="n">ETIMEDOUT</span><span class="p">)</span><span class="o">:</span>
+                <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx: time out locking: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">E_LOCK_ERROR_TIMEOUT</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+
+            <span class="k">default</span><span class="o">:</span>
+                <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx: error locking: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">E_LOCK_ERROR_FAILED</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+<span class="cp">#else</span>
+    
+    
+<span class="cp">#endif </span><span class="cm">/* WIN32 */</span><span class="cp"></span>
+<span class="p">}</span></code></pre></div>
+
+<p>改为</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">teLockStatus</span> <span class="nf">eJIPLockLockTimed</span><span class="p">(</span><span class="n">tsLock</span> <span class="o">*</span><span class="n">psLock</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">u32WaitTimeout</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">tsLockPrivate</span> <span class="o">*</span><span class="n">psLockPrivate</span> <span class="o">=</span> <span class="p">(</span><span class="n">tsLockPrivate</span> <span class="o">*</span><span class="p">)</span><span class="n">psLock</span><span class="o">-&gt;</span><span class="n">pvPriv</span><span class="p">;</span>
+    
+<span class="cp">#ifndef WIN32</span>
+    
+    <span class="kt">int32_t</span> <span class="n">ecode</span> <span class="o">=</span> <span class="n">E_LOCK_ERROR_FAILED</span><span class="p">;</span>
+<span class="cp">#if defined(_POSIX_TIMEOUTS) &amp;&amp; (_POSIX_TIMEOUTS - 200112L) &gt;= 0L</span>
+    <span class="cm">/* POSIX Timeouts are supported - option group [TMO] */</span>
+    <span class="p">{</span>
+        <span class="k">struct</span> <span class="n">timeval</span> <span class="n">sNow</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">timespec</span> <span class="n">sTimeout</span><span class="p">;</span>
+        
+        <span class="n">gettimeofday</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sNow</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+        <span class="n">sTimeout</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">=</span> <span class="n">sNow</span><span class="p">.</span><span class="n">tv_sec</span> <span class="o">+</span> <span class="n">u32WaitTimeout</span><span class="p">;</span>
+        <span class="n">sTimeout</span><span class="p">.</span><span class="n">tv_nsec</span> <span class="o">=</span> <span class="n">sNow</span><span class="p">.</span><span class="n">tv_usec</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span>
+        
+        <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx time locking: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+        
+        <span class="n">ecode</span> <span class="o">=</span> <span class="n">pthread_mutex_timedlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">psLockPrivate</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sTimeout</span><span class="p">);</span>
+        
+    <span class="p">}</span>
+
+    
+<span class="cp">#else</span>
+    
+    <span class="cm">/* Not OK to use the functions */</span>
+    <span class="n">ecode</span> <span class="o">=</span> <span class="n">pthread_mutex_trylock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">psLockPrivate</span><span class="o">-&gt;</span><span class="n">mutex</span><span class="p">);</span>
+    
+    
+<span class="cp">#endif</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">ecode</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="k">case</span> <span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx: time locked: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">E_LOCK_OK</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+        
+    <span class="k">case</span> <span class="p">(</span><span class="n">ETIMEDOUT</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx: time out locking: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">E_LOCK_ERROR_TIMEOUT</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+        
+    <span class="k">default</span><span class="o">:</span>
+        <span class="n">DBG_vPrintf</span><span class="p">(</span><span class="n">DBG_LOCKS</span><span class="p">,</span> <span class="s">&quot;Thread 0x%lx: error locking: %p</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pthread_self</span><span class="p">(),</span> <span class="n">psLock</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">E_LOCK_ERROR_FAILED</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+<span class="cp">#else</span>
+    <span class="c1">//wind32</span>
+    
+<span class="cp">#endif </span><span class="cm">/* WIN32 */</span><span class="cp"></span>
+<span class="p">}</span></code></pre></div>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/iOS-Animation/" class="btn" title="iOS Animation">Previous article</a>
+      
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 liu1529. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : '/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>

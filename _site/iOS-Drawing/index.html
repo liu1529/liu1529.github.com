@@ -1,0 +1,868 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>iOS Drawing &#8211; 我的博客</title>
+<meta name="description" content="欢迎来到我的博客">
+<meta name="keywords" content="iOS, Drawing">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Drawing">
+<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:url" content="/iOS-Drawing/">
+<meta property="og:site_name" content="我的博客">
+
+
+
+
+
+<link rel="canonical" href="/iOS-Drawing/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/tags/">Tags</a>
+				 
+			</li>
+	        
+	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="/" class="site-logo" rel="home" title="我的博客"><img src="/images/site-logo.png" width="200" height="200" alt="我的博客 logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="/">我的博客</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">欢迎来到我的博客</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="/tags/#iOS" title="Pages tagged iOS">iOS</a>&nbsp;&bull;&nbsp;<a href="/tags/#Drawing" title="Pages tagged Drawing">Drawing</a></span>
+        
+          <h1 class="entry-title">iOS Drawing</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-09-19T00:00:00+08:00"><i class="icon-calendar-empty"></i> September 19, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="/iOS-Drawing/" rel="bookmark" title="iOS Drawing"><i class="icon-link"></i> Permalink</a></span>
+        
+      </footer>
+      <div class="entry-content">
+        <h2 id="uiimageuiimageview">UIImage和UIImageView</h2>
+
+<p>最简单的方法，使用<code>imageNamed:</code>方法创建UIImage，它搜索Asset catalog（首先搜索）和Top level of app bundle。
+或者通过<code>imageWithContentsOfFile</code>方法直接搜索<code>[NSBundle mainBundle]</code>。</p>
+
+<p>UIIamgeView的contentMode属性决定了图像在view中怎么显示。UIViewContentModeScaleToFill
+意味着缩放当这个view的大小显示，UIViewContentModeCenter表示显示在view的中间，且不缩放。</p>
+
+<p>当你代码中创建一个UIImageView时，contentMode属性默认为UIViewContentModeScaleToFill，
+但是image不会初始缩放，而是view会缩放到image的尺寸，你需要将UIImageView放在superview正确
+的地方。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImageView</span><span class="o">*</span> <span class="n">iv</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIImageView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage</span><span class="p">:[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">]];</span>
+<span class="p">[</span><span class="n">mainview</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">iv</span><span class="p">];</span>
+<span class="n">iv</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="n">CGRectGetMidX</span><span class="p">(</span><span class="n">iv</span><span class="p">.</span><span class="n">superview</span><span class="p">.</span><span class="n">bounds</span><span class="p">),</span>
+                            <span class="n">CGRectGetMidY</span><span class="p">(</span><span class="n">iv</span><span class="p">.</span><span class="n">superview</span><span class="p">.</span><span class="n">bounds</span><span class="p">));</span>
+<span class="n">iv</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">CGRectIntegral</span><span class="p">(</span><span class="n">iv</span><span class="p">.</span><span class="n">frame</span><span class="p">);</span></code></pre></div>
+
+<p>当你给一个已经存在的UIImageView赋值Image时，它的尺寸取决于它使用的autolayout。如果未使用
+autolayout，或image尺寸小于view尺寸，view的尺寸不会改变。但是在autolayout下，image的
+尺寸会赋值给view的<code>intrinsicContentSize</code>，所以view的尺寸会适配image的尺寸，除非有其他
+的constrain。</p>
+
+<h2 id="resizable-images">Resizable Images</h2>
+
+<p>UIImage可以调用<code>resizableImageWithCapInsets:resizingMode: </code>方法可以被转换为resizable image。</p>
+
+<h2 id="image-rendering-mode">Image Rendering Mode</h2>
+
+<p>在iOS的有些地方，image被当做transparentmask，也被称为template。这意味着image的颜色改变
+被忽略，只有alpha和tint color共同起作用。在iOS7中，在image的rederingMode模式下，image被
+当做图像。这个属性是只读的，要想改变它，通过调用<code>imageWithRenderingMode:</code>新建图像，rederingMode
+有如下值：</p>
+
+<ul>
+  <li>UIImageRenderingModeAutomatic（默认值）</li>
+  <li>UIImageRenderingModeAlwaysOriginal</li>
+  <li>UIImageRenderingModeAlwaysTemplate</li>
+</ul>
+
+<p>iOS7中，每个view都有一个tintColor，用于重新染色它包含的任何template image。而且，subview会
+继承superview的tintColor，因此改变window的tintColor可以很方便的改变整个app的颜色（如果你使用
+main storyboard，使用File inspector设置）。每个view重写tintColor，便可以拥有自己的tintColor。</p>
+
+<h2 id="graphics-contexts">Graphics Contexts</h2>
+
+<p>graphic context是在代码中唯一能绘制（Drawing）的地方，有很多方法可以获得graphic
+context，在这章中主要介绍两种：</p>
+
+<ul>
+  <li>创建一个image context</li>
+</ul>
+
+<p>通过函数<code>UIGraphicsBeginImageContextWithOptions</code>创建一个可用于产生image的
+graphic context。完成以后，通过<code>UIGraphicsGetImageFromCurrentImageContext</code>
+获得一个UIImage，最后调用<code>UIGraphicsEndImageContext</code>。</p>
+
+<ul>
+  <li>Cocoa给你一个graphics context</li>
+</ul>
+
+<p>你子类化UIView然后实现<code>drawRect:</code>。在你的<code>drawRect:</code>中cocoa已经给你创建了一个
+graphic context，在函数中任何绘制的东西都将显示在界面上。（你子类化CALayer并实现
+<code>drawRect:</code>，或某个对象有layer的委托并实现<code>drawRect:</code>时，有所不同）</p>
+
+<p>此外，在任何时候要么是当前graphics context要么不是：</p>
+
+<ul>
+  <li>
+    <p><code>UIGraphicsBeginImageContextWithOptions</code>创建一个image context，并使这个context
+为当前graphic context。</p>
+  </li>
+  <li>
+    <p><code>drawRect:</code>被调用的时候，已经是当前graphic context。</p>
+  </li>
+  <li>
+    <p><code>context:</code>的回调函数参数不会使任何context变为当前graphic context，这个参数这是
+graphic context的引用。</p>
+  </li>
+</ul>
+
+<p>Drawing有两套独立的绘制工具：</p>
+
+<ul>
+  <li>UIKit</li>
+</ul>
+
+<p>很多object-C类知道怎么绘制自己，包括NSString(绘制文本)，UIBezierPath（绘制形状），
+和UIColor。它们提供了很多方便的方法来绘制，在大多数情况下，你只需要使用UIKit。
+使用UIKit，你必须在当前context中使用，这在<code>UIGraphicsBeginImageContextWithOptions</code>
+或<code>drawRect:</code>当然没有问题。但是当使用<code>context:</code>参数时，你必须使用<code>UIGraphicsPushContext</code>
+将其变为当前graphic context，确保在使用完成后调用<code>UIGraphicsPopContext</code>。</p>
+
+<ul>
+  <li>Core Graphics</li>
+</ul>
+
+<p>这是一个完全的drawing api。Core Graphics通常称为Quartz（或Quartz 2D），它是
+iOS所有绘制的基础，所以它是一个底层一系列C函数，UIKit在其上层封装。这章会使你熟悉
+一些基本的绘制原理，请参考apple的Quartz 2D Programming Guide。
+在Core Graphics中，在使用的每个函数中，你必须制定一个Graphics context（CGContexRef）。
+在<code>UIGraphicsBeginImageContextWithOptions</code>或<code>drawRect:</code>中，你需要调用
+<code>UIGraphicsGetCurrentContext</code>获得一个context引用。</p>
+
+<h2 id="uiimage-drawing">UIImage Drawing</h2>
+
+<p>UIImage提供在当前context绘制自己的方法。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span>
+        <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">[</span><span class="n">mars</span> <span class="nl">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">mars</span> <span class="nl">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="mi">0</span><span class="p">)];</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span></code></pre></div>
+
+<p>上面的代码，创建一个两个image水平并排的图形。如果你有两种不同分辨率的图片，代码会使用当前设备
+正确的分辨率图片，并设置图片正确的scale属性。调用<code>UIGraphicsBeginImageContextWithOptions</code>时，
+第3个参数为0，所以这儿绘制的image context也有正确的scale，最后<code>UIGraphicsGetImageFromCurrentImageContext</code>
+也会得到正确的分辨率图片。因此，相同的代码在不同分辨率的设备上也能正确的工作。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span>
+        <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="o">*</span><span class="mi">2</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">[</span><span class="n">mars</span> <span class="nl">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="o">*</span><span class="mi">2</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">mars</span> <span class="nl">drawInRect</span><span class="p">:</span><span class="n">CGRectMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">)</span>
+           <span class="nl">blendMode</span><span class="p">:</span><span class="n">kCGBlendModeMultiply</span> <span class="nl">alpha</span><span class="p">:</span><span class="mf">1.0</span><span class="p">];</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span></code></pre></div>
+
+<p>上面的代码，创建一个image包含另一个image的图形。UIImage方法在矩形中绘制时会自动缩放，
+你也可以指定image的合成模式（blend）。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span>
+        <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">[</span><span class="n">mars</span> <span class="nl">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="o">-</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)];</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span></code></pre></div>
+
+<p>上面的代码，会创建image的右半边图形。UIImage的绘制方法中，没有指定源文件的范围的方法，你可以设置一个
+更小的context，然后绘制你需要显示的部分。</p>
+
+<h2 id="cgimage-drawing">CGImage Drawing</h2>
+
+<p>UIImage的Core Graphics版本是CGImage（实际上是CGImageRef）。</p>
+
+<p>CIImage比UIImage更加强大，现在我们把一个图形分成两半显示，注意我们现在处于CFTypeRef世界中，
+因此我们必须手动管理内存。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="c1">// extract each half as a CGImage</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="n">CGImageRef</span> <span class="n">marsLeft</span> <span class="o">=</span> <span class="n">CGImageCreateWithImageInRect</span><span class="p">([</span><span class="n">mars</span> <span class="bp">CGImage</span><span class="p">],</span>
+                           <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">));</span>
+<span class="n">CGImageRef</span> <span class="n">marsRight</span> <span class="o">=</span> <span class="n">CGImageCreateWithImageInRect</span><span class="p">([</span><span class="n">mars</span> <span class="bp">CGImage</span><span class="p">],</span>
+                            <span class="n">CGRectMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">));</span>
+<span class="c1">// draw each CGImage into an image context</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span>
+        <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">*</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">CGContextRef</span> <span class="n">con</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+<span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">con</span><span class="p">,</span>
+                    <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="n">marsLeft</span><span class="p">);</span>
+<span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">con</span><span class="p">,</span>
+<span class="n">CGRectMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="n">marsRight</span><span class="p">);</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+<span class="n">CGImageRelease</span><span class="p">(</span><span class="n">marsLeft</span><span class="p">);</span> <span class="n">CGImageRelease</span><span class="p">(</span><span class="n">marsRight</span><span class="p">);</span></code></pre></div>
+
+<p>但是，上面的代码有一个问题，绘制的图形是上下颠倒的，它是上下对称颠倒的，专业术语叫做<code>fipped</code>。
+这个问题，在你创建一个CGImage，然后使用它在<code>CGContextDrawImage</code>中绘制时会出现，这是由于
+源contex和目标context的坐标系不匹配导致的。</p>
+
+<p>这儿有很多方法解决这种坐标系不匹配的问题，比如在一个中间UIImage中绘制CGImage，然后从中导出，
+下面的代码演示了这种方法。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">CGImageRef</span> <span class="nf">flip</span> <span class="p">(</span><span class="n">CGImageRef</span> <span class="n">im</span><span class="p">)</span> <span class="p">{</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">CGImageGetWidth</span><span class="p">(</span><span class="n">im</span><span class="p">),</span> <span class="n">CGImageGetHeight</span><span class="p">(</span><span class="n">im</span><span class="p">));</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">UIGraphicsGetCurrentContext</span><span class="p">(),</span>
+                       <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="n">im</span><span class="p">);</span>
+<span class="n">CGImageRef</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">()</span> <span class="bp">CGImage</span><span class="p">];</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+<span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>在上个例子中，我们使用这种方法修正</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span>
+                       <span class="n">flip</span><span class="p">(</span><span class="n">marsLeft</span><span class="p">));</span>
+<span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span>
+                       <span class="n">flip</span><span class="p">(</span><span class="n">marsRight</span><span class="p">));</span></code></pre></div>
+
+<p>但是，当你使用不同分辨率的图片时任然有问题，在使用双倍分辨率的图片时，所有的绘制输出都是错误的。原因是，
+我们通过<code>imageNamed:</code>方法获得图片，它在双倍分辨率的设备中，会返回一个通过设置scale属性来补偿
+尺寸的图片。但是，CGImage没有scale属性，它不知道image是双倍分辨率。所以，在双倍分辨率的设备中，
+我们通过调用<code>image.CGImage</code>从UIImage中得到是两倍<code>image.size</code>的CGImage，导致以后所有的计算都是
+错误的。</p>
+
+<p>所有，为了得到正确的CGImage，我们必须指定正确的scale或明确指定CGImage的分辨率。下面的代码，可以正确的
+工作在不同分辨率的设备中。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="c1">// Derive CGImage and use its dimensions to extract its halves</span>
+<span class="n">CGImageRef</span> <span class="n">marsCG</span> <span class="o">=</span> <span class="p">[</span><span class="n">mars</span> <span class="bp">CGImage</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">szCG</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">CGImageGetWidth</span><span class="p">(</span><span class="n">marsCG</span><span class="p">),</span> <span class="n">CGImageGetHeight</span><span class="p">(</span><span class="n">marsCG</span><span class="p">));</span>
+<span class="n">CGImageRef</span> <span class="n">marsLeft</span> <span class="o">=</span>
+	<span class="n">CGImageCreateWithImageInRect</span><span class="p">(</span>
+            <span class="n">marsCG</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">height</span><span class="p">));</span>
+<span class="n">CGImageRef</span> <span class="n">marsRight</span> <span class="o">=</span>
+        <span class="n">CGImageCreateWithImageInRect</span><span class="p">(</span>
+            <span class="n">marsCG</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">szCG</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">height</span><span class="p">));</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span>
+        <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">*</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">// The rest is as before, calling flip() to compensate for flipping</span>
+<span class="n">CGContextRef</span> <span class="n">con</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+<span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span>
+                       <span class="n">flip</span><span class="p">(</span><span class="n">marsLeft</span><span class="p">));</span>
+<span class="n">CGContextDrawImage</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span>
+                       <span class="n">flip</span><span class="p">(</span><span class="n">marsRight</span><span class="p">));</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+<span class="n">CGImageRelease</span><span class="p">(</span><span class="n">marsLeft</span><span class="p">);</span> <span class="n">CGImageRelease</span><span class="p">(</span><span class="n">marsRight</span><span class="p">);</span></code></pre></div>
+
+<p>另外，我们也可以在使用UIImage包围CGImage，并使用UIImage绘制而不是CGImage。UIImage可以调用
+<code>imageWithCGImage:scale:orientation:</code>以指定正确的scale，而且没有flipping问题。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">sz</span> <span class="o">=</span> <span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">;</span>
+<span class="c1">// Derive CGImage and use its dimensions to extract its halves</span>
+<span class="n">CGImageRef</span> <span class="n">marsCG</span> <span class="o">=</span> <span class="p">[</span><span class="n">mars</span> <span class="bp">CGImage</span><span class="p">];</span>
+<span class="bp">CGSize</span> <span class="n">szCG</span> <span class="o">=</span> <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">CGImageGetWidth</span><span class="p">(</span><span class="n">marsCG</span><span class="p">),</span> <span class="n">CGImageGetHeight</span><span class="p">(</span><span class="n">marsCG</span><span class="p">));</span>
+<span class="n">CGImageRef</span> <span class="n">marsLeft</span> <span class="o">=</span>
+	<span class="n">CGImageCreateWithImageInRect</span><span class="p">(</span>
+            <span class="n">marsCG</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">height</span><span class="p">));</span>
+<span class="n">CGImageRef</span> <span class="n">marsRight</span> <span class="o">=</span>
+    <span class="n">CGImageCreateWithImageInRect</span><span class="p">(</span>
+         <span class="n">marsCG</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="n">szCG</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">,</span><span class="n">szCG</span><span class="p">.</span><span class="n">height</span><span class="p">));</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span>
+        <span class="n">CGSizeMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="o">*</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">sz</span><span class="p">.</span><span class="n">height</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">[[</span><span class="bp">UIImage</span> <span class="nl">imageWithCGImage</span><span class="p">:</span><span class="n">marsLeft</span>
+                         <span class="nl">scale</span><span class="p">:</span><span class="n">mars</span><span class="p">.</span><span class="n">scale</span>
+                   <span class="nl">orientation</span><span class="p">:</span><span class="n">UIImageOrientationUp</span><span class="p">]</span>
+     <span class="nl">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)];</span>
+<span class="p">[[</span><span class="bp">UIImage</span> <span class="nl">imageWithCGImage</span><span class="p">:</span><span class="n">marsRight</span>
+                         <span class="nl">scale</span><span class="p">:</span><span class="n">mars</span><span class="p">.</span><span class="n">scale</span>
+                   <span class="nl">orientation</span><span class="p">:</span><span class="n">UIImageOrientationUp</span><span class="p">]</span>
+     <span class="nl">drawAtPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="n">sz</span><span class="p">.</span><span class="n">width</span><span class="p">,</span><span class="mi">0</span><span class="p">)];</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+<span class="n">CGImageRelease</span><span class="p">(</span><span class="n">marsLeft</span><span class="p">);</span> <span class="n">CGImageRelease</span><span class="p">(</span><span class="n">marsRight</span><span class="p">);</span></code></pre></div>
+
+<p>还有一种解决方法就是在CGImage绘制之前，给graphic context应用transform，这可以flipping context
+的内部坐标系。这种方法简单，但是在应用其他transform时会有冲突。</p>
+
+<ul>
+  <li>为什么会发生flipping</li>
+</ul>
+
+<p>因为Core Graphic来自于OS X，而OS X的坐标系原点在左下角，y坐标从下到上，而iOS的坐标原点在右上角，y
+坐标从上到下。在大多数绘制场景中，graphic context坐标系会自动补偿，因此在graphic context中绘制时
+坐标原点在你期望的左上角。但是在CGImage中绘制时，揭露了两个世界的不同。</p>
+
+<h2 id="snapshots">镜像(Snapshots)</h2>
+
+<p>一个完整的view–从一个按钮到它的整个界面，以及它包含的完整view树–都可以在当前graphics context中使用
+UIView的<code>drawViewHierarchyInRect:afterScreenUpdates:</code>方法绘制。这是iOS7中的新方法，比以前的
+CALayer的<code>renderInContext:</code>方法更快。它返回一个类型为bitmap的view镜像。</p>
+
+<p>我们可以使用镜像创建毛玻璃效果：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">vc1</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">YES</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">[</span><span class="n">vc1</span><span class="p">.</span><span class="n">view</span> <span class="nl">drawViewHierarchyInRect</span><span class="p">:</span> <span class="n">vc1</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">frame</span> <span class="nl">afterScreenUpdates</span><span class="p">:</span><span class="nb">NO</span><span class="p">];</span>
+ <span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span></code></pre></div>
+
+<p>上面的代码得到view的镜像，然后将得到的图形模糊化，可以使用CIFilter完成，也可以使用更快的苹果提供的
+Blurring and Tinting an Image的方法。</p>
+
+<p>你也可以使用更快的UIView或UIScreen的方法<code>snapshotViewAfterScreenUpdates:</code>得到一个类型为UIView
+的镜像，如果你想得到一个就像resizable image的镜像，使用
+<code>resizableSnapshotViewFromRect:afterScreenSnapshots
+Updates:withCapInsets:</code>方法。</p>
+
+<h2 id="cifilter--ciimage">CIFilter 和 CIImage</h2>
+
+<p>CIFilter包含如下几个类别：</p>
+
+<ul>
+  <li>摹刻和渐变(Patterns and gradients)</li>
+  <li>影像合成(Compositing)</li>
+  <li>变色(Color)</li>
+  <li>几何失真(Geometric)</li>
+  <li>变换(Transformation)</li>
+  <li>过渡(Transition)</li>
+  <li>特殊功能(Special purpose)</li>
+</ul>
+
+<p>使用<code>filterWithName:</code>或<code>filterNamesInCategories:</code>创建CIFilter，使用<code>setValue:forKey:</code>设置值，
+或者使用<code>filterWithName:keyAndValues:</code>创建filter时指定值。CIFilter操作输入的CIImage，然后
+输出一个CIImage，你可以通过CIImage的<code>initWithCGImage:</code>获得一个CIImage，也可以通过UIImage的
+CIImage属性来获得一个CIImage。</p>
+
+<p>当你在使用任何filter的时候，实际上没有进行任何操作，计算发生在你将最后的CIImage使用bitmap绘制时，你可以
+使用下面的方式绘制：</p>
+
+<ul>
+  <li>
+    <p>通过<code>contextWithOptions:</code>创建CIContext，然后调用<code>createCGImage:fromRect:</code>处理最后得到的CIImage。
+需要注意的是，这儿的CIImage没有frame或bound，它只有extent，你经常将其作为<code>createCGImage:fromRect:</code>的
+第二个参数。最后输出的CGImage，你可以用于任何目的，比如显示在app上，转换为UIImage，或者更深层次的绘制。</p>
+  </li>
+  <li>
+    <p>通过下面的方法直接从CIImage创建UIImage：
+— imageWithCIImage:
+— initWithCIImage:
+— imageWithCIImage:scale:orientation:
+— initWithCIImage:scale:orientation:
+然后你必须在graphic context中绘制，否则得到的CIImage并没有转换为bitmap。因此，<code>imageWithCIImage:</code>
+得到的UIImage不能直接用于在UIImageView的中显示。这种方法通常用于绘制，而不是显示。</p>
+  </li>
+</ul>
+
+<p>下面的代码使用第一种方法：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">moi</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Moi&quot;</span><span class="p">];</span>
+<span class="bp">CIImage</span><span class="o">*</span> <span class="n">moi2</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">CIImage</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithCGImage</span><span class="p">:</span><span class="n">moi</span><span class="p">.</span><span class="bp">CGImage</span><span class="p">];</span>
+<span class="bp">CGRect</span> <span class="n">moiextent</span> <span class="o">=</span> <span class="n">moi2</span><span class="p">.</span><span class="n">extent</span><span class="p">;</span>
+<span class="c1">// first filter</span>
+<span class="bp">CIFilter</span><span class="o">*</span> <span class="n">grad</span> <span class="o">=</span> <span class="p">[</span><span class="bp">CIFilter</span> <span class="nl">filterWithName</span><span class="p">:</span><span class="s">@&quot;CIRadialGradient&quot;</span><span class="p">];</span>
+<span class="bp">CIVector</span><span class="o">*</span> <span class="n">center</span> <span class="o">=</span> <span class="p">[</span><span class="bp">CIVector</span> <span class="nl">vectorWithX</span><span class="p">:</span><span class="n">moiextent</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">width</span><span class="o">/</span><span class="mf">2.0</span>
+                                           <span class="nl">Y</span><span class="p">:</span><span class="n">moiextent</span><span class="p">.</span><span class="n">size</span><span class="p">.</span><span class="n">height</span><span class="o">/</span><span class="mf">2.0</span><span class="p">];</span>
+<span class="p">[</span><span class="n">grad</span> <span class="nl">setValue</span><span class="p">:</span><span class="n">center</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;inputCenter&quot;</span><span class="p">];</span>
+<span class="p">[</span><span class="n">grad</span> <span class="nl">setValue</span><span class="p">:</span><span class="mi">@85</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;inputRadius0&quot;</span><span class="p">];</span>
+<span class="p">[</span><span class="n">grad</span> <span class="nl">setValue</span><span class="p">:</span><span class="mi">@100</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;inputRadius1&quot;</span><span class="p">];</span>
+<span class="bp">CIImage</span> <span class="o">*</span><span class="n">gradimage</span> <span class="o">=</span> <span class="p">[</span><span class="n">grad</span> <span class="nl">valueForKey</span><span class="p">:</span> <span class="s">@&quot;outputImage&quot;</span><span class="p">];</span>
+<span class="c1">// second filter</span>
+<span class="bp">CIFilter</span><span class="o">*</span> <span class="n">blend</span> <span class="o">=</span> <span class="p">[</span><span class="bp">CIFilter</span> <span class="nl">filterWithName</span><span class="p">:</span><span class="s">@&quot;CIBlendWithMask&quot;</span><span class="p">];</span>
+<span class="p">[</span><span class="n">blend</span> <span class="nl">setValue</span><span class="p">:</span><span class="n">moi2</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;inputImage&quot;</span><span class="p">];</span>
+<span class="p">[</span><span class="n">blend</span> <span class="nl">setValue</span><span class="p">:</span><span class="n">gradimage</span> <span class="nl">forKey</span><span class="p">:</span><span class="s">@&quot;inputMaskImage&quot;</span><span class="p">];</span>
+<span class="c1">// extract a bitmap</span>
+<span class="n">CGImageRef</span> <span class="n">moi3</span> <span class="o">=</span>
+<span class="p">[[</span><span class="bp">CIContext</span> <span class="nl">contextWithOptions</span><span class="p">:</span><span class="nb">nil</span><span class="p">]</span>
+<span class="nl">createCGImage</span><span class="p">:</span><span class="n">blend</span><span class="p">.</span><span class="n">outputImage</span>
+<span class="nl">fromRect</span><span class="p">:</span><span class="n">moiextent</span><span class="p">];</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">moi4</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageWithCGImage</span><span class="p">:</span><span class="n">moi3</span><span class="p">];</span>
+<span class="n">CGImageRelease</span><span class="p">(</span><span class="n">moi3</span><span class="p">);</span></code></pre></div>
+
+<p>如果采用第二种方法，代码如下：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">moiextent</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">[[</span><span class="bp">UIImage</span> <span class="nl">imageWithCIImage</span><span class="p">:</span><span class="n">blend</span><span class="p">.</span><span class="n">outputImage</span><span class="p">]</span> <span class="nl">drawInRect</span><span class="p">:</span><span class="n">moiextent</span><span class="p">];</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">moi4</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span></code></pre></div>
+
+<h2 id="uiview">绘制UIView</h2>
+
+<p>重写UIView的<code>drawRect:</code>可以绘制UIView，所有在这个函数里面绘制的都会显示在这个View
+中。当子类化一个UIView时，你会发现背景是黑色的，这是因为当下面的两个条件都满足：</p>
+
+<ul>
+  <li>backgroundColor为nil</li>
+  <li>opaque为YES</li>
+</ul>
+
+<p>如果你不需要黑色的背景，改变其中一个。</p>
+
+<h2 id="graphic-context-">graphic context 设置</h2>
+
+<p>当在graphic context中绘制时，会使用整个context的设置，当你想改变设置时，你可以先使用<code>CGContextSaveGState</code>
+保存当前的设置，以后再使用<code>CGContextRestoreGState</code>恢复整个设置。设置选项如下：</p>
+
+<ul>
+  <li>
+    <p>Line thickness and dash style
+CGContextSetLineWidth, CGContextSetLineDash (and UIBezierPath lineWidth, setLineDash:count:phase:)</p>
+  </li>
+  <li>
+    <p>Line end-cap style and join style
+CGContextSetLineCap, CGContextSetLineJoin, CGContextSetMiterLimit (and UIBezierPath 
+lineCapStyle, lineJoinStyle, miterLimit)</p>
+  </li>
+  <li>
+    <p>Line color or pattern
+CGContextSetRGBStrokeColor, CGContextSetGrayStrokeColor, CGContextSet- StrokeColorWithColor, 
+CGContextSetStrokePattern (and UIColor setStroke)</p>
+  </li>
+  <li>
+    <p>Fill color or pattern
+CGContextSetRGBFillColor, CGContextSetGrayFillColor, CGContextSetFill- ColorWithColor, 
+CGContextSetFillPattern (and UIColor setFill)</p>
+  </li>
+  <li>
+    <p>Shadow
+CGContextSetShadow, CGContextSetShadowWithColor </p>
+  </li>
+  <li>
+    <p>Overall transparency and compositing
+CGContextSetAlpha, CGContextSetBlendMode </p>
+  </li>
+  <li>
+    <p>Anti-aliasing
+CGContextSetShouldAntialias</p>
+  </li>
+  <li>
+    <p>Clipping area
+Drawing outside the clipping area is not physically drawn.</p>
+  </li>
+  <li>
+    <p>Transform (or “CTM,” for “current transform matrix”)
+Changes how points that you specify in subsequent drawing commands are mapped onto the 
+physical space of the canvas.</p>
+  </li>
+</ul>
+
+<h2 id="section">曲线和图像</h2>
+
+<p>使用下面方法绘制曲线：</p>
+
+<ul>
+  <li>
+    <p>Position the current point:
+CGContextMoveToPoint</p>
+  </li>
+  <li>
+    <p>Trace a line:
+CGContextAddLineToPoint, CGContextAddLines </p>
+  </li>
+  <li>
+    <p>Trace a rectangle:
+CGContextAddRect, CGContextAddRects </p>
+  </li>
+  <li>
+    <p>Trace an ellipse or circle:
+CGContextAddEllipseInRect</p>
+  </li>
+  <li>
+    <p>Trace an arc:
+CGContextAddArcToPoint, CGContextAddArc </p>
+  </li>
+  <li>
+    <p>Trace a Bezier curve with one or two control points:
+CGContextAddQuadCurveToPoint, CGContextAddCurveToPoint</p>
+  </li>
+  <li>
+    <p>Close the current path:
+CGContextClosePath. This appends a line from the last point of the path to the first point. 
+There’s no need to do this if you’re about to fill the path, since it’s done for you.</p>
+  </li>
+  <li>
+    <p>Stroke or fill the current path:
+CGContextStrokePath, CGContextFillPath, CGContextEOFillPath, CGContextDrawPath.
+ Stroking or filling the current path clears the path. Use CGContextDraw- Path if you want 
+both to fill and to stroke the path in a single command, because if you merely stroke it 
+first with CGContextStrokePath, the path is cleared and you can no longer fill it. There 
+are also a lot of convenience functions that create a path and stroke or fill it all in 
+a single move:</p>
+    <ol>
+      <li>CGContextStrokeLineSegments </li>
+      <li>CGContextStrokeRect</li>
+      <li>CGContextStrokeRectWithWidth </li>
+      <li>CGContextFillRect</li>
+      <li>CGContextFillRects</li>
+      <li>CGContextStrokeEllipseInRect </li>
+      <li>CGContextFillEllipseInRect</li>
+    </ol>
+  </li>
+</ul>
+
+<p>如果你想开始新的绘制，你可以使用CGContextBeginPath，下面的代码演示如何创建一个向上的箭头。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// obtain the current graphics context</span>
+<span class="n">CGContextRef</span> <span class="n">con</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+<span class="c1">// draw a black (by default) vertical line, the shaft of the arrow</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">19</span><span class="p">);</span>
+<span class="n">CGContextSetLineWidth</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="n">CGContextStrokePath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// draw a red triangle, the point of the arrow</span>
+<span class="n">CGContextSetFillColorWithColor</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="p">[[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">]</span> <span class="bp">CGColor</span><span class="p">]);</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">CGContextFillPath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// snip a triangle out of the shaft by drawing in Clear blend mode</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">101</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">101</span><span class="p">);</span>
+<span class="n">CGContextSetBlendMode</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">kCGBlendModeClear</span><span class="p">);</span>
+<span class="n">CGContextFillPath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span></code></pre></div>
+
+<p>如果你想重用或分享一个曲线，你可以将它封装为一个CGPath，实际上是一个CGPathRef。你可以使用
+CGMutablePathRef然后将一系列的CGPath加入其中，你也可以使用<code>CGContextCopyPath</code>复制当前
+的path。下面的方法用于创建path，基于已经存在的path：</p>
+
+<ul>
+  <li>CGPathCreateWithRect</li>
+  <li>CGPathCreateWithEllipseInRect</li>
+  <li>CGPathCreateCopyByStrokingPath</li>
+  <li>CGPathCreateCopyByDashingPath</li>
+  <li>CGPathCreateCopyByTransformingPath</li>
+</ul>
+
+<p>UIKit的UIBezierPath封装了CGPath，提供了方法创建Path：</p>
+
+<ul>
+  <li>moveToPoint:</li>
+  <li>addLineToPoint:</li>
+  <li>bezierPathWithRect:</li>
+  <li>bezierPathWithOvalInRect:</li>
+  <li>addArcWithCenter:radius:startAngle:endAngle:clockwise: </li>
+  <li>addQuadCurveToPoint:controlPoint:</li>
+  <li>addCurveToPoint:controlPoint1:controlPoint2:</li>
+  <li>closePath</li>
+</ul>
+
+<p>UIBezierPath也提供了一个非常有用的方法<code>bezierPathWithRoundedRect:cornerRadius:</code>创建圆角矩形。
+使用UIBezierPath创建同样的向上箭头：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// shaft of the arrow</span>
+<span class="bp">UIBezierPath</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIBezierPath</span> <span class="n">bezierPath</span><span class="p">];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">moveToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">addLineToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">19</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">setLineWidth</span><span class="p">:</span><span class="mi">20</span><span class="p">];</span>
+<span class="p">[</span><span class="n">p</span> <span class="n">stroke</span><span class="p">];</span>
+<span class="c1">// point of the arrow</span>
+<span class="p">[[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">]</span> <span class="n">set</span><span class="p">];</span>
+<span class="p">[</span><span class="n">p</span> <span class="n">removeAllPoints</span><span class="p">];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">moveToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span><span class="mi">25</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">addLineToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">addLineToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">25</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="n">fill</span><span class="p">];</span>
+<span class="c1">// snip out triangle in the tail</span>
+<span class="p">[</span><span class="n">p</span> <span class="n">removeAllPoints</span><span class="p">];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">moveToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span><span class="mi">101</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">addLineToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">addLineToPoint</span><span class="p">:</span><span class="n">CGPointMake</span><span class="p">(</span><span class="mi">110</span><span class="p">,</span> <span class="mi">101</span><span class="p">)];</span>
+<span class="p">[</span><span class="n">p</span> <span class="nl">fillWithBlendMode</span><span class="p">:</span><span class="n">kCGBlendModeClear</span> <span class="nl">alpha</span><span class="p">:</span><span class="mf">1.0</span><span class="p">];</span></code></pre></div>
+
+<h2 id="clipping">Clipping</h2>
+
+<p>将一部分区域保护起来，使这部分区域将来不会被绘制，这被称为Clipping。Clipping是整个Graphic context的
+特性，任何新的Clipping都会和以前的区域交叉应用。如果你想应用自己单独的Clipping，然后应用完成后删除它，
+可以包含在<code>CGContextSaveGState</code>和<code>CGContextRestoreGState</code>之间。</p>
+
+<p>填充组合Path或用它指示一个Clipping区域时，系统遵循下面两种规则之一：</p>
+
+<ul>
+  <li>Winding rule</li>
+</ul>
+
+<p>填充或Clipping区域被顺时针或逆时针方向分隔</p>
+
+<ul>
+  <li>Even-odd rule (EO)</li>
+</ul>
+
+<p>填充或Clipping区域被简单的计数分隔</p>
+
+<p>你可以在改变Clipping区域之前使用<code>CGContextGetClipBoundingBox</code>获得Graphic Context的bounds。下面的
+代码演示如何使用Clipping绘制相同的箭头:</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// obtain the current graphics context</span>
+<span class="n">CGContextRef</span> <span class="n">con</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+<span class="c1">// punch triangular hole in context clipping region</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextClosePath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="n">CGContextAddRect</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGContextGetClipBoundingBox</span><span class="p">(</span><span class="n">con</span><span class="p">));</span>
+<span class="n">CGContextEOClip</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// draw the vertical line</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">19</span><span class="p">);</span>
+<span class="n">CGContextSetLineWidth</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="n">CGContextStrokePath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// draw the red triangle, the point of the arrow</span>
+<span class="n">CGContextSetFillColorWithColor</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="p">[[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">]</span> <span class="bp">CGColor</span><span class="p">]);</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">CGContextFillPath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span></code></pre></div>
+
+<p>UIBezierPath使用<code>usesEvenOddFillRule</code>和<code>addClip</code>方法来使用Clipping。</p>
+
+<h2 id="section-1">渐变</h2>
+
+<h2 id="colors-and-patterns">Colors and Patterns</h2>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// obtain the current graphics context</span>
+<span class="n">CGContextRef</span> <span class="n">con</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+<span class="n">CGContextSaveGState</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// punch triangular hole in context clipping region</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextClosePath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="n">CGContextAddRect</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGContextGetClipBoundingBox</span><span class="p">(</span><span class="n">con</span><span class="p">));</span>
+<span class="n">CGContextEOClip</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// draw the vertical line, add its shape to the clipping region</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">19</span><span class="p">);</span>
+<span class="n">CGContextSetLineWidth</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+<span class="n">CGContextReplacePathWithStrokedPath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="n">CGContextClip</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+<span class="c1">// draw the gradient</span>
+<span class="n">CGFloat</span> <span class="n">locs</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">};</span>
+<span class="n">CGFloat</span> <span class="n">colors</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span> <span class="c1">// starting color, transparent gray</span>
+        <span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span> <span class="c1">// intermediate color, black</span>
+        <span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.8</span> <span class="c1">// ending color, transparent gray</span>
+    <span class="p">};</span>
+<span class="n">CGColorSpaceRef</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">CGColorSpaceCreateDeviceGray</span><span class="p">();</span>
+<span class="n">CGGradientRef</span> <span class="n">grad</span> <span class="o">=</span>
+        <span class="n">CGGradientCreateWithColorComponents</span> <span class="p">(</span><span class="n">sp</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">locs</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="n">CGContextDrawLinearGradient</span> <span class="p">(</span>
+        <span class="n">con</span><span class="p">,</span> <span class="n">grad</span><span class="p">,</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">89</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">CGColorSpaceRelease</span><span class="p">(</span><span class="n">sp</span><span class="p">);</span>
+<span class="n">CGGradientRelease</span><span class="p">(</span><span class="n">grad</span><span class="p">);</span>
+<span class="n">CGContextRestoreGState</span><span class="p">(</span><span class="n">con</span><span class="p">);</span> <span class="c1">// done clipping</span>
+<span class="c1">// draw the red triangle, the point of the arrow</span>
+<span class="n">CGContextSetFillColorWithColor</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="p">[[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">]</span> <span class="bp">CGColor</span><span class="p">]);</span>
+<span class="n">CGContextMoveToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="n">CGContextAddLineToPoint</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">25</span><span class="p">);</span>
+<span class="n">CGContextFillPath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span></code></pre></div>
+
+<h2 id="graphics-context-transforms">Graphics Context Transforms</h2>
+
+<h2 id="shadows">Shadows</h2>
+
+<h2 id="erasing">Erasing</h2>
+
+<h2 id="points-and-pixels">Points and Pixels</h2>
+
+<h2 id="content-mode">Content Mode</h2>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/iOS-views/" class="btn" title="iOS UIView">Previous article</a>
+      
+      
+        <a href="/iOS-Layer/" class="btn" title="iOS Layers">Next article</a>
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 liu1529. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : '/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>

@@ -1,0 +1,621 @@
+<!doctype html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>iOS Animation &#8211; 我的博客</title>
+<meta name="description" content="欢迎来到我的博客">
+<meta name="keywords" content="iOS, Animation">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS Animation">
+<meta property="og:description" content="欢迎来到我的博客">
+<meta property="og:url" content="/iOS-Animation/">
+<meta property="og:site_name" content="我的博客">
+
+
+
+
+
+<link rel="canonical" href="/iOS-Animation/">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="我的博客 Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<!-- Webfonts -->
+<script src="//use.edgefonts.net/source-sans-pro:n2,i2,n3,i3,n4,i4,n6,i6,n7,i7,n9,i9;source-code-pro:n4,n7;volkhov.js"></script>
+
+<meta http-equiv="cleartype" content="on">
+
+<!-- Load Modernizr -->
+<script src="/assets/js/vendor/modernizr-2.6.2.custom.min.js"></script>
+
+<!-- Icons -->
+<!-- 16x16 -->
+<link rel="shortcut icon" href="/favicon.ico">
+<!-- 32x32 -->
+<link rel="shortcut icon" href="/favicon.png">
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+</head>
+
+<body id="post">
+
+<div class="navigation-wrapper">
+	<nav role="navigation" id="site-nav" class="animated drop">
+	    <ul>
+	        
+			<li>
+				
+					<a href="/about/">About</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/articles/">Articles</a>
+				 
+			</li>
+	        
+			<li>
+				
+					<a href="/tags/">Tags</a>
+				 
+			</li>
+	        
+	        <li><a href="/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+	        <li class="dosearch"><i class="icon-search"></i> Search</li>
+	    </ul>
+	</nav>
+</div><!-- /.navigation-wrapper -->
+
+<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
+
+<div class="search-wrapper">
+	<div class="search-form">
+		<input type="text" class="search-field" placeholder="Search...">
+		<i class="icon-remove-sign icon-2x"></i>
+		<ul class="search-results post-list"></ul><!-- /.search-results -->
+	</div><!-- /.search-form -->
+</div><!-- ./search-wrapper -->
+
+<header class="masthead">
+	<div class="wrap">
+        
+    		<a href="/" class="site-logo" rel="home" title="我的博客"><img src="/images/site-logo.png" width="200" height="200" alt="我的博客 logo" class="animated fadeInUp"></a>
+        
+        <h1 class="site-title animated fadeIn"><a href="/">我的博客</a></h1>
+		<h2 class="site-description animated fadeIn" itemprop="description">欢迎来到我的博客</h2>
+	</div>
+</header><!-- /.masthead -->
+
+
+<div id="main" role="main">
+  <article class="hentry">
+    
+    <div class="entry-wrapper">
+      <header class="entry-header">
+        <span class="entry-tags"><a href="/tags/#iOS" title="Pages tagged iOS">iOS</a>&nbsp;&bull;&nbsp;<a href="/tags/#Animation" title="Pages tagged Animation">Animation</a></span>
+        
+          <h1 class="entry-title">iOS Animation</h1>
+        
+      </header>
+      <footer class="entry-meta">
+        <img src="/images/bio-photo.jpg" alt="liu1529 photo" class="author-photo">
+        <span class="author vcard">By <span class="fn"><a href="/about/" title="About liu1529">liu1529</a></span></span>
+        <span class="entry-date date published"><time datetime="2014-10-23T00:00:00+08:00"><i class="icon-calendar-empty"></i> October 23, 2014</time></span>
+        
+        <span class="entry-comments"><i class="icon-comment-alt"></i> <a href="#disqus_thread">Comment</a></span>
+        <span><a href="/iOS-Animation/" rel="bookmark" title="iOS Animation"><i class="icon-link"></i> Permalink</a></span>
+        
+      </footer>
+      <div class="entry-content">
+        <p>动画是iOS里面重要的组成部分，当你设置某些属性时可以启动动画，比如你设置view的背景从黑变为红。如果你想为一个
+游戏应用添加不间断的动画，使用iOS7加入的<code>Sprite Kit</code>，这儿不讨论它。</p>
+
+<h1 id="section">绘制，动画，线程</h1>
+<p>当你改变view的可视属性（如<code>backgroundColor</code>,<code>hidden</code>,<code>alpha</code>等），这些变化不会现在发生。系统会记下这些
+发生的变化，标记这个view需要重绘。当你代码完成，系统再等一段时间后，会重绘所有需要重绘的view。我们把这个称为
+“重绘时刻(redraw moment)”。</p>
+
+<p>你在同一段代码改变view的可见属性，然后再改回来，在屏幕上不会发生任何变化。系统在你代码完成后，过一段时间才会发生
+“重绘时刻”，因此这期间的代码不管运行多长时间，屏幕也不会发生变化。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="c1">// view starts out green</span>
+<span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">];</span>
+<span class="c1">// ... time-consuming code goes here ...</span>
+<span class="n">view</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">greenColor</span><span class="p">];</span>
+<span class="c1">// code ends, redraw moment arrives</span></code></pre></div>
+
+<p>这是你不需要关心view重绘顺序的原因，即使你调用<code>setNeedsDisplay</code>，告诉下一个”重绘时刻”这个view需要重绘。</p>
+
+<p>同样，动画在下一个”重绘时刻”才会被执行(你可以强制现在执行，但是这不常见)，当你将一个view从点1移动到点2时，
+你可以想象发生了如下事情：</p>
+
+<ol>
+  <li>view被设置到点2，但是”重绘时刻”没有到达，view还在点1位置。</li>
+  <li>你的代码完成</li>
+  <li>“重绘时刻”到达，如果没有动画，view立即移动到点2绘制。这儿有动画，动画效果开始于点1，所以view还在点1。</li>
+  <li>动画执行，view在点1和点2之间绘制，我们把它称为动画<code>infight</code>。</li>
+  <li>动画结束，view现在在点2位置绘制。</li>
+  <li>动画效果消失，view现在出现在点2位置。</li>
+</ol>
+
+<p>动画在另一个线程中执行，你不需要关心这些细节，但是你需要准备进行线程之间的通信。</p>
+
+<ul>
+  <li>Presentation Layer：</li>
+</ul>
+
+<p>其实没有真实的动画效果在屏幕前面，虽然看起来如此。实际上，动画执行时不是layer本身在屏幕上绘制，而是其presentation layer
+在屏幕上面绘制。因此，当你动画改变layer的位置从点1到点2时，名义上的位置已经立即发生了改变；与此同时，presentation layer
+并没有发生改变，直到重绘时刻到达，然后开始动画改变，用户实际上看见的是presentation layer绘制。</p>
+
+<p>layer的presentation layer可以通过<code>presentationLayer</code>属性访问（layer本身通过<code>modelLayer</code>属性访问），它的类型是id，
+因此你可能需要强制转换成CALayer来使用它。访问<code>presentationLayer</code>是不常见的，但是在动画过程中获得当前的状态时，可能会用到。</p>
+
+<p>当动画在执行时，界面默认接受用户的触控，这时可能会导致程序出错。你需要在动画执行时关闭界面触控，在动画结束后再打开。
+因为你的代码可以在动画开始后被执行，或在动画执行过程中开始一个新的动画，所以你需要小心处理防止动画冲突。多个动画可以
+被同时开始和执行，但是当开始一个正在执行的动画或改变一个正在执行的动画的属性，会导致动画的不连贯，然后这个动画会停止。
+有时你会使用这种方法停止一个动画，但是通常你必须小心注意不要这么做。</p>
+
+<p>外部事件会打断你的动画，比如动画执行时用户按下home键或有电话打进来，系统会简单的取消你的所有正在执行的动画。由于你已经
+设置好动画完成后正确的状态，所以你的程序状态还是正确的。如果你的app需要在动画中间出现，需要比较高级的代码来完成。</p>
+
+<h1 id="uiimageviewuiimage">UIImageView和UIImage动画</h1>
+
+<p>UIImageView提供了一个简单的动画效果，通过属性<code>animationImages</code>或<code>highlightedAnimationImages</code>指定动画的图片，
+通过<code>animationDuration</code>指定间隔时间，通过<code>animationRepeatCount</code>指定重复次数。通过<code>startAnimating</code>方法开始动画，
+通过<code>stopAnimating</code>方法停止动画。动画开始和结束后显示<code>image</code>或<code>highlightedImage</code>属性图片。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIImage</span><span class="o">*</span> <span class="n">mars</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span> <span class="s">@&quot;Mars&quot;</span><span class="p">];</span>
+<span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">mars</span><span class="p">.</span><span class="n">size</span><span class="p">,</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">empty</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+<span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+<span class="bp">NSArray</span><span class="o">*</span> <span class="n">arr</span> <span class="o">=</span> <span class="l">@[</span><span class="n">mars</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">mars</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">mars</span><span class="l">]</span><span class="p">;</span>
+<span class="bp">UIImageView</span><span class="o">*</span> <span class="n">iv</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">UIImageView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithImage</span><span class="p">:</span><span class="n">empty</span><span class="p">];</span>
+<span class="bp">CGRect</span> <span class="n">r</span> <span class="o">=</span> <span class="n">iv</span><span class="p">.</span><span class="n">frame</span><span class="p">;</span>
+<span class="n">r</span><span class="p">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">CGPointMake</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<span class="n">iv</span><span class="p">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">r</span><span class="p">;</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview</span><span class="p">:</span> <span class="n">iv</span><span class="p">];</span>
+<span class="n">iv</span><span class="p">.</span><span class="n">animationImages</span> <span class="o">=</span> <span class="n">arr</span><span class="p">;</span>
+<span class="n">iv</span><span class="p">.</span><span class="n">animationDuration</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">iv</span><span class="p">.</span><span class="n">animationRepeatCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">[</span><span class="n">iv</span> <span class="n">startAnimating</span><span class="p">];</span></code></pre></div>
+
+<p>你可以通过UIImage的方法创建变为Animated UIImage：</p>
+
+<ul>
+  <li>animatedImageWithImages:duration:</li>
+  <li>animatedImageNamed:duration:</li>
+  <li>animatedResizableImageNamed:capInsets:resizingMode:duration:</li>
+</ul>
+
+<p>你不能控制Animated UIImage何时开始和结束，你也不能控制它的重复次数。Animated UIImage一旦出现在界面中，
+就会一直执行动画效果，要想控制它只有在界面中删除或替换它，Animated UIImage可以出现在任何UIImage可以出现
+的地方。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">NSMutableArray</span><span class="o">*</span> <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSMutableArray</span> <span class="n">array</span><span class="p">];</span>
+<span class="kt">float</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">UIGraphicsBeginImageContextWithOptions</span><span class="p">(</span><span class="n">CGSizeMake</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">w</span><span class="p">),</span> <span class="nb">NO</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="n">CGContextRef</span> <span class="n">con</span> <span class="o">=</span> <span class="n">UIGraphicsGetCurrentContext</span><span class="p">();</span>
+    <span class="n">CGContextSetFillColorWithColor</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">].</span><span class="bp">CGColor</span><span class="p">);</span>
+    <span class="n">CGContextAddEllipseInRect</span><span class="p">(</span><span class="n">con</span><span class="p">,</span> <span class="n">CGRectMake</span><span class="p">(</span><span class="mi">0</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">w</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="n">w</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span><span class="p">));</span>
+    <span class="n">CGContextFillPath</span><span class="p">(</span><span class="n">con</span><span class="p">);</span>
+    <span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="n">UIGraphicsGetImageFromCurrentImageContext</span><span class="p">();</span>
+    <span class="n">UIGraphicsEndImageContext</span><span class="p">();</span>
+    <span class="p">[</span><span class="n">arr</span> <span class="nl">addObject</span><span class="p">:</span><span class="n">im</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="bp">UIImage</span><span class="o">*</span> <span class="n">im</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">animatedImageWithImages</span><span class="p">:</span><span class="n">arr</span> <span class="nl">duration</span><span class="p">:</span><span class="mf">0.5</span><span class="p">];</span>
+<span class="c1">// assume self.b is a button in the interface</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">b</span> <span class="nl">setImage</span><span class="p">:</span><span class="n">im</span> <span class="nl">forState</span><span class="p">:</span><span class="n">UIControlStateNormal</span><span class="p">];</span></code></pre></div>
+
+<h1 id="view">View动画</h1>
+
+<p>动画实际上一个layer动画，view的<code>alpha</code>,<code>backgroundColor</code>,<code>bounds</code>,<code>center</code>,<code>frame</code>,<code>transform</code>
+都可以直接有动画效果，改变view的内容也可以有动画效果。</p>
+
+<h2 id="blockview">基于Block的view动画</h2>
+
+<p>可以通过UIView的方法，在block中添加动画。比如，如果self.v的背景色是黄色，现在想要动画变成红色：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mf">0.4</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">];</span>
+<span class="p">}];</span></code></pre></div>
+
+<blockquote>
+  <p>也可使用老的方法<code>beginAnimations:context:</code>和<code>commitAnimations</code>，但是Apple不鼓励使用它们。</p>
+</blockquote>
+
+<p>所有在block中的可动画改变都会发生动画，所有在同一个block中，你可以同时改变view的颜色和位置，也可以包含
+多个view的改变。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="bp">UIView</span><span class="o">*</span> <span class="n">v2</span> <span class="o">=</span> <span class="c1">// ... create and configure new view</span>
+<span class="n">v2</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">superview</span> <span class="nl">addSubview</span><span class="p">:</span><span class="n">v2</span><span class="p">];</span>
+<span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mf">0.4</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+     <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">v2</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
+     <span class="p">[</span><span class="nb">self</span><span class="p">.</span><span class="n">v</span> <span class="n">removeFromSuperview</span><span class="p">];</span>
+<span class="p">}];</span></code></pre></div>
+
+<p>我们可以使用<code>performWithoutAnimation:</code>的block改变可动画的属性，使其没有动画效果。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mf">0.4</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">redColor</span><span class="p">];</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">performWithoutAnimation</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+	<span class="p">}];</span> 
+<span class="p">}];</span></code></pre></div>
+
+<p>在<code>animations:</code>block中的动画是有序的，但是在<code>performWithoutAnimation:</code>block中的没有。
+因此在block中你改变一个可动画的属性后，随后你改变它，否则会导致冲突：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">2</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+     <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+     <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+     <span class="bp">CGPoint</span> <span class="n">p2</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+     <span class="n">p2</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+     <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p2</span><span class="p">;</span>
+<span class="p">}];</span></code></pre></div>
+
+<p>甚至，在block后面改变可动画属性也会导致冲突：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">2</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+     <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+     <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}];</span>
+<span class="bp">CGPoint</span> <span class="n">p2</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+<span class="n">p2</span><span class="p">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+<span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p2</span><span class="p">;</span></code></pre></div>
+
+<p>因此，当你在<code>animations:</code>block中改变可动画属性后，不要再次改变它，除非这个动画完成。</p>
+
+<h2 id="view-1">view动画选项</h2>
+
+<p>完整的动画方法是<code>animateWithDuration:delay:options:animations:completion:</code>，
+指定动画的次数，并不容易实现，这儿有一个方法通过递归实现：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">animate:</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nv">count</span> <span class="p">{</span>
+    <span class="bp">CGPoint</span> <span class="n">pOrig</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+    <span class="bp">NSUInteger</span> <span class="n">opts</span> <span class="o">=</span> <span class="n">UIViewAnimationOptionAutoreverse</span><span class="p">;</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">1</span> <span class="nl">delay</span><span class="p">:</span><span class="mi">0</span> <span class="nl">options</span><span class="p">:</span><span class="n">opts</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+          <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+        	<span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+           <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">pOrig</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">count</span><span class="p">)</span>
+            <span class="p">[</span><span class="nb">self</span> <span class="nl">animate</span><span class="p">:</span><span class="n">count</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+	<span class="p">}];</span> 
+<span class="p">}</span></code></pre></div>
+
+<p>使用递归方法是危险的，但是在次数比较小的情况下是安全的。</p>
+
+<p>某些选项可以指定当动画已经添加或发生时，动画怎么进行：</p>
+
+<ul>
+  <li>
+    <p>UIViewAnimationOptionBeginFromCurrentState
+如果动画已经添加或正在进行，通过使用presentation layer决定动画从何开始，如果可能，和前面的动画合并。</p>
+  </li>
+  <li>
+    <p>UIViewAnimationOptionOverrideInheritedDuration
+阻止从周围或正在进行的动画中继承持续时间</p>
+  </li>
+  <li>
+    <p>UIViewAnimationOptionOverrideInheritedCurve
+阻止从周围或正在进行的动画中继承动画曲线</p>
+  </li>
+</ul>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">1</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+    <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}];</span>
+<span class="bp">NSUInteger</span> <span class="n">opts</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">1</span> <span class="nl">delay</span><span class="p">:</span><span class="mi">0</span> <span class="nl">options</span><span class="p">:</span><span class="n">opts</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+     <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span></code></pre></div>
+
+<p>上面代码中，如果opts为0，系统将会取消第一个动画，view直接先向右跳100，再动画向左移动到0的位置。
+而如果opts为UIViewAnimationOptionBeginFromCurrentState，那么view将组合两个动画，先动画
+向右移动，再动画向左移动。</p>
+
+<p>UIViewAnimationOptionOverrideInheritedDuration使用在动画的嵌套过程中。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">2</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+    <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="bp">NSUInteger</span> <span class="n">opts</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mf">0.5</span> <span class="nl">delay</span><span class="p">:</span><span class="mi">0</span> <span class="nl">options</span><span class="p">:</span><span class="n">opts</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIColor</span> <span class="n">blackColor</span><span class="p">];</span>
+    <span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span>
+<span class="p">}];</span></code></pre></div>
+
+<p>上面代码中，如果opts为0，那么颜色变化的动画的持续时间为2s，而如果opts为UIViewAnimationOptionOverrideInheritedDuration，
+那么颜色变化动画将有自己的持续时间0.5s。</p>
+
+<p>在UIView层取消一个正在进行的动画是困难的（但是在CALayer层确很简单），我们可以再添加一个动画，
+使新添加的动画和原来的动画冲突，这样就可以取消第一个动画，但是得保证第二个动画对第一个对话的
+最终状态没有影响。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">animate</span> <span class="p">{</span>
+     <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+     <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+     <span class="nb">self</span><span class="p">.</span><span class="n">pFinal</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+      <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">4</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+          <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+     <span class="p">}];</span>
+<span class="p">}</span>
+<span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">cancel</span> <span class="p">{</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">0</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">pFinal</span><span class="p">;</span>
+         <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+     <span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="o">^</span><span class="p">(</span><span class="kt">BOOL</span> <span class="n">finished</span><span class="p">)</span> <span class="p">{</span>
+          <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">pFinal</span><span class="p">;</span>
+         <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+	<span class="p">}];</span> 
+<span class="p">}</span></code></pre></div>
+
+<p>我们使用同样的技巧取消重复进行的动画</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">animate</span> <span class="p">{</span>
+     <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">pOrig</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="bp">NSUInteger</span> <span class="n">opts</span> <span class="o">=</span> <span class="n">UIViewAnimationOptionAutoreverse</span> <span class="o">|</span>
+    <span class="n">UIViewAnimationOptionRepeat</span><span class="p">;</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">1</span> <span class="nl">delay</span><span class="p">:</span><span class="mi">0</span> <span class="nl">options</span><span class="p">:</span><span class="n">opts</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+           <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}</span> <span class="nl">completion</span><span class="p">:</span> <span class="nb">nil</span><span class="p">];</span>
+<span class="p">}</span>
+<span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">cancel</span> <span class="p">{</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mi">0</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">pOrig</span><span class="p">;</span>
+<span class="p">}];</span> <span class="p">}</span></code></pre></div>
+
+<h2 id="springing-view-">Springing view 动画</h2>
+
+<p>在iOS7中，可以使用spring使动画在最终点摆动</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateWithDuration</span><span class="p">:</span><span class="mf">0.8</span> <span class="nl">delay</span><span class="p">:</span><span class="mi">0</span>
+    <span class="nl">usingSpringWithDamping</span><span class="p">:</span><span class="mf">0.7</span> <span class="nl">initialSpringVelocity</span><span class="p">:</span><span class="mi">0</span>
+                     <span class="nl">options</span><span class="p">:</span><span class="mi">0</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+    <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+	<span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span></code></pre></div>
+
+<h2 id="keyframe-view-">Keyframe view 动画</h2>
+
+<p>在iOS7中，你可以通过keyframe制定一系列动画执行顺序（在以前只能在CALayer层做这些事情），
+你可以调用<code>animateKeyframesWithDuration:...</code>，然后在其block中多次使用<code>addKeyframe...</code>
+添加动画的不同阶段。每个阶段的开始时间和持续时间都小于1，相对于整个动画时间。</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">__block</span> <span class="bp">CGPoint</span> <span class="n">p</span> <span class="o">=</span> <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span><span class="p">;</span>
+<span class="p">[</span><span class="bp">UIView</span> <span class="nl">animateKeyframesWithDuration</span><span class="p">:</span><span class="mi">4</span> <span class="nl">delay</span><span class="p">:</span><span class="mi">0</span> <span class="nl">options</span><span class="p">:</span><span class="mi">0</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+	<span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">addKeyframeWithRelativeStartTime</span><span class="p">:</span><span class="mi">0</span> <span class="nl">relativeDuration</span><span class="p">:</span><span class="mf">.25</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">50</span><span class="p">;</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}];</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">addKeyframeWithRelativeStartTime</span><span class="p">:</span><span class="mf">.25</span> <span class="nl">relativeDuration</span><span class="p">:</span><span class="mf">.25</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">50</span><span class="p">;</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}];</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">addKeyframeWithRelativeStartTime</span><span class="p">:</span><span class="mf">.5</span> <span class="nl">relativeDuration</span><span class="p">:</span><span class="mf">.25</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+         <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">+=</span> <span class="mi">100</span><span class="p">;</span>
+         <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">50</span><span class="p">;</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}];</span>
+    <span class="p">[</span><span class="bp">UIView</span> <span class="nl">addKeyframeWithRelativeStartTime</span><span class="p">:</span><span class="mf">.75</span> <span class="nl">relativeDuration</span><span class="p">:</span><span class="mf">.25</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">100</span><span class="p">;</span>
+        <span class="n">p</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="mi">50</span><span class="p">;</span>
+        <span class="nb">self</span><span class="p">.</span><span class="n">v</span><span class="p">.</span><span class="n">center</span> <span class="o">=</span> <span class="n">p</span><span class="p">;</span>
+    <span class="p">}];</span>
+    <span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span></code></pre></div>
+
+<h2 id="transitions">Transitions</h2>
+
+<p>Transition用于强调view的内容变化，可以使用下面的两种方法创建：</p>
+
+<ul>
+  <li>transitionWithView:duration:options:animations:completion:</li>
+  <li>transitionFromView:toView:duration:options:completion:</li>
+</ul>
+
+<p>下面的例子中，将UIImageView的内容变化为一个笑脸：</p>
+
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">[</span><span class="bp">UIView</span> <span class="nl">transitionWithView</span><span class="p">:</span><span class="nb">self</span><span class="p">.</span><span class="n">iv</span> <span class="nl">duration</span><span class="p">:</span><span class="mf">0.8</span>
+        <span class="nl">options</span><span class="p">:</span><span class="n">UIViewAnimationOptionTransitionFlipFromLeft</span> <span class="nl">animations</span><span class="p">:</span><span class="o">^</span><span class="p">{</span>
+    <span class="nb">self</span><span class="p">.</span><span class="n">iv</span><span class="p">.</span><span class="n">image</span> <span class="o">=</span> <span class="p">[</span><span class="bp">UIImage</span> <span class="nl">imageNamed</span><span class="p">:</span><span class="s">@&quot;Smiley&quot;</span><span class="p">];</span>
+<span class="p">}</span> <span class="nl">completion</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span></code></pre></div>
+
+<p>在例子中，我将内容的变化放在有了<code>animations</code>的block中，这是可行的但是会给人错误的提示，
+实际上如果是内容的变化，不需要放在block中，它可以放在任何地方，在整个代码的前面或后面都是
+可行的。你可能在这儿使用	<code>animations</code>的block放置其他动画，比如改变view的center。</p>
+
+<p>在transition中，默认情况下，会提前准备一个最终情况下的快照，如果你想在transition中
+启动绘制，你可以使用<code>UIViewAnimationOptionAllowAnimatedContent</code>选项。</p>
+
+<p><code>transitionFromView:toView:duration:options:completion: </code>使用第二个view替代第一个
+view，并使他们的superview发生transition动画。取决于你设置的选项，有两种不同的配置：</p>
+
+<ul>
+  <li>删除subview，添加另一个subview</li>
+</ul>
+
+<p>当你未使用UIViewAnimationOptionShowHideTransitionViews选项时，且第二个subview和第一个
+subview不在同一个view层次结构中，那么第一个subview将它的superview中删除，添加到第二个subview
+的superview中。</p>
+
+<ul>
+  <li>隐藏subview，显示另一个subview</li>
+</ul>
+
+<p>当使用UIViewAnimationOptionShowHideTransitionViews选项，且第一个和第二个subview在同一个
+view层次结构中，那么设置第一个view的hidden为YES，第二个view的hidden为NO。</p>
+
+<h1 id="implicit-layer">Implicit Layer动画</h1>
+
+<h2 id="section-1">动画处理</h2>
+
+<h2 id="media-timing-">Media Timing 功能</h2>
+
+<h1 id="core-animation">核心动画(Core Animation)</h1>
+
+<h2 id="cabasicanimation">CABasicAnimation和它的层次结构</h2>
+
+<h2 id="cabasicanimation-1">使用CABasicAnimation</h2>
+
+<h2 id="keyframe-">Keyframe 动画</h2>
+
+<h2 id="section-2">使属性产生动画效果</h2>
+
+<h2 id="section-3">动画分组</h2>
+
+<h2 id="transitions-1">Transitions</h2>
+
+<h2 id="section-4">动画列表</h2>
+
+<h1 id="actions">动作(Actions)</h1>
+
+<h2 id="emitter-layers">Emitter Layers</h2>
+
+<h2 id="cifilter-transitions">CIFilter Transitions</h2>
+
+<h2 id="uikit-dynamics">UIKit Dynamics</h2>
+
+<h2 id="motion-effects">Motion Effects</h2>
+
+<h2 id="section-5">动画和自动布局</h2>
+
+
+        <div id="disqus_thread"></div><!-- /#disqus_thread -->
+      </div><!-- /.entry-content -->
+    </div><!-- /.entry-wrapper -->
+    <nav class="pagination" role="navigation">
+      
+        <a href="/iOS-Layer/" class="btn" title="iOS Layers">Previous article</a>
+      
+      
+        <a href="/NXP-Zigbee-iOS/" class="btn" title="NXP Zigbee iOS">Next article</a>
+      
+    </nav><!-- /.pagination -->
+  </article>
+</div><!-- /#main -->
+
+<div class="footer-wrapper">
+  <footer role="contentinfo">
+    <span>&copy; 2014 liu1529. Powered by <a href="http://jekyllrb.com">Jekyll</a> using the <a href="http://mademistakes.com/so-simple/">So Simple Theme</a>.</span>
+<div class="social-icons">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</div><!-- /.social-icons -->
+  </footer>
+</div><!-- /.footer-wrapper -->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+<script src="/assets/js/scripts.min.js"></script>
+
+<!-- Jekyll Simple Search option -->
+<script>
+  $(document).ready(function() {
+      $('.search-field').simpleJekyllSearch({
+          jsonFile : '/search.json',
+          searchResults : '.search-results',
+          template : '<li><article><a href="{url}">{title} <span class="entry-date"><time datetime="{date}">{shortdate}</time></span></a></article></li>',
+          noResults: '<p>Nothing found.</p>'
+        });
+  });
+
+  (function( $, window, undefined ) {
+    
+     var bs = {
+          close: $(".icon-remove-sign"),
+          searchform: $(".search-form"),
+          canvas: $("body"),
+          dothis: $('.dosearch')
+      };
+    
+    bs.dothis.on('click', function() {
+      $('.search-wrapper').css({ display: "block" });
+      bs.searchform.toggleClass('active');
+      bs.searchform.find('input').focus();
+      bs.canvas.toggleClass('search-overlay');
+    });
+    
+      bs.close.on('click', function() {
+        $('.search-wrapper').removeAttr( 'style' );
+        bs.searchform.toggleClass('active');
+        bs.canvas.removeClass('search-overlay');
+    });
+  })( jQuery, window );
+</script>
+
+
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liu1529'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>	        
+
+</body>
+</html>
