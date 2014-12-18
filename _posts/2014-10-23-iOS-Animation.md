@@ -411,7 +411,112 @@ subview不在同一个view层次结构中，那么第一个subview将它的super
 view层次结构中，那么设置第一个view的hidden为YES，第二个view的hidden为NO。
 
 
-# Implicit Layer动画
+#隐式Layer动画
+如果layer不是view的根layer(underlying layer)且会出现在界面上，当设置其可动画的属性时，就会产生动画效果，多个动画可能在同一个动画中进行，这被称为隐式动画。 
+
+下面的属性可以有动画效果：
+anchorPoint ,anchorPointZ, backgroundColor, borderColor, borderWidth, bounds, contents, contentsCenter, contentsRect, cornerRadius, doubleSided, hidden, masksToBounds, opacity, position, zPosition, rasterizationScale , shouldRasterize, shadowColor, shadowOffset, shadowOpacity, shadowRadius, sublayerTransform and transform (but not affineTransform!).  a CAShapeLayer’s path, fillColor, strokeColor, lineWidth, lineDashPhase, miter- Limit ;  fontSize , foregroundColor,  a CAGradientLayer’s colors, locations, and endPoint.
+
+layer的frame不能动画，你只能动画bounds和position。Implicit animation当layer被创建，配置，添加到界面时都不会有影响，它只影响已经在界面上layer的属性改变时。
+
+##动画Transactions
+transaction将多个隐式动画组成一个隐式动画，隐式动画都发生在transaction的内容中。
+你可以使用CATransaction的begin和commit显式包含动画，另外也有一个隐式的transaction在你的代码中。
+
+通过CATransaction的方法你可以设置隐式动画的属性：
+
+* setAnimationDuration
+* setAnimationTimingFunction
+* setCompletionBlock
+
+另外，你也可以使用CATransaction的`setDisableActions:`关闭隐式动画效果。
+`setCompletionBlock`是很有用的函数，它不是指示所有隐式动画已经完成，而是这个
+transaction中所有的动画完成，包括Cocoa的动画，如：
+
+	[myPopoverController dismissPopoverAnimated: YES];
+
+###Transaction和Redraw Moment
+
+Redraw Moment实际上就是当前Transaction(通常是隐式Transaction)的完成时刻。当你的代码在隐式transaction中，你代码的最后transaction会自动提交。在transaction提交的
+过程中屏幕会发生变化：首先是layout，然后时drawing，然后获得layer属性的改变，最后
+开始任何动画。当动画执行时，transaction会在后面的线程中执行，当完成后调用block。
+
+##Media Timing Function
+
+使用Media Timing Function来定义动画的执行曲线，通过CAMediaTimingFunction的functionWithName创建函数：
+
+* kCAMediaTimingFunctionLinear
+* kCAMediaTimingFunctionEaseIn
+* kCAMediaTimingFunctionEaseOut
+* kCAMediaTimingFunctionEaseInEaseOut
+* kCAMediaTimingFunctionDefault
+
+#Core Animation
+##CABasicAnimation
+最简单的使用Core Animation是使用CABasicAnimation。
+### CAAnimation
+CAAnimation是一个抽象类，你必须子类化它，有些有用的选项你应实现CAMediaTiming协议。
+
+*animation
+
+创建动画的方法。
+
+*delegate
+
+用于接收`animationDidStart:`和`animationDidStop:`方法。你可以不设置delegate，
+在配置动画之前使用CATransaction的`setCompletionBlock:`来监测动画完成。
+
+*duration，timingFunction
+
+*autoreverses，repeatCount，repeatDuration，cumulative
+
+前两个参数同UIView的动画选项。repeatDuration指定重复时间而不是重复次数，和
+repeatCount不能同时使用。如果cumulative为YES，重复动画开始于上个动画的最后，
+而不是调回到初始值。
+
+*beginTime
+
+设置延时时间，使用CACurrentMediaTime获得当前时间。
+
+*timeOffset
+
+移动动画的所有的时间。
+
+###CAPropertyAnimation
+CAPropertyAnimation是CAAnimation的子类，它也是一个抽象类，它添加了如下属性。
+
+* keyPath
+
+以前只能使用KVC模式CALayer的属性，可以使用`animationWithKeyPath:`创建后赋值给keyPath。
+
+* additive
+
+如果为YES，动画的值会被添加到当前出现的layer值中。
+
+* valueFunction
+
+###CABasicAnimation
+
+CABasicAnimation是CAPropertyAnimation的子类，它添加如下属性：
+
+*fromValue，toValue
+
+*byValue
+
+##使用CABasicAnimation
+
+你可以创建和配置好CABasicAnimation后，使用CALayer的`addAnimation:forKey:`方法
+将其添加到layer。
+
+CAAnimation仅仅是一个动画，它不会改变layer的属性，当动画完成后layer还是在其原来的位置。
+
+为了得到正确的结果，请遵循以下步骤：
+
+1.获得将要改变的layer的属性的开始和结束值，你下面要使用它们。
+2.改变layer的属性为结束值，如果你想要阻止隐式动画应首先使用`setDisaleActions:`。
+3.使用你想改变的属性和先前的开始值和结束值来配置动画。
+4.添加动画到layer。
+
 
 ## 动画处理
 
